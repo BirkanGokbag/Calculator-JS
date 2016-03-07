@@ -59,7 +59,7 @@ At the top of each file you must indicate which team member created the file and
 ```
 <p></p>
 ```
-Each module (e.g. Ruby function) must indicate the name of the team member that created that function and the date. Each team member that edits the module must add their name to the list of authors and indicate the date of their changes and as well as a single line description of their changes. In addition, each module must have at least a single line comment that describes the functionality of the module.
+Each module (e.g. Javascript function) must indicate the name of the team member that created that function and the date. Each team member that edits the module must add their name to the list of authors and indicate the date of their changes and as well as a single line description of their changes. In addition, each module must have at least a single line comment that describes the functionality of the module.
 ```
 <p></p>
 Use single line commenting where appropriate but not excessive.
