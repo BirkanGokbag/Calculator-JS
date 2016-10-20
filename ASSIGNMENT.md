@@ -74,7 +74,7 @@ At a minimum, your team must provide the graders with a description of your test
 Carmen account, print out the form, and fill out with a pen. Complete this form individually only, i.e. not as a group.
 Submit this form in class on the next class meeting after the due date. Please staple, if needed! </p>
 <p><em>Group submission</em>: The graders will retrieve your work (<em>readme</em> plus your solution) from your team's Github private repository 
-provided for you under the course's organization cse3901-osu-2016su-10246. All team member's work must eventually be merged 
+provided for you under the course's organization cse3901-osu-2016au. All team member's work must eventually be merged 
 into a final committed version in Git. The <em>readme</em>  contains the names of each project manager and states what 
 each team member <em>specifically</em> contributed to the final submission. <em>For the latter, only report on 
 contributions that made it into to the final solution</em>. Clearly indicate which team members performed testing and 
