@@ -1,5 +1,7 @@
 # Project 5: JavaScript Calculator
 
+PLEASE READ THE ASSIGNMENT ON THE COURSE WEBSITE. This write-up is only a summary.
+
 Your team must meet and choose four project manager's for this assignment. The project managers roles are:
 
 * The overall project manager will coordinate and check quality for the entire project.
@@ -18,7 +20,7 @@ The role of a manager is **_NOT_** to tell anyone what to do or boss anyone arou
 **BEFORE** starting the group portion of the project **_EACH_** team member must individually accomplish the following:
 
 * Thoroughly study the lecture notes on Git and Ruby
-* Accomplish any tutorials and related reading material indicated in the _[Resources](http://web.cse.ohio-state.edu/~shareef/3901.su17/resources/)_ section of the course website
+* Accomplish any tutorials and related reading material indicated in the _[Resources](http://web.cse.ohio-state.edu/~shareef/3901.ssp18/resources/)_ section of the course website
 * Also, look over the reading material in the "Software Engineering" portion of the Resources section of the course website
 
 **_Important Note:_** A team member who is ill prepared before starting the group portion of this assignment because s/he has not sufficiently accomplished the individual portion of the assignment above cannot use this as an excuse for that team member to contribute less work on the project. Those team members who are ill prepared **_MUST_** put in more time and effort than other team members to prepare in order to be able to contribute **_EQUALLY_** with all other team members. In addition, those team members that are well prepared **_MUST_** work to help those that need to catch up with the material.
@@ -74,7 +76,7 @@ At a minimum, your team must provide the graders with a description of your test
 Carmen account, print out the form, and fill out with a pen. Complete this form individually only, i.e. not as a group.
 Submit this form in class on the next class meeting after the due date. Please staple, if needed! </p>
 <p><em>Group submission</em>: The graders will retrieve your work (<em>readme</em> plus your solution) from your team's Github private repository 
-provided for you under the course's organization cse3901-osu-2017su. All team member's work must eventually be merged 
+provided for you under the course's organization cse3901-osu-2018sp. All team member's work must eventually be merged 
 into a final committed version in Git. The <em>readme</em>  contains the names of each project manager and states what 
 each team member <em>specifically</em> contributed to the final submission. <em>For the latter, only report on 
 contributions that made it into to the final solution</em>. Clearly indicate which team members performed testing and 
