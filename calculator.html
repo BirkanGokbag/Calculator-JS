@@ -6,6 +6,7 @@
 <head>
 <title>Page Title</title>
 <link rel ='stylesheet' href='calculator.css'>
+<script src='calculator.js'> </script>
 </head>
 <body>
 
@@ -24,29 +25,29 @@
         </tr>
         <tr>
             <td><button id=numberButton>+/-</button></td>
-            <td><button id=numberButton>7</button></td>
-            <td><button id=numberButton>8</button></td>
-            <td><button id=numberButton>9</button></td>
+            <td><button id=numberButton onClick="numberClick('7')">7</button></td>
+            <td><button id=numberButton onClick="numberClick('8')">8</button></td>
+            <td><button id=numberButton onClick="numberClick('9')">9</button></td>
             <td><button id=numberButton>/</button></td>
         </tr>
         <tr>
           <td><button id=numberButton>%</button></td>
-            <td><button id=numberButton>4</button></td>
-            <td><button id=numberButton>5</button></td>
-            <td><button id=numberButton>6</button></td>
+            <td><button id=numberButton onClick="numberClick('4')">4</button></td>
+            <td><button id=numberButton onClick="numberClick('5')">5</button></td>
+            <td><button id=numberButton onClick="numberClick('6')">6</button></td>
             <td><button id=numberButton>*</button></td>
         </tr>
         <tr>
           <td><button id=numberButton>CE</button></td>
-            <td><button id=numberButton>1</button></td>
-            <td><button id=numberButton>2</button></td>
-            <td><button id=numberButton>3</button></td>
+            <td><button id=numberButton onClick="numberClick('1')">1</button></td>
+            <td><button id=numberButton onClick="numberClick('2')">2</button></td>
+            <td><button id=numberButton onClick="numberClick('3')">3</button></td>
             <td><button id=numberButton>-</button></td>
         </tr>
         <tr>
             <td><button id=numberButton>ON/C</button></td>
-            <td><button id=numberButton>0</button></td>
-            <td><button id=numberButton>.</button></td>
+            <td><button id=numberButton onClick="numberClick('0')">0</button></td>
+            <td><button id=numberButton onClick="numberClick('.')">.</button></td>
             <td><button id=numberButton>=</button></td>
             <td><button id=numberButton>+</button></td>
         </tr>
