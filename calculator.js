@@ -10,13 +10,13 @@ Contains the javascript for the calculator
 function numberClick(number){
 
   display = document.getElementById("display").innerHTML;
-  if(display.length < 19){
-    if(display == 0){
+  if(display.length < 17){
+    if(display.toString() == "0" && number != '.'){
       document.getElementById("display").innerHTML = number;   
-    }else{
-      display = display + number;
-      display = parseFloat(display.split(',').join('')).toLocaleString();
-      document.getElementById("display").innerHTML = display;
+    }else if(number == '.' && display.indexOf(number) == -1){
+      document.getElementById("display").innerHTML = display+ number;
+    }else if(number != '.'){
+      document.getElementById("display").innerHTML = display + number;
     }
   }
 }
