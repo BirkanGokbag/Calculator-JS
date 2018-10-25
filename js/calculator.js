@@ -24,6 +24,8 @@ function numberClick(number){
 //The function that handles the operations that require at least two numbers, such as +, -, /, *
 function operationClick(operation){
 
+  this.clearScreen = true;
+
   // Check if the user entered an operation before
   if(this.lastNumber==undefined && this.lastOperation == undefined){
     this.lastNumber = parseFloat(document.getElementById("display").innerHTML);
