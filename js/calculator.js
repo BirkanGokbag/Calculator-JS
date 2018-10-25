@@ -3,7 +3,7 @@
 Contains the javascript for the calculator
 */
 
-/* 
+/*
   Author: Alyssa Langhals
   This method will update the calcultor's screen when a number button is pressesd
 */
@@ -12,13 +12,14 @@ function numberClick(number){
   display = document.getElementById("display").innerHTML;
   if(display.length < 17){
     if(display.toString() == "0" && number != '.'){
-      document.getElementById("display").innerHTML = number;   
+      document.getElementById("display").innerHTML = number;
     }else if(number == '.' && display.indexOf(number) == -1){
       document.getElementById("display").innerHTML = display+ number;
     }else if(number != '.'){
       document.getElementById("display").innerHTML = display + number;
     }
   }
+  this.hey = number;
 }
 
 //The function that handles the operations that require at least two numbers, such as +, -, /, *
@@ -56,7 +57,8 @@ function operationClick(operation){
 
 
 // Clears the screen to 0
-function clear(){
+function clearEverything(){
+  console.log(this.nodeName);
   document.getElementById("display").innerHTML = 0;
 }
 
@@ -67,7 +69,6 @@ function squareroot(){
     document.getElementById("display").innerHTML=Math.sqrt(Number);
   }
 }
-
 
 // Changes the sign of the number on the screen
 function changeSign(){
