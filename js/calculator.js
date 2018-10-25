@@ -23,9 +23,9 @@ var calculator = new Calculator(); //Creates the main calculator object.
   This method will update the calcultor's screen when a number button is pressesd
 */
 function numberClick(number){
-
   display = document.getElementById("display").innerHTML;
-  if(display.length < 17){
+
+  if(display.length < document.getElementById("display").clientWidth/17 || this.clearScreen){
     if(display.toString() == "0" && number != '.' || this.clearScreen){
       document.getElementById("display").innerHTML = number;
     }else if(number == '.' && display.indexOf(number) == -1){
@@ -34,6 +34,18 @@ function numberClick(number){
       document.getElementById("display").innerHTML = display + number;
     }
     this.clearScreen = false;
+  }
+}
+
+/*
+  Author: Alyssa Langhals
+  This function will update the display and check if the displayed number should be in exponential form to fit onto the display screen
+*/
+function updateDisplay(value){
+  if(value.toString().length > document.getElementById("display").clientWidth/17){
+    document.getElementById("display").innerHTML = value.toExponential();
+  }else{
+    document.getElementById("display").innerHTML = value;
   }
 }
 
