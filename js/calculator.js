@@ -1,5 +1,5 @@
 /* Created: 10/23/2018
-   Contributors: Alyssa Langhals
+   Contributors: Alyssa Langhals Berkay Kaplan
 Contains the javascript for the calculator
 */
 
@@ -84,6 +84,7 @@ function clearDisplay(){
   Takes the squareroot of the number on the screen
 */
 function squareroot(){
+  this.clearScreen = true;
   Number = parseFloat(document.getElementById("display").innerHTML);
   if(Number>0){
     document.getElementById("display").innerHTML=Math.sqrt(Number);
