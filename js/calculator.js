@@ -42,7 +42,7 @@ function numberClick(number){
   This function will update the display and check if the displayed number should be in exponential form to fit onto the display screen
 */
 function updateDisplay(value){
-  if(value.toString().length < document.getElementById("display").clientWidth/17){
+  if(value.toString().length > document.getElementById("display").clientWidth/17){
     document.getElementById("display").innerHTML = value.toExponential();
   }else{
     document.getElementById("display").innerHTML = value;
