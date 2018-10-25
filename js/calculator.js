@@ -22,47 +22,52 @@ function numberClick(number){
   }
 }
 
-//The function that handles the operations that require at least two numbers, such as +, -, /, *
+/*
+  Author: Berkay Kaplan
+  The function that handles the operations that require at least two numbers, such as +, -, /, *
+*/
 function operationClick(operation){
 
-  this.clearScreen = true;
-
   // Check if the user entered an operation before
-  if(this.lastNumber==undefined && this.lastOperation == undefined){
+  if((this.lastNumber==undefined && this.lastOperation == undefined) || this.clearScreen){
     this.lastNumber = parseFloat(document.getElementById("display").innerHTML);
   }else{
 
     // See what operation the user entered
     switch(this.lastOperation){
       case '-':
-      this.lastNumber = this.lastNumber - parseFloat(document.getElementById("display").innerHTML);
-      break;
+        this.lastNumber = this.lastNumber - parseFloat(document.getElementById("display").innerHTML);
+        break;
       case '+':
-      this.lastNumber = this.lastNumber + parseFloat(document.getElementById("display").innerHTML);
-      break;
+        this.lastNumber = this.lastNumber + parseFloat(document.getElementById("display").innerHTML);
+        break;
       case '*':
-      this.lastNumber = this.lastNumber*parseFloat(document.getElementById("display").innerHTML);
-      break;
+        this.lastNumber = this.lastNumber*parseFloat(document.getElementById("display").innerHTML);
+        break;
       case '/':
-      this.lastNumber = this.lastNumber/parseFloat(document.getElementById("display").innerHTML);
-      break;
+        this.lastNumber = this.lastNumber/parseFloat(document.getElementById("display").innerHTML);
+        break;
       default:
-      this.lastNumber = undefined;
-      this.lastOperation = undefined;
-      break;
+        break;
     }
     document.getElementById("display").innerHTML = this.lastNumber;
   }
   this.lastOperation = operation;
+  this.clearScreen = true;
 }
 
-
-// Clears the screen to 0
+/*
+  Author: Berkay Kaplan
+  Clears the screen to 0
+*/
 function clearDisplay(){
   document.getElementById("display").innerHTML = "0"; 
 }
 
-// Takes the squareroot of the number on the screen
+/*
+  Author: Berkay Kaplan
+  Takes the squareroot of the number on the screen
+*/
 function squareroot(){
   Number = parseFloat(document.getElementById("display").innerHTML);
   if(Number>0){
