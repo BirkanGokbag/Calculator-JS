@@ -62,12 +62,16 @@ function operationClick(operation){
       case '/':
         this.lastNumber = this.lastNumber/parseFloat(document.getElementById("display").innerHTML);
         break;
-      default:
-        break;
     }
     document.getElementById("display").innerHTML = this.lastNumber;
   }
-  this.lastOperation = operation;
+
+  this.lastOperation = operation;   
+
+  if(operation == '='){
+    this.lastOperation = undefined;
+    this.lastNumber = undefined;
+  }
   this.clearScreen = true;
 }
 
@@ -79,16 +83,25 @@ function clearDisplay(){
   document.getElementById("display").innerHTML = "0";
 }
 
+function percent(){
+  if(this.lastOperation != undefined){
+    percent = document.getElementById("display").innerHTML;
+    document.getElementById("display").innerHTML = (this.lastNumber/100)*percent;
+  }else{
+    document.getElementById("display").innerHTML = "0";
+  }
+}
+
 /*
   Author: Berkay Kaplan
   Takes the squareroot of the number on the screen
 */
 function squareroot(){
-  this.clearScreen = true;
   Number = parseFloat(document.getElementById("display").innerHTML);
   if(Number>0){
     document.getElementById("display").innerHTML=Math.sqrt(Number);
   }
+  this.clearScreen = true;
 }
 
 
