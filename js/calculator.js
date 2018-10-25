@@ -29,7 +29,6 @@ function operationClick(operation){
   // Check if the user entered an operation before
   if(this.lastNumber==undefined && this.lastOperation == undefined){
     this.lastNumber = parseFloat(document.getElementById("display").innerHTML);
-    document.getElementById("display").innerHTML = 0;
   }else{
 
     // See what operation the user entered
