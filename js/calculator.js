@@ -3,16 +3,31 @@
 Contains the javascript for the calculator
 */
 
-/* 
+
+
+/* Author: Rajeev Ravi
+Contains the constructor function for the calculator button.
+*/
+function Calculator(){
+  this.mainArgument = 0;
+  this.hiddenArgument = 0;
+  this.operator = undefined;
+  this.currentMem = 0;
+}
+
+var calculator = new Calculator(); //Creates the main calculator object.
+
+
+/*
   Author: Alyssa Langhals
   This method will update the calcultor's screen when a number button is pressesd
 */
 function numberClick(number){
-  
+
   display = document.getElementById("display").innerHTML;
   if(display.length < 17){
     if(display.toString() == "0" && number != '.' || this.clearScreen){
-      document.getElementById("display").innerHTML = number;   
+      document.getElementById("display").innerHTML = number;
     }else if(number == '.' && display.indexOf(number) == -1){
       document.getElementById("display").innerHTML = display+ number;
     }else if(number != '.'){
@@ -59,7 +74,7 @@ function operationClick(operation){
 
 // Clears the screen to 0
 function clearDisplay(){
-  document.getElementById("display").innerHTML = "0"; 
+  document.getElementById("display").innerHTML = "0";
 }
 
 // Takes the squareroot of the number on the screen
