@@ -8,7 +8,7 @@
 <link rel ='stylesheet' href='stylesheets/calculator.css'>
 <script src='js/calculator.js'> </script>
 </head>
-<body id = hey>
+<body id = hey onload = "createObj()">
 
 <div id="calculator">
   <div id="display">0</div>
@@ -23,7 +23,7 @@
         </tr>
         <tr>
             <td><button onClick="changeSign()">+/-</button></td>
-            <td><button onClick="numberClick('7',this)">7</button></td>
+            <td><button onClick="numberClick('7')">7</button></td>
             <td><button onClick="numberClick('8')">8</button></td>
             <td><button onClick="numberClick('9')">9</button></td>
             <td><button onClick="operationClick('/')">/</button></td>

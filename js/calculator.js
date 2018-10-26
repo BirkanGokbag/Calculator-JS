@@ -16,16 +16,16 @@ function Calculator(){
   this.display = document.getElementById("display");
 }
 
-var calculator = new Calculator(); //Creates the main calculator object.
-
+var calculator;
+function createObj(){
+ this.calculator = new Calculator(); //Creates the main calculator object.
+}
 
 /*
   Author: Alyssa Langhals
   This method will update the calcultor's screen when a number button is pressesd
 */
-function numberClick(number, calculator){
-  console.log(document.getElementById("display").innerHTML);
-  console.log(calculator.display.innerHTML);
+function numberClick(number){
   display = calculator.display.innerHTML;
 
   if(display.length < calculator.display.clientWidth/17 || this.clearScreen){
