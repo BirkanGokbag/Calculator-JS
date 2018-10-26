@@ -14,13 +14,11 @@ function Calculator(){
   this.operator = undefined;
   this.currentMem = 0;
   this.display = document.getElementById("display");
-  this.songList = ["pump_up.mp3","musical.mp3"]
+  this.songList = ["pump_up.mp3","musical.mp3","SusumuHirasawa1.mp3","SusumuHirasawa2.mp3"]
 }
 
 var calculator;
 function createObj(){
-  // var audio = new Audio('./assets/images_and_sounds/pump_up.mp3');
-  // audio.play();
  this.calculator = new Calculator(); //Creates the main calculator object.
 }
 
@@ -116,11 +114,19 @@ function percent(){
   Shuffles the song that is playing on the website
 */
 function shuffleSong() {
+  //Get the Id of the music player and its source.
   var musicPlayer = document.getElementById("musicPlayer");
+  var musicSource = document.getElementById("musicSource");
+  //Stop the music
+  musicPlayer.pause();
+  musicPlayer.currentTime = 0;
+  //Get a random song
   randomSong = Math.floor(Math.random() * calculator.songList.length);
   console.log(randomSong);
-  // ./assets/images_and_sounds/pump_up.mp3
-  musicPlayer.src = "./assets/images_and_sounds/" + calculator.songList[randomSong];
+  musicSource.src = "./assets/images_and_sounds/" + calculator.songList[randomSong];
+  //Play the song
+  musicPlayer.load();
+  musicPlayer.play();
 }
 /*
   Author: Berkay Kaplan
