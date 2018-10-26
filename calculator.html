@@ -4,12 +4,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="utf-8">
 <title>Page Title</title>
-<link rel ='stylesheet' href='stylesheets/calculator.css'>
-<script src='js/calculator.js'> </script>
+<link rel ='stylesheet' href='./assets/stylesheets/calculator.css'>
+<script src='./assets/js/calculator.js'> </script>
 </head>
-<body onkeypress="myFunction(event)">
-
+<body onload = "createObj()">
+  <div class="music">
+    <button id = "shuffle" onClick="shuffleSong()">Shuffle Through The Cosmos...</button>
+    <audio id = "musicPlayer" controls autoplay>
+      <source id = "musicSource" src="./assets/images_and_sounds/musical.mp3">
+    </audio>
+  </div>
 <div id="calculator">
   <div id="display">0</div>
   <div id="buttons">
@@ -23,7 +29,7 @@
         </tr>
         <tr>
             <td><button onClick="changeSign()">+/-</button></td>
-            <td><button onClick="numberClick('7',this)">7</button></td>
+            <td><button onClick="numberClick('7')">7</button></td>
             <td><button onClick="numberClick('8')">8</button></td>
             <td><button onClick="numberClick('9')">9</button></td>
             <td><button onClick="operationClick('/')">/</button></td>
@@ -53,6 +59,8 @@
     </table>
   </div>
 </div>
-
+<!-- <audio autoplay loop>
+  <source src="./assets/images_and_sounds/pump_up.mp3">
+</audio> -->
 </body>
 </html>
