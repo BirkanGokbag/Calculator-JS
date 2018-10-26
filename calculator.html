@@ -26,28 +26,32 @@
             <td><button id=numberButton onClick="numberClick('7')">7</button></td>
             <td><button id=numberButton onClick="numberClick('8')">8</button></td>
             <td><button id=numberButton onClick="numberClick('9')">9</button></td>
-            <td><button id=numberButton>/</button></td>
+            <td><button id=numberButton onClick="operationClick('/')">/</button></td>
         </tr>
         <tr>
           <td><button id=numberButton>%</button></td>
             <td><button id=numberButton onClick="numberClick('4')">4</button></td>
             <td><button id=numberButton onClick="numberClick('5')">5</button></td>
             <td><button id=numberButton onClick="numberClick('6')">6</button></td>
-            <td><button id=numberButton>*</button></td>
+            <td><button id=numberButton onClick="operationClick('*')">*</button></td>
         </tr>
         <tr>
+<<<<<<< HEAD
             <td><button id=numberButton onClick="clear()">CE</button></td>
+=======
+          <td><button id=numberButton onClick="clearDisplay()">CE</button></td>
+>>>>>>> 6c341a997f6097b4249794add040bedd9d8e5a9c
             <td><button id=numberButton onClick="numberClick('1')">1</button></td>
             <td><button id=numberButton onClick="numberClick('2')">2</button></td>
             <td><button id=numberButton onClick="numberClick('3')">3</button></td>
-            <td><button id=numberButton>-</button></td>
+            <td><button id=numberButton onClick="operationClick('-')">-</button></td>
         </tr>
         <tr>
             <td><button id=numberButton>ON/C</button></td>
             <td><button id=numberButton onClick="numberClick('0')">0</button></td>
             <td><button id=numberButton onClick="numberClick('.')">.</button></td>
-            <td><button id=numberButton>=</button></td>
-            <td><button id=numberButton>+</button></td>
+            <td><button id=numberButton onClick="operationClick('=')">=</button></td>
+            <td><button id=numberButton onClick="operationClick('+')">+</button></td>
         </tr>
 
     </table>
