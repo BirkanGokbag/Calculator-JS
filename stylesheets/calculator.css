@@ -1,10 +1,12 @@
-  
+
 /* Date of Creation: 10/19/18
    Author: Michael Radey
    Description: This file contains the design of the calculator.html page.  */
   #calculator{
-      width:50%;
-      margin: auto;
+      width:80%;
+      height: 70%;
+      margin-left:auto;
+      margin-right:auto;
       border: 2px solid black;
       position: relative;
       top: 40px;
@@ -26,22 +28,23 @@
       padding: 5px;
       margin-bottom: 10px;
     }
-    #numberButton{
+    button{
       width:100%;
-      min-height:50px; 
+      min-height:50px;
       font-size: 15px;
       cursor: pointer;
       color: #b3b3b3;
       background-color: white;
+      height:50px;
     }
-    #numberButton:hover {
-    background-color: grey; 
+    button:hover {
+    background-color: grey;
     }
-    #numberButton:active {
+    button:active {
       background-color: black;
       color:white;
     }
-    table { 
+    table {
       width: 100%;
-      height: 100%; 
+      height: 200%;
     }

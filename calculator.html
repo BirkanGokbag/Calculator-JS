@@ -8,46 +8,46 @@
 <link rel ='stylesheet' href='stylesheets/calculator.css'>
 <script src='js/calculator.js'> </script>
 </head>
-<body>
+<body id = hey>
 
 <div id="calculator">
   <div id="display">0</div>
   <div id="buttons">
     <table>
       <tr>
-          <td><button id=numberButton>MC</button></td>
-            <td><button id=numberButton>MR</button></td>
-            <td><button id=numberButton>M-</button></td>
-            <td><button id=numberButton>M+</button></td>
-            <td><button id=numberButton onClick="squareroot()">SQRT</button></td>
+          <td><button>MC</button></td>
+            <td><button>MR</button></td>
+            <td><button>M-</button></td>
+            <td><button>M+</button></td>
+            <td><button onClick="squareroot()">SQRT</button></td>
         </tr>
         <tr>
-            <td><button id=numberButton onClick="changeSign()">+/-</button></td>
-            <td><button id=numberButton onClick="numberClick('7')">7</button></td>
-            <td><button id=numberButton onClick="numberClick('8')">8</button></td>
-            <td><button id=numberButton onClick="numberClick('9')">9</button></td>
-            <td><button id=numberButton onClick="operationClick('/')">/</button></td>
+            <td><button onClick="changeSign()">+/-</button></td>
+            <td><button onClick="numberClick('7',this)">7</button></td>
+            <td><button onClick="numberClick('8')">8</button></td>
+            <td><button onClick="numberClick('9')">9</button></td>
+            <td><button onClick="operationClick('/')">/</button></td>
         </tr>
         <tr>
-          <td><button id=numberButton onClick="percent()">%</button></td>
-            <td><button id=numberButton onClick="numberClick('4')">4</button></td>
-            <td><button id=numberButton onClick="numberClick('5')">5</button></td>
-            <td><button id=numberButton onClick="numberClick('6')">6</button></td>
-            <td><button id=numberButton onClick="operationClick('*')">*</button></td>
+          <td><button onClick="percent()">%</button></td>
+            <td><button onClick="numberClick('4')">4</button></td>
+            <td><button onClick="numberClick('5')">5</button></td>
+            <td><button onClick="numberClick('6')">6</button></td>
+            <td><button onClick="operationClick('*')">*</button></td>
         </tr>
         <tr>
-            <td><button id=numberButton onClick="clearDisplay()">CE</button></td>
-            <td><button id=numberButton onClick="numberClick('1')">1</button></td>
-            <td><button id=numberButton onClick="numberClick('2')">2</button></td>
-            <td><button id=numberButton onClick="numberClick('3')">3</button></td>
-            <td><button id=numberButton onClick="operationClick('-')">-</button></td>
+            <td><button onClick="clearDisplay()">CE</button></td>
+            <td><button onClick="numberClick('1')">1</button></td>
+            <td><button onClick="numberClick('2')">2</button></td>
+            <td><button onClick="numberClick('3')">3</button></td>
+            <td><button onClick="operationClick('-')">-</button></td>
         </tr>
         <tr>
-            <td><button id=numberButton>ON/C</button></td>
-            <td><button id=numberButton onClick="numberClick('0')">0</button></td>
-            <td><button id=numberButton onClick="numberClick('.')">.</button></td>
-            <td><button id=numberButton onClick="operationClick('=')">=</button></td>
-            <td><button id=numberButton onClick="operationClick('+')">+</button></td>
+            <td><button >ON/C</button></td>
+            <td><button onClick="numberClick('0')">0</button></td>
+            <td><button onClick="numberClick('.')">.</button></td>
+            <td><button onClick="operationClick('=')">=</button></td>
+            <td><button onClick="operationClick('+')">+</button></td>
         </tr>
 
     </table>
