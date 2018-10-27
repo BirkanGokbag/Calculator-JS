@@ -12,6 +12,7 @@ function Calculator(){
   this.mainArgument = 0;
   this.hiddenArgument = 0;
   this.operator = undefined;
+  this.clearScreen = undefined;
   this.currentMem = 0;
   this.display = document.getElementById("display");
   this.songList = ["pump_up.mp3","musical.mp3","SusumuHirasawa1.mp3","SusumuHirasawa2.mp3"]
@@ -37,15 +38,15 @@ function createObj(){
 function numberClick(){
   display = calculator.display.innerHTML;
   number = this.innerHTML;
-  if(display.length < calculator.display.clientWidth/17 || this.clearScreen){
-    if(display.toString() == "0" && number != '.' || this.clearScreen){
+  if(display.length < calculator.display.clientWidth/17 || calculator.clearScreen){
+    if(display.toString() == "0" && number != '.' || calculator.clearScreen){
       calculator.display.innerHTML = number;
     }else if(number == '.' && display.indexOf(number) == -1){
       calculator.display.innerHTML = display+ number;
     }else if(number != '.'){
       calculator.display.innerHTML = display + number;
     }
-    this.clearScreen = false;
+    calculator.clearScreen = false;
   }
 }
 
@@ -69,7 +70,7 @@ function updateDisplay(value){
 function operationClick(operation){
 console.log("THI");
   // Check if the user entered an operation before
-  if((this.lastNumber==undefined && this.lastOperation == undefined) || this.clearScreen){
+  if((this.lastNumber==undefined && this.lastOperation == undefined) || calculator.clearScreen){
     this.lastNumber = parseFloat(calculator.display.innerHTML);
   }else{
 
@@ -97,7 +98,7 @@ console.log("THI");
     this.lastOperation = undefined;
     this.lastNumber = undefined;
   }
-  this.clearScreen = true;
+  calculator.clearScreen = true;
 }
 
 /*
@@ -145,7 +146,7 @@ function squareroot(){
   if(Number>0){
     calculator.display.innerHTML=Math.sqrt(Number);
   }
-  this.clearScreen = true;
+  calculator.clearScreen = true;
 }
 
 // Changes the sign of the number on the screen
