@@ -19,16 +19,24 @@ function Calculator(){
 
 var calculator;
 function createObj(){
- this.calculator = new Calculator(); //Creates the main calculator object.
+  this.calculator = new Calculator(); //Creates the main calculator object.
+
+  //Add event listeners
+  numberButtons = document.getElementsByClassName("number");
+  for(i = 0; i < numberButtons.length; i++) {
+    numberButtons[i].addEventListener("click", numberClick);
+  };
 }
+  
+   
 
 /*
   Author: Alyssa Langhals
   This method will update the calcultor's screen when a number button is pressesd
 */
-function numberClick(number){
+function numberClick(){
   display = calculator.display.innerHTML;
-
+  number = this.innerHTML;
   if(display.length < calculator.display.clientWidth/17 || this.clearScreen){
     if(display.toString() == "0" && number != '.' || this.clearScreen){
       calculator.display.innerHTML = number;
@@ -59,7 +67,7 @@ function updateDisplay(value){
   The function that handles the operations that require at least two numbers, such as +, -, /, *
 */
 function operationClick(operation){
-
+console.log("THI");
   // Check if the user entered an operation before
   if((this.lastNumber==undefined && this.lastOperation == undefined) || this.clearScreen){
     this.lastNumber = parseFloat(calculator.display.innerHTML);
