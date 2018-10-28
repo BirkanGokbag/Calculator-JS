@@ -25,35 +25,50 @@
             <td><button>MR</button></td>
             <td><button>M-</button></td>
             <td><button>M+</button></td>
+            <td><button>MS</button></td>
+        </tr>
+        <tr>
+            <td><button>x^y</button></td>
             <td><button onClick="squareroot()">SQRT</button></td>
+            <td><button>sin</button></td>
+            <td><button>cos</button></td>
+            <td><button>tan</button></td>
         </tr>
         <tr>
             <td><button onClick="changeSign()">+/-</button></td>
-            <td><button onClick="numberClick('7')">7</button></td>
-            <td><button onClick="numberClick('8')">8</button></td>
-            <td><button onClick="numberClick('9')">9</button></td>
+            <td><button class = "number">7</button></td>
+            <td><button class = "number">8</button></td>
+            <td><button class = "number">9</button></td>
             <td><button onClick="operationClick('/')">/</button></td>
         </tr>
         <tr>
           <td><button onClick="percent()">%</button></td>
-            <td><button onClick="numberClick('4')">4</button></td>
-            <td><button onClick="numberClick('5')">5</button></td>
-            <td><button onClick="numberClick('6')">6</button></td>
+            <td><button class = "number">4</button></td>
+            <td><button class = "number">5</button></td>
+            <td><button class = "number">6</button></td>
             <td><button onClick="operationClick('*')">*</button></td>
         </tr>
         <tr>
-          <td><button onClick="clearDisplay()">CE</button></td>
-            <td><button onClick="numberClick('1')">1</button></td>
-            <td><button onClick="numberClick('2')">2</button></td>
-            <td><button onClick="numberClick('3')">3</button></td>
+            <td><button >log</button></td>
+            <td><button class = "number">1</button></td>
+            <td><button class = "number">2</button></td>
+            <td><button class = "number">3</button></td>
             <td><button onClick="operationClick('-')">-</button></td>
         </tr>
         <tr>
-            <td><button >ON/C</button></td>
-            <td><button onClick="numberClick('0')">0</button></td>
-            <td><button onClick="numberClick('.')">.</button></td>
-            <td><button onClick="operationClick('=')">=</button></td>
+            <td><button >n!</button></td>
+            <td><button >pi</button></td>
+            <td><button class = "number">0</button></td>
+            <td><button class = "number">.</button></td>
+            
             <td><button onClick="operationClick('+')">+</button></td>
+        </tr>
+        <tr>
+            <td><button>ON/C</button></td>
+            <td><button onClick="clearDisplay()">CE</button></td>
+            <td colspan="2"><button onClick="operationClick('=')">=</button></td>
+            
+    
         </tr>
 
     </table>

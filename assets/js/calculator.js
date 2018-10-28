@@ -12,6 +12,7 @@ function Calculator(){
   this.mainArgument = 0;
   this.hiddenArgument = 0;
   this.operator = undefined;
+  this.clearScreen = undefined;
   this.currentMem = 0;
   this.display = document.getElementById("display");
   this.songList = ["pump_up.mp3","musical.mp3","SusumuHirasawa1.mp3","SusumuHirasawa2.mp3"]
@@ -19,25 +20,30 @@ function Calculator(){
 
 var calculator;
 function createObj(){
- this.calculator = new Calculator(); //Creates the main calculator object.
+  this.calculator = new Calculator(); //Creates the main calculator object.
+
+  //Add event listeners
+  numberButtons = document.getElementsByClassName("number");
+  for(i = 0; i < numberButtons.length; i++) {
+    numberButtons[i].addEventListener("click", numberClick);
+  };
 }
 /*
   Author: Alyssa Langhals
   This method will update the calcultor's screen when a number button is pressesd
 */
-function numberClick(number){
-
+function numberClick(){
   display = calculator.display.innerHTML;
-
-  if(display.length < calculator.display.clientWidth/17 || this.clearScreen){
-    if(display.toString() == "0" && number != '.' || this.clearScreen){
+  number = this.innerHTML;
+  if(display.length < calculator.display.clientWidth/17 || calculator.clearScreen){
+    if(display.toString() == "0" && number != '.' || calculator.clearScreen){
       calculator.display.innerHTML = number;
     }else if(number == '.' && display.indexOf(number) == -1){
       calculator.display.innerHTML = display+ number;
     }else if(number != '.'){
       calculator.display.innerHTML = display + number;
     }
-    this.clearScreen = false;
+    calculator.clearScreen = false;
   }
 }
 /*
@@ -57,9 +63,9 @@ function pressedKey(event) {
 */
 function updateDisplay(value){
   if(value.toString().length > document.getElementById("display").clientWidth/17){
-    document.getElementById("display").innerHTML = value.toExponential();
+    calculator.display.innerHTML = value.toExponential();
   }else{
-    document.getElementById("display").innerHTML = value;
+    calculator.display.innerHTML = value;
   }
 }
 
@@ -68,12 +74,12 @@ function updateDisplay(value){
   The function that handles the operations that require at least two numbers, such as +, -, /, *
 */
 function operationClick(operation){
-
+console.log("THI");
   // Check if the user entered an operation before
-  if((this.lastNumber==undefined && this.lastOperation == undefined) || this.clearScreen){
-    this.lastNumber = parseFloat(document.getElementById("display").innerHTML);
-  }else{
 
+  if((this.lastNumber==undefined && this.lastOperation == undefined) || calculator.clearScreen){
+    this.lastNumber = parseFloat(calculator.display.innerHTML);
+  }else{
     // See what operation the user entered
     switch(this.lastOperation){
       case '-':
@@ -89,7 +95,7 @@ function operationClick(operation){
         this.lastNumber = this.lastNumber/parseFloat(document.getElementById("display").innerHTML);
         break;
     }
-    document.getElementById("display").innerHTML = this.lastNumber;
+    calculator.display.innerHTML = this.lastNumber;
   }
 
   this.lastOperation = operation;   
@@ -98,7 +104,7 @@ function operationClick(operation){
     this.lastOperation = undefined;
     this.lastNumber = undefined;
   }
-  this.clearScreen = true;
+  calculator.clearScreen = true;
 }
 
 /*
@@ -106,15 +112,15 @@ function operationClick(operation){
   Clears the screen to 0
 */
 function clearDisplay(){
-  document.getElementById("display").innerHTML = "0";
+  calculator.display.innerHTML = "0";
 }
 
 function percent(){
   if(this.lastOperation != undefined){
     percent = document.getElementById("display").innerHTML;
-    document.getElementById("display").innerHTML = (this.lastNumber/100)*percent;
+    calculator.display.innerHTML = (this.lastNumber/100)*percent;
   }else{
-    document.getElementById("display").innerHTML = "0";
+    calculator.display.innerHTML = "0";
   }
 }
 
@@ -146,11 +152,11 @@ function squareroot(){
   if(Number>0){
     document.getElementById("display").innerHTML=Math.sqrt(Number);
   }
-  this.clearScreen = true;
+  calculator.clearScreen = true;
 }
 
 
 // Changes the sign of the number on the screen
 function changeSign(){
-  document.getElementById("display").innerHTML=parseFloat(-document.getElementById("display").innerHTML);
+  calculator.display.innerHTML=parseFloat(-calculator.display.innerHTML);
 }
