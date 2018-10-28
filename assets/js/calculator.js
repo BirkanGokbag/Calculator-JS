@@ -44,10 +44,10 @@ function numberClick(number){
   Author: Michael Radey
   This method will update the calcultor's screen when a number button is typed
 */
-function myFunction(event) {
-    var key = event.which;
+function pressedKey(event) {
+    var key = String.fromCharCode(event.which);
     if(48 <= key && key <= 57){
-      numberClick(key-48);
+      numberClick(key);
     }
 }
 

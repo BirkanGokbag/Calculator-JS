@@ -9,7 +9,7 @@
 <link rel ='stylesheet' href='./assets/stylesheets/calculator.css'>
 <script src='./assets/js/calculator.js'> </script>
 </head>
-<body onload = "createObj()">
+<body onload = "createObj()" onkeypress="pressedKey(event)">
   <div class="music">
     <button id = "shuffle" onClick="shuffleSong()">Shuffle Through The Cosmos...</button>
     <audio id = "musicPlayer" controls autoplay>
