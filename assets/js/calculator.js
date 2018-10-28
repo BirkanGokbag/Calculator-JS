@@ -27,14 +27,16 @@ function createObj(){
   for(i = 0; i < numberButtons.length; i++) {
     numberButtons[i].addEventListener("click", numberClick);
   };
+  window.addEventListener("keypress", keyPress, false);
+
 }
 /*
   Author: Alyssa Langhals
   This method will update the calcultor's screen when a number button is pressesd
 */
-function numberClick(){
+function numberClick(e, num){
   display = calculator.display.innerHTML;
-  number = this.innerHTML;
+  number = num || this.innerHTML;
   if(display.length < calculator.display.clientWidth/17 || calculator.clearScreen){
     if(display.toString() == "0" && number != '.' || calculator.clearScreen){
       calculator.display.innerHTML = number;
@@ -50,12 +52,18 @@ function numberClick(){
   Author: Michael Radey
   This method will update the calcultor's screen when a number button is typed
 */
-function pressedKey(event) {
-    var key = String.fromCharCode(event.which);
-    if(48 <= key && key <= 57){
-      numberClick(key);
+
+function keyPress(e){
+    var keyCode = String.fromCharCode(e.which);
+    numbers = "1234567890";
+    operators = "+-/*";
+    if(numbers.includes(keyCode)){
+      numberClick(e,keyCode);
     }
-}
+    else if(operators.includes(keyCode)){
+      operationClick(keyCode);
+    }
+};
 
 /*
   Author: Alyssa Langhals
@@ -83,16 +91,16 @@ console.log("THI");
     // See what operation the user entered
     switch(this.lastOperation){
       case '-':
-        this.lastNumber = this.lastNumber - parseFloat(document.getElementById("display").innerHTML);
+        this.lastNumber = this.lastNumber - parseFloat(calculator.display.innerHTML);
         break;
       case '+':
-        this.lastNumber = this.lastNumber + parseFloat(document.getElementById("display").innerHTML);
+        this.lastNumber = this.lastNumber + parseFloat(calculator.display.innerHTML);
         break;
       case '*':
-        this.lastNumber = this.lastNumber*parseFloat(document.getElementById("display").innerHTML);
+        this.lastNumber = this.lastNumber*parseFloat(calculator.display.innerHTML);
         break;
       case '/':
-        this.lastNumber = this.lastNumber/parseFloat(document.getElementById("display").innerHTML);
+        this.lastNumber = this.lastNumber/parseFloat(calculator.display.innerHTML);
         break;
     }
     calculator.display.innerHTML = this.lastNumber;
