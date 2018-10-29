@@ -112,6 +112,10 @@ function clearDisplay(){
   calculator.display.innerHTML = "0";
 }
 
+/*
+  Author: Berkay Kaplan
+  Takes the percent of the last number
+*/
 function percent(){
   if(this.lastOperation != undefined){
     percent = calculator.display.innerHTML;
