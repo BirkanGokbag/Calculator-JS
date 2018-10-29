@@ -1,75 +1,44 @@
-/* Created: 10/23/2018
-   Contributors: Alyssa Langhals
+/* Created: 10/29/2018 by Rajeev Ravi
+Contributors: Rajeev Ravi,
 Contains the javascript for the calculator
 */
 
-/* 
-  Author: Alyssa Langhals
-  This method will update the calcultor's screen when a number button is pressesd
+var calculatorBase = {
+  mainArg: 0, //The main argument usually on the calculator's display.
+  hiddenArg:0, //The argument that is hidden and used for the various operations.
+  memoryArg:0, //The memory variable
+  display: document.getElementById("Display"), //A direct link to the display's html.
+  songList: ["pump_up.mp3","musical.mp3","SusumuHirasawa1.mp3","SusumuHirasawa2.mp3"] //Birkan's bad musical taste.
+}
+
+/*
+Constructor function for the NumberButton. NumberButtons are the 0-9 digits
+displayed on the calculator's face.
 */
-function numberClick(number){
+function NumberButton() {
+    this.onClick = function(number){
+      /*
+        Same functionality as current number buttons, but use the calculatorBase parameters.
+      */
 
-  display = document.getElementById("display").innerHTML;
-  if(display.length < 17){
-    if(display.toString() == "0" && number != '.'){
-      document.getElementById("display").innerHTML = number;   
-    }else if(number == '.' && display.indexOf(number) == -1){
-      document.getElementById("display").innerHTML = display+ number;
-    }else if(number != '.'){
-      document.getElementById("display").innerHTML = display + number;
     }
-  }
+}
+//The number buttons must have access to all of the parameters in the one calculatorBase object.
+NumberButton.prototype = calculatorBase;
+
+
+var numberButton = NumberButton(); //All of the number buttons can use the functionality of this one.
+
+/*
+Constructor function for the OperationButton. OperationButtons are the rest of the
+buttons on the calculator's face.
+*/
+function OperationButton(onClickFunction){
+  this.onClick = onClickFunction;
 }
 
-//The function that handles the operations that require at least two numbers, such as +, -, /, *
-function operationClick(operation){
-
-  // Check if the user entered an operation before
-  if(this.lastNumber==undefined && this.lastOperation == undefined){
-    this.lastNumber = parseFloat(document.getElementById("display").innerHTML);
-    document.getElementById("display").innerHTML = 0;
-  }else{
-
-    // See what operation the user entered
-    switch(this.lastOperation){
-      case '-':
-      this.lastNumber = this.lastNumber - parseFloat(document.getElementById("display").innerHTML);
-      break;
-      case '+':
-      this.lastNumber = this.lastNumber + parseFloat(document.getElementById("display").innerHTML);
-      break;
-      case '*':
-      this.lastNumber = this.lastNumber*parseFloat(document.getElementById("display").innerHTML);
-      break;
-      case '/':
-      this.lastNumber = this.lastNumber/parseFloat(document.getElementById("display").innerHTML);
-      break;
-      default:
-      this.lastNumber = undefined;
-      this.lastOperation = undefined;
-      break;
-    }
-    document.getElementById("display").innerHTML = this.lastNumber;
-  }
-  this.lastOperation = operation;
-}
+//The operation buttons must have access to all of the parameters as well.
+OperationButton.prototype = calculatorBase;
 
 
-// Clears the screen to 0
-function clear(){
-  document.getElementById("display").innerHTML = 0;
-}
-
-// Takes the squareroot of the number on the screen
-function squareroot(){
-  Number = parseFloat(document.getElementById("display").innerHTML);
-  if(Number>0){
-    document.getElementById("display").innerHTML=Math.sqrt(Number);
-  }
-}
-
-
-// Changes the sign of the number on the screen
-function changeSign(){
-  document.getElementById("display").innerHTML=parseFloat(-document.getElementById("display").innerHTML);
-}
+//Now, all of the operation buttons need to be created.
