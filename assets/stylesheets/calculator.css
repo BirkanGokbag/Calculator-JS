@@ -21,6 +21,9 @@
       padding: 5px;
       background: white;
       font-size: 25px;
+      border-color: black;
+      border-style:inset;
+      border-radius:6px;
     }
     #buttons{
       width:90%;
@@ -34,9 +37,19 @@
       min-height:50px;
       font-size: 16px;
       cursor: pointer;
-      color: #b3b3b3;
-      background-color: white;
+      color: #e8e8e8;
+      background-color: #5f3e98;
       height:50px;
+      border-radius:6px;
+    }
+    .number{
+      background-color: #7f5cbc;
+    }
+    .memory{
+      background-color: #b26278;
+    }
+    #equals{
+      background-color: #c25171;
     }
     button:hover {
     background-color: grey;
@@ -67,3 +80,6 @@
         font-size: 12px;
       }
     }
+ 
+   
+   
