@@ -1,0 +1,85 @@
+
+/* Date of Creation: 10/19/18
+   Author: Michael Radey
+   Modified By: Birkan Gokbag
+   Description: This file contains the design of the calculator.html page.  */
+  #calculator{
+      width:80%;
+      height: 70%;
+      margin-left:auto;
+      margin-right:auto;
+      border: 2px solid black;
+      position: relative;
+      top: 40px;
+      background: #b3b3b3;
+    }
+    #display{
+      text-align: right;
+      width:90%;
+      margin: auto;
+      margin-top: 10px;
+      padding: 5px;
+      background: white;
+      font-size: 25px;
+      border-color: black;
+      border-style:inset;
+      border-radius:6px;
+    }
+    #buttons{
+      width:90%;
+      margin: auto;
+      margin-top: 10px;
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+    button{
+      width:100%;
+      min-height:50px;
+      font-size: 16px;
+      cursor: pointer;
+      color: #e8e8e8;
+      background-color: #5f3e98;
+      height:50px;
+      border-radius:6px;
+    }
+    .number{
+      background-color: #7f5cbc;
+    }
+    .memory{
+      background-color: #b26278;
+    }
+    #equals{
+      background-color: #c25171;
+    }
+    button:hover {
+    background-color: grey;
+    }
+    button:active {
+      background-color: black;
+      color:white;
+    }
+    table {
+      width: 100%;
+      height: 200%;
+    }
+    body {
+      background-image: url("../images_and_sounds/cosmos.jpg");
+      background-size: 500px 300px;
+    }
+    .music {
+      margin: 0 auto;
+      display: table;
+    }
+
+    #shuffle {
+      background-image: url("../images_and_sounds/cosmos2.jpg");
+      color: white;
+    }
+    @media screen and (max-width: 400px) {
+      button {
+        font-size: 12px;
+      }
+    }
+ 
+   
+   
