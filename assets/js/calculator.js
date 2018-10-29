@@ -10,9 +10,9 @@ Contains the constructor function for the calculator button.
 */
 function Calculator(){
   this.mainArgument = 0;
-  this.hiddenArgument = 0;
+  this.hiddenArgument = undefined;
   this.operator = undefined;
-  this.clearScreen = undefined;
+  this.clearScreen = false;
   this.currentMem = 0;
   this.display = document.getElementById("display");
   this.songList = ["pump_up.mp3","musical.mp3","SusumuHirasawa1.mp3","SusumuHirasawa2.mp3"]
@@ -94,38 +94,37 @@ function updateDisplay(value){
 */
 function operationClick(operation){
   // Check if the user entered an operation before
-  if((this.lastNumber==undefined && this.lastOperation == undefined) || calculator.clearScreen){
-    this.lastNumber = parseFloat(calculator.display.innerHTML);
+  if((calculator.hiddenArgument==undefined && calculator.operator == undefined) || calculator.clearScreen){
+    calculator.hiddenArgument = parseFloat(calculator.display.innerHTML);
   }else{
 
     // See what operation the user entered
-    switch(this.lastOperation){
+    switch(calculator.operator){
       case '-':
-        this.lastNumber = this.lastNumber - parseFloat(calculator.display.innerHTML);
+        calculator.hiddenArgument = calculator.hiddenArgument - parseFloat(calculator.display.innerHTML);
         break;
       case '+':
-        this.lastNumber = this.lastNumber + parseFloat(calculator.display.innerHTML);
+        calculator.hiddenArgument = calculator.hiddenArgument + parseFloat(calculator.display.innerHTML);
         break;
       case '*':
-        this.lastNumber = this.lastNumber*parseFloat(calculator.display.innerHTML);
+        calculator.hiddenArgument = calculator.hiddenArgument*parseFloat(calculator.display.innerHTML);
         break;
       case '/':
 	if(parseFloat(calculator.display.innerHTML)!==0){
-	    this.lastNumber = this.lastNumber/parseFloat(calculator.display.innerHTML);
+	    calculator.hiddenArgument = calculator.hiddenArgument/parseFloat(calculator.display.innerHTML);
 	}else{
-	    this.lastNumber = "Cannot divide a number by 0";
+	    calculator.hiddenArgument = "Cannot divide a number by 0";
 	}
-        
         break;
     }
-    calculator.display.innerHTML = this.lastNumber;
+    calculator.display.innerHTML = calculator.hiddenArgument;
   }
 
-  this.lastOperation = operation;
+  calculator.operator = operation;
 
   if(operation == '='){
-    this.lastOperation = undefined;
-    this.lastNumber = undefined;
+    calculator.operator = undefined;
+    calculator.hiddenArgument = undefined;
   }
   calculator.clearScreen = true;
 }
@@ -143,9 +142,9 @@ function clearDisplay(){
   Takes the percent of the last number
 */
 function percent(){
-  if(this.lastOperation != undefined){
+  if(calculator.hiddenArgument != undefined){
     percent = calculator.display.innerHTML;
-    calculator.display.innerHTML = (this.lastNumber/100)*percent;
+    calculator.display.innerHTML = (calculator.hiddenArgument/100)*percent;
   }else{
     calculator.display.innerHTML = "0";
   }
