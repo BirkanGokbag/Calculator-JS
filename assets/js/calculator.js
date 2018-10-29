@@ -27,6 +27,10 @@ function createObj(){
   for(i = 0; i < numberButtons.length; i++) {
     numberButtons[i].addEventListener("click", numberClick);
   };
+  trigButtons = document.getElementsByClassName("trig");
+  for(i = 0; i < trigButtons.length; i++) {
+    trigButtons[i].addEventListener("click", trigClick);
+  };
 }
   
    
@@ -68,7 +72,6 @@ function updateDisplay(value){
   The function that handles the operations that require at least two numbers, such as +, -, /, *
 */
 function operationClick(operation){
-console.log("THI");
   // Check if the user entered an operation before
   if((this.lastNumber==undefined && this.lastOperation == undefined) || calculator.clearScreen){
     this.lastNumber = parseFloat(calculator.display.innerHTML);
@@ -118,6 +121,47 @@ function percent(){
   }
 }
 
+
+/*
+  Author: Berkay Kaplan
+  Takes the squareroot of the number on the screen
+*/
+function squareroot(){
+  Number = parseFloat(calculator.display.innerHTML);
+  if(Number>0){
+    calculator.display.innerHTML=Math.sqrt(Number);
+  }
+  calculator.clearScreen = true;
+}
+
+/*
+  Author: Alyssa Langhals
+  This method will update the calcultor's screen with the result when a trig button is pressesd
+*/
+function trigClick(){
+  Number = parseFloat(calculator.display.innerHTML);
+  switch(this.innerHTML){
+    case 'sin':
+      calculator.display.innerHTML=Math.sin(Number);
+      break;
+    case 'cos':
+      calculator.display.innerHTML=Math.cos(Number);
+      break;
+    case 'tan':
+      calculator.display.innerHTML=Math.tan(Number);
+      break;
+    case 'pi':
+      calculator.display.innerHTML=Math.PI;
+      break;
+   }
+   calculator.clearScreen = true;
+ }
+
+// Changes the sign of the number on the screen
+function changeSign(){
+  calculator.display.innerHTML=parseFloat(-calculator.display.innerHTML);
+}
+
 /*
   Author: Birkan Gokbag
   Shuffles the song that is playing on the website
@@ -136,20 +180,4 @@ function shuffleSong() {
   //Play the song
   musicPlayer.load();
   musicPlayer.play();
-}
-/*
-  Author: Berkay Kaplan
-  Takes the squareroot of the number on the screen
-*/
-function squareroot(){
-  Number = parseFloat(calculator.display.innerHTML);
-  if(Number>0){
-    calculator.display.innerHTML=Math.sqrt(Number);
-  }
-  calculator.clearScreen = true;
-}
-
-// Changes the sign of the number on the screen
-function changeSign(){
-  calculator.display.innerHTML=parseFloat(-calculator.display.innerHTML);
 }
