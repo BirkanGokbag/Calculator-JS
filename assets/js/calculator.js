@@ -31,6 +31,8 @@ function createObj(){
   for(i = 0; i < trigButtons.length; i++) {
     trigButtons[i].addEventListener("click", trigClick);
   };
+  window.addEventListener("keypress", keyPress, false);
+
 }
   
    
@@ -39,9 +41,9 @@ function createObj(){
   Author: Alyssa Langhals
   This method will update the calcultor's screen when a number button is pressesd
 */
-function numberClick(){
+function numberClick(e, num){
   display = calculator.display.innerHTML;
-  number = this.innerHTML;
+  number = num || this.innerHTML;
   if(display.length < calculator.display.clientWidth/17 || calculator.clearScreen){
     if(display.toString() == "0" && number != '.' || calculator.clearScreen){
       calculator.display.innerHTML = number;
@@ -52,6 +54,25 @@ function numberClick(){
     }
     calculator.clearScreen = false;
   }
+}
+
+/*
+  Author: Michael Radey
+  This method will update the calcultor's screen when a number button is typed
+*/
+function keyPress(e){
+  var key = e.which || e.keyCode;
+  var keyCode = String.fromCharCode(key);
+  keyCode = key == '13' ? "=" : keyCode;
+  numbers = "1234567890";
+  operators = "+-/*=";
+  if(numbers.includes(keyCode)){
+    numberClick(e,keyCode);
+  }
+  else if(operators.includes(keyCode)){
+    operationClick(keyCode);
+  }
+
 }
 
 /*
