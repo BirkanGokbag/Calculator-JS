@@ -89,7 +89,12 @@ function operationClick(operation){
         this.lastNumber = this.lastNumber*parseFloat(calculator.display.innerHTML);
         break;
       case '/':
-        this.lastNumber = this.lastNumber/parseFloat(calculator.display.innerHTML);
+	if(parseFloat(calculator.display.innerHTML)!==0){
+	    this.lastNumber = this.lastNumber/parseFloat(calculator.display.innerHTML);
+	}else{
+	    this.lastNumber = "Cannot divide a number by 0";
+	}
+        
         break;
     }
     calculator.display.innerHTML = this.lastNumber;
