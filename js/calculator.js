@@ -14,7 +14,7 @@ function createObjects(){
   display: document.getElementById("display"), //A direct link to the display's html.
   clearScreen:false,
   songList: ["pump_up.mp3","musical.mp3","SusumuHirasawa1.mp3","SusumuHirasawa2.mp3"] //Birkan's great musical taste.
-}
+  }
   //The number buttons must have access to all of the parameters in the one calculatorBase object.
   NumberButton.prototype = calculatorBase;
 
@@ -37,6 +37,12 @@ function createObjects(){
   for(i = 0; i < trigButtons.length; i++){
     OperationButton(trigButtons[i],trigClick);
   }
+
+  memoryButtons = document.getElementsByClassName('memory');
+  for(i=0;i<memoryButtons.length;i++){
+    OperationButton(memoryButtons[i],memoryClick);
+  }
+
   /*
     Author: Alyssa Langhals
     This function will update the display and check if the displayed number should be in exponential form to fit onto the display screen
@@ -88,6 +94,7 @@ buttons on the calculator's face.
 */
 function OperationButton(htmlElement,onClickFunction){
   htmlElement.onclick = onClickFunction;
+  this.onClick = onClickFunction;
 }
 
 function logarithmic() {
@@ -167,4 +174,29 @@ function factorial(){
   //The next press will out the display if its a number
   calculatorBase.empty_out = 1;
 }
+
+/*
+  Author: Rajeev Ravi
+  Defines the functionality of the memory buttons.
+*/
+ function memoryClick(){
+   switch(this.innerHTML){
+     case 'MC':
+     calculatorBase.memoryArg = 0;
+     break;
+     case 'MR':
+     calculatorBase.mainArg = calculatorBase.memoryArg;
+     updateDisplay(calculatorBase.mainArg);
+     break;
+     case 'M-':
+     calculatorBase.memoryArg -= calculatorBase.mainArg;
+     break;
+     case 'M+':
+     calculatorBase.memoryArg += calculatorBase.mainArg;
+     break;
+     case 'MS':
+     calculatorBase.memoryArg = calculatorBase.mainArg;
+   }
+ }
+
 }
