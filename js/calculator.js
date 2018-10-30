@@ -32,6 +32,8 @@ function createObjects(){
   document.getElementById("clearButton").addEventListener("click", clearCalculator, false);
   // Create the factorial button.
   document.getElementById("factorial").addEventListener("click", factorial, false);
+
+  document.getElementById("shuffle").addEventListener("click", shuffleSong, false);
   //All of the operation buttons created.
   trigButtons = document.getElementsByClassName('trig');
   for(i = 0; i < trigButtons.length; i++){
@@ -166,5 +168,27 @@ function factorial(){
   updateDisplay(calculatorBase.mainArg);
   //The next press will out the display if its a number
   calculatorBase.empty_out = 1;
+}
+
+/*
+ Author: Birkan Gokbag
+ Shuffles the song that is playing on the website
+*/
+function shuffleSong() {
+  window.onerror = false;
+ //Get the Id of the music player and its source.
+ var musicPlayer = document.getElementById("musicPlayer");
+ var musicSource = document.getElementById("musicSource");
+ musicPlayer.onerror=function(){alert("Error! Something went wrong");};
+
+ //Stop the music
+ musicPlayer.pause();
+ musicPlayer.currentTime = 0;
+ //Get a random song
+ randomSong = Math.floor(Math.random() * calculatorBase.songList.length);
+ musicSource.src = "./assets/images_and_sounds/" + calculatorBase.songList[randomSong];
+ //Play the song
+ musicPlayer.load();
+ musicPlayer.play();
 }
 }
