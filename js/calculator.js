@@ -1,5 +1,5 @@
 /* Created: 10/29/2018 by Rajeev Ravi
-Contributors: Rajeev Ravi,
+Contributors: Rajeev Ravi, Alyssa Langhals, Birkan Gokbag, Berkay Kaplan, Michael Radey
 Contains the javascript for the calculator
 */
 
@@ -27,19 +27,13 @@ OperationButton.prototype = calculatorBase;
     NumberButton(numberButtons[i]); 
   }
 
-  //Now, all of the operation buttons need to be created.
-}
-/*
-  Author: Alyssa Langhals
-  This function will update the display and check if the displayed number should be in exponential form to fit onto the display screen
-*/
-function updateDisplay(value){
-  if(value.toString().length > calculatorBase.display.clientWidth/17){
-    calculatorBase.display.innerHTML = value.toExponential();
-  }else{
-    calculatorBase.display.innerHTML = value;
+  //All of the operation buttons created.
+  trigButtons = document.getElementsByClassName('trig');
+  for(i = 0; i < trigButtons.length; i++){ 
+    OperationButton(trigButtons[i],trigClick); 
   }
 }
+
 
 /*
 Author: Alyssa Langhals
@@ -61,7 +55,7 @@ function NumberButton(htmlElement) {
           calculatorBase.display.innerHTML = display + number;
         }
         calculatorBase.clearScreen = false;
-        calculatorBase.mainArgument = parseFloat(calculatorBase.display.innerHTML);
+        calculatorBase.mainArg = parseFloat(calculatorBase.display.innerHTML);
       }
 
     }
@@ -75,4 +69,38 @@ function OperationButton(htmlElement,onClickFunction){
   htmlElement.onclick = onClickFunction;
 }
 
+/*
+  Author: Alyssa Langhals
+  This function will update the display and check if the displayed number should be in exponential form to fit onto the display screen
+*/
+function updateDisplay(value){
+  if(value.toString().length > calculatorBase.display.clientWidth/17){
+    calculatorBase.display.innerHTML = value.toExponential();
+  }else{
+    calculatorBase.display.innerHTML = value;
+  }
+}
+
+/*
+  Author: Alyssa Langhals
+  This method will update the calcultor's screen with the result when a trig button is pressesd
+*/
+function trigClick(){
+  switch(this.innerHTML){
+    case 'sin':
+      calculatorBase.mainArg=Math.sin(calculatorBase.mainArg);
+      break;
+    case 'cos':
+      calculatorBase.mainArg=Math.cos(calculatorBase.mainArg);
+      break;
+    case 'tan':
+      calculatorBase.mainArg=Math.tan(calculatorBase.mainArg);
+      break;
+    case 'pi':
+      calculatorBase.mainArg=Math.PI;
+      break;
+   }
+   updateDisplay(calculatorBase.mainArg);
+   calculatorBase.clearScreen = true;
+ }
 
