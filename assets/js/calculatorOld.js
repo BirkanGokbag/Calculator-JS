@@ -31,11 +31,20 @@ function createObj(){
   for(i = 0; i < trigButtons.length; i++) {
     trigButtons[i].addEventListener("click", trigClick);
   };
+<<<<<<< HEAD:assets/js/calculator.js
   window.addEventListener("keypress", keyPress, false);
 
+=======
+
+  //By: Rajeev Ravi -> Add memory event listeners
+  memoryButtons = document.getElementsByClassName("memory");
+  for(i=0; i<trigButtons.length; i++){
+    memoryButtons[i].addEventListener("click",memoryClick);
+  }
+>>>>>>> 8971590b7882401215bd88b3696f46f79a07d928:assets/js/calculatorOld.js
 }
-  
-   
+
+
 
 /*
   Author: Alyssa Langhals
@@ -192,7 +201,39 @@ function changeSign(){
   calculator.display.innerHTML=parseFloat(-calculator.display.innerHTML);
 }
 
+
 /*
+  Author: Rajeev Ravi
+  Performs the Memory features.
+*/
+function memoryClick(){
+  calculator.mainArgument = parseFloat(calculator.display.innerHTML);
+  switch(this.innerHTML){
+    case 'MC':
+    calculator.currentMem = 0;
+    //Update memDisplay
+    break;
+    case 'MR':
+    calculator.mainArgument = calculator.currentMem;
+    calculator.display.innerHTML = calculator.mainArgument;
+    break;
+    case 'M-':
+    calculator.currentMem -= calculator.mainArgument;
+    //Update mem display.
+    break;
+    case 'M+':
+    calculator.currentMem += calculator.mainArgument;
+    //Update mem display.
+    break;
+    case 'MS':
+    calculator.currentMem = calculator.mainArgument;
+    //Update mem display.
+    break;
+  }
+  window.alert("memvalue = " + this.innerHTML);
+}
+
+ /*
   Author: Birkan Gokbag
   Shuffles the song that is playing on the website
 */
