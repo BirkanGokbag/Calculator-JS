@@ -4,6 +4,7 @@ Created: 10/30 by Rajeev Ravi
 
 function createObjects(){
   var calculator = new Calculator();
+  
 
 }
 
@@ -40,4 +41,71 @@ Calculator.prototype = {
   clear:
 
   clearEntry:
+}
+
+/*
+  Author: Berkay Kaplan
+  The function that handles the operations that require at least two numbers, such as +, -, /, *
+*/
+function operationClick(operation){
+  // Check if the user entered an operation before
+  if((this.lastNumber==undefined && this.lastOperation == undefined) || calculator.clearScreen){
+    this.lastNumber = parseFloat(calculator.display.innerHTML);
+  }else{
+
+    // See what operation the user entered
+    switch(this.lastOperation){
+      case '-':
+        this.lastNumber = this.lastNumber - parseFloat(calculator.display.innerHTML);
+        break;
+      case '+':
+        this.lastNumber = this.lastNumber + parseFloat(calculator.display.innerHTML);
+        break;
+      case '*':
+        this.lastNumber = this.lastNumber*parseFloat(calculator.display.innerHTML);
+        break;
+      case '/':
+        this.lastNumber = this.lastNumber/parseFloat(calculator.display.innerHTML);
+        break;
+    }
+    calculator.display.innerHTML = this.lastNumber;
+  }
+
+  this.lastOperation = operation;
+
+  if(operation == '='){
+    this.lastOperation = undefined;
+    this.lastNumber = undefined;
+  }
+  calculator.clearScreen = true;
+}
+
+/*
+  Author: Berkay Kaplan
+  Clears the screen to 0
+*/
+function clearDisplay(){
+  calculator.display.innerHTML = "0";
+}
+
+function percent(){
+  if(this.lastOperation != undefined){
+    percent = calculator.display.innerHTML;
+    calculator.display.innerHTML = (this.lastNumber/100)*percent;
+  }else{
+    calculator.display.innerHTML = "0";
+  }
+}
+
+
+/*
+  Author: Berkay Kaplan
+  Takes the squareroot of the number on the screen
+*/
+function squareroot(){
+  Number = parseFloat(calculator.display.innerHTML);
+  if(Number>0){
+    calculator.display.innerHTML=Math.sqrt(Number);
+  }
+  calculator.clearScreen = true;
 }
