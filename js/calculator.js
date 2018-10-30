@@ -40,7 +40,7 @@ Calculator.prototype = {
     Author: Birkan Gokbag
     This method will clear the calculator completely.
   */
-  clear: function() {
+  clearCompeletely: function() {
       //Clear the display, and all the arguments.
       this.display.innerHTML = 0;
       this.hiddenArg = 0;
