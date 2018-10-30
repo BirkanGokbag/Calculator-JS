@@ -25,6 +25,14 @@ function createObjects(){
     trigButtons[i].addEventListener('click', Calculator.trigClick, false);
   }
 
+  // Create the log button and assign it to the logarithmic function
+  document.getElementById("log").addEventListener("click", Calculator.logarithmic, false);
+  // Create the clear button.
+  document.getElementById("clearButton").addEventListener("click", Calculator.learCalculator, false);
+  // Create the factorial button.
+  document.getElementById("factorial").addEventListener("click", Calculator.factorial, false);
+
+  document.getElementById("shuffle").addEventListener("click", Calculator.shuffleSong, false);
 
 }
 
@@ -58,7 +66,7 @@ Calculator.prototype = {
     if(value.toString().length > this.display.clientWidth/17){
       this.display.innerHTML = this.mainArg.toExponential();
     }else{
-      this.display.innerHTML = this.mainArgvalue;
+      this.display.innerHTML = this.mainArg;
     }
   },
 
@@ -114,7 +122,7 @@ Calculator.prototype = {
       break;
       case 'MR':
       this.mainArg = this.memoryArg;
-      this.updateDisplay();
+      this.updateDisplay;
       break;
       case 'M-':
       this.memoryArg -= this.mainArg;
@@ -147,7 +155,7 @@ Calculator.prototype = {
         this.mainArg=Math.PI;
         break;
      }
-     this.updateDisplay();
+     this.updateDisplay;
      this.clearScreen = true;
    },
 
@@ -159,7 +167,6 @@ Calculator.prototype = {
      //Clear the display, and all the arguments.
      this.display.innerHTML = 0;
      this.hiddenArg = 0;
-     this.memoryArg = 0;
      this.mainArg = 0;
      this.operator = undefined;
      this.clearScreen = false;
@@ -208,8 +215,6 @@ Calculator.prototype = {
   this.clearScreen = true;
 },
 
-  memoryClick:
-
   /*
     Author: Berkay Kaplan
     Clears the screen to 0
@@ -238,7 +243,7 @@ Calculator.prototype = {
     valueInDisplay = parseFloat(document.getElementById("display").innerHTML);
     //If the number is negative or 0, then cannot get the log of the value
     if (valueInDisplay <= 0){
-      this.display.innerHTML = "Not A Number."
+      this.mainArg = "Not A Number."
     }
     else{
       this.mainArg = Math.log(parseFloat(document.getElementById("display").innerHTML));
@@ -275,10 +280,10 @@ Calculator.prototype = {
       }
       // Add it to the main arg.
       this.mainArg = result;
-      this.updateDisplay;
     } else {
-        this.display.innerHTML = "Not A Number.";
+        this.mainArg = "Not A Number.";
     }
+    this.updateDisplay;
     //The next press will clear out the display if its a number
     this.clearScreen = true;
   },
