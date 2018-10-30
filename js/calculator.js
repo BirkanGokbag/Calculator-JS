@@ -5,34 +5,34 @@ var calculator = null;
 function createObjects(){
   calculator = new Calculator();
 
-  window.addEventListener("keypress", keyPress, false);
+  window.addEventListener("keypress", calculator.keyPress, false);
 
   //Set all buttons to execute setOperator first
   buttons = document.getElementsByTagName('button');
   for(i = 0; i<buttons.length; i++){
-    buttons[i].addEventListener('click', setOperator, true);
+    buttons[i].addEventListener('click', calculator.setOperator, true);
   }
 
   //add event listeners to the number buttons
   numberButtons = document.getElementsByClassName('number');
   for(i = 0; i < numberButtons.length; i++){
-    numberButtons[i].addEventListener('click', Calculator.numberClick, false);
+    numberButtons[i].addEventListener('click', calculator.numberClick, false);
   }
 
   //add event listeners to the trig buttons
   trigButtons = document.getElementsByClassName('trig');
   for(i = 0; i < trigButtons.length; i++){
-    trigButtons[i].addEventListener('click', Calculator.trigClick, false);
+    trigButtons[i].addEventListener('click', calculator.trigClick, false);
   }
 
   // Create the log button and assign it to the logarithmic function
-  document.getElementById("log").addEventListener("click", Calculator.logarithmic, false);
+  document.getElementById("log").addEventListener("click", calculator.logarithmic, false);
   // Create the clear button.
-  document.getElementById("clearButton").addEventListener("click", Calculator.learCalculator, false);
+  document.getElementById("clearButton").addEventListener("click", calculator.learCalculator, false);
   // Create the factorial button.
-  document.getElementById("factorial").addEventListener("click", Calculator.factorial, false);
+  document.getElementById("factorial").addEventListener("click", calculator.factorial, false);
 
-  document.getElementById("shuffle").addEventListener("click", Calculator.shuffleSong, false);
+  document.getElementById("shuffle").addEventListener("click", calculator.shuffleSong, false);
 
 }
 
@@ -166,13 +166,13 @@ Calculator.prototype = {
  clearCompeletely: function() {
      //Clear the display, and all the arguments.
      this.display.innerHTML = 0;
-     this.hiddenArg = 0;
      this.mainArg = 0;
+     this.hiddenArg = undefined;
+     this.memoryArg = 0;
      this.operator = undefined;
+     this.previousOperator = undefined;
      this.clearScreen = false;
    },
-
-  clearEntry:
 
   /*
     Author: Berkay Kaplan
@@ -203,7 +203,7 @@ Calculator.prototype = {
       	}
         break;
     }
-    this.mainArg = this.hiddenArgument;
+    this.mainArg = this.hiddenArg;
   }
 
   this.previousOperator = this.operation;
@@ -230,7 +230,7 @@ Calculator.prototype = {
   percent: function percent(){
   if(this.previousOperator != undefined){
     percent = this.mainArg;
-    this.this.mainArg = (this.hiddenArgument/100)*percent;
+    this.mainArg = (this.hiddenArg/100)*percent;
   }else{
     this.mainArg = "0";
   }
