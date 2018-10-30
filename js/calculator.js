@@ -36,7 +36,7 @@ The constructer of the main calculator object to be used in the project.
 */
 var Calculator = function(){
   this.mainArg = 0; //The main argument usually on the calculator's display.
-  this.hiddenArg = 0; //The argument that is hidden and used for the various operations.
+  this.hiddenArgument = undefined; //The argument that is hidden and used for the various operations.
   this.memoryArg = 0; //The memory variable
   this.operator = undefined; //The name of the operator to be executed.
   this.previousOperator = undefined;
@@ -197,14 +197,3 @@ Calculator.prototype = {
   },
   clearEntry:
 }
-
-
-
-
-
-
-
-
-
-
-
