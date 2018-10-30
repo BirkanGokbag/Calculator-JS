@@ -16,13 +16,13 @@ function createObjects(){
   //add event listeners to the number buttons
   numberButtons = document.getElementsByClassName('number');
   for(i = 0; i < numberButtons.length; i++){
-    numberButtons[i].addEventListener('click', calculator.numberClick, false);
+    numberButtons[i].addEventListener('click', calculator.numberClick.bind(calculator), false);
   }
 
   //add event listeners to the trig buttons
   trigButtons = document.getElementsByClassName('trig');
   for(i = 0; i < trigButtons.length; i++){
-    trigButtons[i].addEventListener('click', calculator.trigClick, false);
+    trigButtons[i].addEventListener('click', calculator.trigClick.bind(calculator), false);
   }
 
 
@@ -67,8 +67,8 @@ Calculator.prototype = {
   handles the entry of numbers and updates the display
   */
   numberClick:function(){
-    display = this.display.innerHTML;
-      number = htmlElement.innerHTML;
+      display = this.display.innerHTML;
+      number = this.operator;
       if(display.length < this.display.clientWidth/17 || this.clearScreen){
         if(display.toString() == "0" && number != '.' || this.clearScreen){
           this.display.innerHTML = number;
@@ -218,7 +218,7 @@ Calculator.prototype = {
   clearDisplay: function clearDisplay(){
     this.mainArg = 0;
     this.updateDisplay();
-  }
+  },
 
   /*
     Author: Berkay Kaplan
@@ -314,8 +314,7 @@ Calculator.prototype = {
         this.mainArg=Math.sqrt(Number);
       }
     this.clearScreen = true;
-    }
-  },
+    },
 
 
   /*
