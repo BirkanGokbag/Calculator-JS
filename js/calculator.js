@@ -216,7 +216,7 @@ Calculator.prototype = {
   clearDisplay: function clearDisplay(){
     this.mainArg = 0;
     this.updateDisplay();
-  }
+  },
 
   /*
     Author: Berkay Kaplan
@@ -312,8 +312,7 @@ Calculator.prototype = {
         this.mainArg=Math.sqrt(Number);
       }
     this.clearScreen = true;
-    }
-  },
+    },
 
 
   /*
