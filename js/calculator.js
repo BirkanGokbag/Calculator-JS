@@ -1,14 +1,14 @@
 /*
 Created: 10/30 by Rajeev Ravi
 */
-
+var calculator = null;
 function createObjects(){
-  var calculator = new Calculator();
+  calculator = new Calculator();
 
 }
 
-function setOperator(){
-
+function setOperator(calculator){
+  calculator.operator = this.innerHTML;
 }
 
 /*
