@@ -116,12 +116,7 @@ Calculator.prototype = {
     Author: Berkay Kaplan
     The function that handles the operations that require at least two numbers, such as +, -, /, *
   */
-<<<<<<< HEAD
   operationClick: function operationClick(){
-=======
-  operationClick: function operationClick(operation){
-
->>>>>>> 32d462fd39f18bf2e3a5d7a0461e962cd3f853cd
   // Check if the user entered an operation before
   if((calculator.hiddenArgument==undefined && calculator.previousOperator == undefined) || calculator.clearScreen){
     calculator.hiddenArgument = parseFloat(calculator.display.innerHTML);
@@ -173,23 +168,13 @@ Calculator.prototype = {
     Takes the percent of the hidden argument
   */
   percent: function percent(){
-<<<<<<< HEAD
-  if(calculator.hiddenArgument != undefined){
+  if(calculator.previousOperator != undefined){
     percent = calculator.display.innerHTML;
     calculator.display.innerHTML = (calculator.hiddenArgument/100)*percent;
   }else{
     calculator.display.innerHTML = "0";
   }
 }
-=======
-    if(this.lastOperation != undefined){
-      percent = calculator.display.innerHTML;
-      calculator.display.innerHTML = (this.lastNumber/100)*percent;
-    }else{
-      calculator.display.innerHTML = "0";
-    }
-  },
->>>>>>> 32d462fd39f18bf2e3a5d7a0461e962cd3f853cd
   
   /*
     Changes the sign of the number on the screen
@@ -203,17 +188,13 @@ Calculator.prototype = {
     Takes the squareroot of the number on the screen
   */
   squareroot: function squareroot(){
-  Number = parseFloat(calculator.display.innerHTML);
-  if(Number>0){
-    calculator.display.innerHTML=Math.sqrt(Number);
-  }
-  calculator.clearScreen = true;
-<<<<<<< HEAD
-  }
-=======
-},
->>>>>>> 32d462fd39f18bf2e3a5d7a0461e962cd3f853cd
-
+    Number = parseFloat(calculator.display.innerHTML);
+      if(Number>0){
+        calculator.display.innerHTML=Math.sqrt(Number);
+      }
+    calculator.clearScreen = true;
+    }
+  },
   clearEntry:
 }
 
