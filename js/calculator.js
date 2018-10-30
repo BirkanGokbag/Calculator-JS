@@ -21,6 +21,7 @@ var Calculator = function(){
   this.hiddenArg = 0; //The argument that is hidden and used for the various operations.
   this.memoryArg = 0; //The memory variable
   this.operator = undefined; //The name of the operator to be executed.
+  this.previousOperator = undefined;
   this.display =  document.getElementById("display"); //A direct link to the display's html.
   this.clearScreen = false; //Check if the screen needs to be cleared.
   this.songList =  ["pump_up.mp3","musical.mp3","SusumuHirasawa1.mp3","SusumuHirasawa2.mp3"]; //Birkan's god awful musical taste.
@@ -38,35 +39,39 @@ Calculator.prototype = {
     Author: Berkay Kaplan
     The function that handles the operations that require at least two numbers, such as +, -, /, *
   */
-  operationClick: function operationClick(operation){
+  operationClick: function operationClick(){
   // Check if the user entered an operation before
-  if((this.lastNumber==undefined && this.lastOperation == undefined) || calculator.clearScreen){
-    this.lastNumber = parseFloat(calculator.display.innerHTML);
+  if((calculator.hiddenArgument==undefined && calculator.previousOperator == undefined) || calculator.clearScreen){
+    calculator.hiddenArgument = parseFloat(calculator.display.innerHTML);
   }else{
 
     // See what operation the user entered
-    switch(this.lastOperation){
+    switch(calculator.previousOperator){
       case '-':
-        this.lastNumber = this.lastNumber - parseFloat(calculator.display.innerHTML);
+        calculator.hiddenArgument = calculator.hiddenArgument - parseFloat(calculator.display.innerHTML);
         break;
       case '+':
-        this.lastNumber = this.lastNumber + parseFloat(calculator.display.innerHTML);
+        calculator.hiddenArgument = calculator.hiddenArgument + parseFloat(calculator.display.innerHTML);
         break;
       case '*':
-        this.lastNumber = this.lastNumber*parseFloat(calculator.display.innerHTML);
+        calculator.hiddenArgument = calculator.hiddenArgument*parseFloat(calculator.display.innerHTML);
         break;
       case '/':
-        this.lastNumber = this.lastNumber/parseFloat(calculator.display.innerHTML);
+	if(parseFloat(calculator.display.innerHTML)!==0){
+	    calculator.hiddenArgument = calculator.hiddenArgument/parseFloat(calculator.display.innerHTML);
+	}else{
+	    calculator.hiddenArgument = "Cannot divide a number by 0";
+	}
         break;
     }
-    calculator.display.innerHTML = this.lastNumber;
+    calculator.display.innerHTML = calculator.hiddenArgument;
   }
 
-  this.lastOperation = operation;
+  calculator.previousOperator = calculator.operation;
 
   if(operation == '='){
-    this.lastOperation = undefined;
-    this.lastNumber = undefined;
+    calculator.previousOperator = undefined;
+    calculator.hiddenArgument = undefined;
   }
   calculator.clearScreen = true;
 }
@@ -78,21 +83,21 @@ Calculator.prototype = {
     Clears the screen to 0
   */
   clearDisplay: function clearDisplay(){
-    calculator.display.innerHTML = "0";
-  }
+  calculator.display.innerHTML = "0";
+}
 
   /*
     Author: Berkay Kaplan
     Takes the percent of the hidden argument
   */
   percent: function percent(){
-    if(this.lastOperation != undefined){
-      percent = calculator.display.innerHTML;
-      calculator.display.innerHTML = (this.lastNumber/100)*percent;
-    }else{
-      calculator.display.innerHTML = "0";
-    }
+  if(calculator.hiddenArgument != undefined){
+    percent = calculator.display.innerHTML;
+    calculator.display.innerHTML = (calculator.hiddenArgument/100)*percent;
+  }else{
+    calculator.display.innerHTML = "0";
   }
+}
   
   /*
     Changes the sign of the number on the screen
@@ -111,7 +116,7 @@ Calculator.prototype = {
     calculator.display.innerHTML=Math.sqrt(Number);
   }
   calculator.clearScreen = true;
-}
+  }
 
   clearEntry:
 }
