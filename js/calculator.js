@@ -5,7 +5,25 @@ Created: 10/30 by Rajeev Ravi
 function createObjects(){
   var calculator = new Calculator();
   
+  //Set all buttons to execute setOperator first
+  buttons = document.getElementsByTagName('button');
+  for(i = 0; i<buttons.length; i++){
+    buttons[i].addEventListener('click', setOperator, true);
+  }
 
+  //add event listeners to the number buttons
+  numberButtons = document.getElementsByClassName('number');
+  for(i = 0; i < numberButtons.length; i++){
+    numberButtons[i].addEventListener('click', Calculator.numberClick, false);
+  }
+
+  //add event listeners to the trig buttons
+  trigButtons = document.getElementsByClassName('trig');
+  for(i = 0; i < trigButtons.length; i++){
+    trigButtons[i].addEventListener('click', Calculator.trigClick, false);
+  }
+
+  
 }
 
 function setOperator(){
