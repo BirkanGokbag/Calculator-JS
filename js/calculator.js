@@ -5,6 +5,8 @@ Created: 10/30 by Rajeev Ravi
 function createObjects(){
   var calculator = new Calculator();
 
+  window.addEventListener("keypress", keyPress, false);
+
   //Set all buttons to execute setOperator first
   buttons = document.getElementsByTagName('button');
   for(i = 0; i<buttons.length; i++){
@@ -78,8 +80,27 @@ Calculator.prototype = {
     }
   },
 
-  keypress:
+  /*
+  Author: Michael Radey
+  This method will update the calcultor's screen when a number button is typed
+  */
+  keypress: function keyPress(e){
+    var key = e.which || e.keyCode;
+    var keyCode = String.fromCharCode(key);
+    keyCode = key == '13' ? "=" : keyCode;
+    numbers = "1234567890.";
+    operators = "+-/*=";
+    this.operator = this.operator == "p" && keyCode == "i" ? this.operator = "pi" : keyCode;
+    if(numbers.includes(this.operator)){
+      this.numberClick();
+    }
+    else if(operators.includes(this.operator)){
+      this.operationClick();
+    }
+    else if(keyCode == "pi"){
 
+    }
+  }
   memoryClick:
 
   /*
@@ -144,11 +165,11 @@ Calculator.prototype = {
         calculator.hiddenArgument = calculator.hiddenArgument*parseFloat(calculator.display.innerHTML);
         break;
       case '/':
-	if(parseFloat(calculator.display.innerHTML)!==0){
-	    calculator.hiddenArgument = calculator.hiddenArgument/parseFloat(calculator.display.innerHTML);
-	}else{
-	    calculator.hiddenArgument = "Cannot divide a number by 0";
-	}
+  if(parseFloat(calculator.display.innerHTML)!==0){
+      calculator.hiddenArgument = calculator.hiddenArgument/parseFloat(calculator.display.innerHTML);
+  }else{
+      calculator.hiddenArgument = "Cannot divide a number by 0";
+  }
         break;
     }
     calculator.display.innerHTML = calculator.hiddenArgument;
@@ -170,8 +191,8 @@ Calculator.prototype = {
     Clears the screen to 0
   */
   clearDisplay: function clearDisplay(){
-  calculator.display.innerHTML = "0";
-}
+    calculator.display.innerHTML = "0";
+  }
 
   /*
     Author: Berkay Kaplan
