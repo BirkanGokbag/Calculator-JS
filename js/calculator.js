@@ -27,15 +27,68 @@ var Calculator = function(){
 
 
 Calculator.prototype = {
-  updateDisplay:
+  /*
+  Author: Alyssa Langhals
+  This function will update the display and check if the displayed number should be in exponential form to fit onto the display screen
+  */
+  updateDisplay: function(){
 
-  numberClick:
+    if(value.toString().length > this.display.clientWidth/17){
+      this.display.innerHTML = this.mainArg.toExponential();
+    }else{
+      this.display.innerHTML = this.mainArgvalue;
+    }
+  },
 
-  keypress:
+  /*
+  Author: Alyssa Langhals
+  handles the entry of numbers and updates the display
+  */
+  numberClick:function(){
+
+    display = document.getElementById("display").innerHTML;
+    number = this.operator;
+    if(display.length < 17){
+      if(display.toString() == "0" && number != '.'){
+        document.getElementById("display").innerHTML = number;   
+      }else if(number == '.' && display.indexOf(number) == -1){
+        document.getElementById("display").innerHTML = display+ number;
+      }else if(number != '.'){
+        document.getElementById("display").innerHTML = display + number;
+      }
+    }
+  },
+
+  keypress: 
 
   operationClick:
 
   memoryClick:
+
+  /*
+  Author: Alyssa Langhals
+  This method will update the calcultor's screen with the result when a trig button is pressesd
+  */
+  trigClick: function(){
+
+    switch(this.operator){
+      case 'sin':
+        this.mainArg=Math.sin(this.mainArg);
+        break;
+      case 'cos':
+        this.mainArg=Math.cos(this.mainArg);
+        break;
+      case 'tan':
+        this.mainArg=Math.tan(this.mainArg);
+        break;
+      case 'pi':
+        this.mainArg=Math.PI;
+        break;
+     }
+     this.updateDisplay();
+     this.clearScreen = true;
+   },
+
 
   clear:
 
