@@ -2,10 +2,10 @@
 Created: 10/30 by Rajeev Ravi
 */
 var calculator = null;
+
 function createObjects(){
   calculator = new Calculator();
-
-  window.addEventListener("keypress", keyPress, false);
+  window.addEventListener("keypress", calculator.keyPress, false);
 
   //Set all buttons to execute setOperator first
   buttons = document.getElementsByTagName('button');
@@ -16,19 +16,19 @@ function createObjects(){
   //add event listeners to the number buttons
   numberButtons = document.getElementsByClassName('number');
   for(i = 0; i < numberButtons.length; i++){
-    numberButtons[i].addEventListener('click', Calculator.numberClick, false);
+    numberButtons[i].addEventListener('click', calculator.numberClick, false);
   }
 
   //add event listeners to the trig buttons
   trigButtons = document.getElementsByClassName('trig');
   for(i = 0; i < trigButtons.length; i++){
-    trigButtons[i].addEventListener('click', Calculator.trigClick, false);
+    trigButtons[i].addEventListener('click', calculator.trigClick, false);
   }
 
 
 }
 
-function setOperator(calculator){
+function setOperator(){
   calculator.operator = this.innerHTML;
 }
 
@@ -36,7 +36,7 @@ function setOperator(calculator){
 Author: Rajeev Ravi
 The constructer of the main calculator object to be used in the project.
 */
-var Calculator = function(){
+function Calculator(){
   this.mainArg = 0; //The main argument usually on the calculator's display.
   this.hiddenArg = undefined; //The argument that is hidden and used for the various operations.
   this.memoryArg = 0; //The memory variable
@@ -67,7 +67,6 @@ Calculator.prototype = {
   handles the entry of numbers and updates the display
   */
   numberClick:function(){
-
     display = document.getElementById("display").innerHTML;
     number = this.operator;
     if(display.length < 17){
@@ -101,7 +100,7 @@ Calculator.prototype = {
     else if(keyCode == "pi"){
 
     }
-  }
+  },
 
   /*
   Author: Rajeev Ravi
@@ -125,7 +124,7 @@ Calculator.prototype = {
       case 'MS':
       this.memoryArg = this.mainArg;
     }
-  }
+  },
 
   /*
   Author: Alyssa Langhals
@@ -165,7 +164,7 @@ Calculator.prototype = {
      this.clearScreen = false;
    },
 
-  clearEntry:
+  clearEntry: 3,
 
   /*
     Author: Berkay Kaplan
@@ -208,7 +207,7 @@ Calculator.prototype = {
   this.clearScreen = true;
 },
 
-  memoryClick:
+  memoryClick: 3,
 
   /*
     Author: Berkay Kaplan
@@ -216,7 +215,7 @@ Calculator.prototype = {
   */
   clearDisplay: function clearDisplay(){
     calculator.display.innerHTML = "0";
-  }
+  },
 
   /*
     Author: Berkay Kaplan
@@ -312,8 +311,8 @@ Calculator.prototype = {
         calculator.display.innerHTML=Math.sqrt(Number);
       }
     calculator.clearScreen = true;
-    }
   },
+
 
   /*
     Changes the sign of the number on the screen
@@ -322,4 +321,4 @@ Calculator.prototype = {
     calculator.display.innerHTML=parseFloat(-calculator.display.innerHTML);
   }
 
-}
+ }
