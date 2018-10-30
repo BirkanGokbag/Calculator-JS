@@ -18,6 +18,8 @@
 Please list who did what for each part of the project.
 Also list if people worked together (pair programmed) on a particular section.
 
+Berkay Kaplan: Did the operationclick that manipulates minor operations such as +, -, *, /, and =. Also, create squareroot that take the squareroot of a number, percent that takes the percent, and clear that clears the displayed number.  
+
 ## Testing
 ### How to Run
 ### Plan
