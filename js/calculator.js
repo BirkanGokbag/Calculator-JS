@@ -174,29 +174,29 @@ Calculator.prototype = {
   operationClick: function operationClick(){
   // Check if the user entered an operation before
   if((this.hiddenArg==undefined && this.previousOperator == undefined) || this.clearScreen){
-    this.hiddenArg = parseFloat(this.display.innerHTML);
+    this.hiddenArg = parseFloat(this.mainArg);
   }else{
 
     // See what operation the user entered
     switch(this.previousOperator){
       case '-':
-        this.hiddenArg = this.hiddenArg - parseFloat(this.display.innerHTML);
+        this.hiddenArg = this.hiddenArg - parseFloat(this.mainArg);
         break;
       case '+':
-        this.hiddenArg = this.hiddenArg + parseFloat(this.display.innerHTML);
+        this.hiddenArg = this.hiddenArg + parseFloat(this.mainArg);
         break;
       case '*':
-        this.hiddenArg = this.hiddenArg*parseFloat(this.display.innerHTML);
+        this.hiddenArg = this.hiddenArg*parseFloat(this.mainArg);
         break;
       case '/':
-      	if(parseFloat(this.display.innerHTML)!==0){
-      	    this.hiddenArg = this.hiddenArg/parseFloat(this.display.innerHTML);
+      	if(parseFloat(this.mainArg)!==0){
+      	    this.hiddenArg = this.hiddenArg/parseFloat(this.mainArg);
       	}else{
       	    this.hiddenArg = "Cannot divide a number by 0";
       	}
         break;
     }
-    this.display.innerHTML = this.hiddenArgument;
+    this.mainArg = this.hiddenArgument;
   }
 
   this.previousOperator = this.operation;
@@ -215,7 +215,7 @@ Calculator.prototype = {
     Clears the screen to 0
   */
   clearDisplay: function clearDisplay(){
-    calculator.display.innerHTML = "0";
+    this.mainArg = "0";
   }
 
   /*
@@ -223,11 +223,11 @@ Calculator.prototype = {
     Takes the percent of the hidden argument
   */
   percent: function percent(){
-  if(calculator.previousOperator != undefined){
-    percent = calculator.display.innerHTML;
-    calculator.display.innerHTML = (calculator.hiddenArgument/100)*percent;
+  if(this.previousOperator != undefined){
+    percent = this.mainArg;
+    this.this.mainArg = (this.hiddenArgument/100)*percent;
   }else{
-    calculator.display.innerHTML = "0";
+    this.mainArg = "0";
   }
 },
   /*
@@ -307,11 +307,11 @@ Calculator.prototype = {
     Takes the squareroot of the number on the screen
   */
   squareroot: function squareroot(){
-    Number = parseFloat(calculator.display.innerHTML);
+    Number = parseFloat(this.mainArg);
       if(Number>0){
-        calculator.display.innerHTML=Math.sqrt(Number);
+        this.mainArg=Math.sqrt(Number);
       }
-    calculator.clearScreen = true;
+    this.clearScreen = true;
     }
   },
 
@@ -319,7 +319,7 @@ Calculator.prototype = {
     Changes the sign of the number on the screen
   */
   changeSign: function changeSign(){
-    calculator.display.innerHTML=parseFloat(-calculator.display.innerHTML);
+    this.mainArg=parseFloat(-this.mainArg);
   }
 
 }
