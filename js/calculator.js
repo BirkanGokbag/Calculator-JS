@@ -172,15 +172,20 @@ Calculator.prototype = {
       	}
         break;
     }
+
+    // Set display to the hidden argument
     this.display.innerHTML = this.hiddenArgument;
   }
 
   this.previousOperator = this.operation;
 
+  // If the operation is =, then set both hiddenarg and previous to undefined
   if(operation == '='){
     this.previousOperator = undefined;
     this.hiddenArg = undefined;
   }
+
+  // Clear the screen once a button is pressed
   this.clearScreen = true;
 },
 
