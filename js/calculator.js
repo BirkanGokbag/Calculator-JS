@@ -34,20 +34,11 @@ Calculator.prototype = {
 
   keypress:
 
-  operationClick:
-
-  memoryClick:
-
-  clear:
-
-  clearEntry:
-}
-
-/*
-  Author: Berkay Kaplan
-  The function that handles the operations that require at least two numbers, such as +, -, /, *
-*/
-function operationClick(operation){
+  /*
+    Author: Berkay Kaplan
+    The function that handles the operations that require at least two numbers, such as +, -, /, *
+  */
+  operationClick: function operationClick(operation){
   // Check if the user entered an operation before
   if((this.lastNumber==undefined && this.lastOperation == undefined) || calculator.clearScreen){
     this.lastNumber = parseFloat(calculator.display.innerHTML);
@@ -80,32 +71,58 @@ function operationClick(operation){
   calculator.clearScreen = true;
 }
 
-/*
-  Author: Berkay Kaplan
-  Clears the screen to 0
-*/
-function clearDisplay(){
-  calculator.display.innerHTML = "0";
-}
+  memoryClick:
 
-function percent(){
-  if(this.lastOperation != undefined){
-    percent = calculator.display.innerHTML;
-    calculator.display.innerHTML = (this.lastNumber/100)*percent;
-  }else{
+  /*
+    Author: Berkay Kaplan
+    Clears the screen to 0
+  */
+  clearDisplay: function clearDisplay(){
     calculator.display.innerHTML = "0";
   }
-}
 
+  /*
+    Author: Berkay Kaplan
+    Takes the percent of the hidden argument
+  */
+  percent: function percent(){
+    if(this.lastOperation != undefined){
+      percent = calculator.display.innerHTML;
+      calculator.display.innerHTML = (this.lastNumber/100)*percent;
+    }else{
+      calculator.display.innerHTML = "0";
+    }
+  }
+  
+  /*
+    Changes the sign of the number on the screen
+  */
+  changeSign: function changeSign(){
+    calculator.display.innerHTML=parseFloat(-calculator.display.innerHTML);
+  }
 
-/*
-  Author: Berkay Kaplan
-  Takes the squareroot of the number on the screen
-*/
-function squareroot(){
+  /*
+    Author: Berkay Kaplan
+    Takes the squareroot of the number on the screen
+  */
+  squareroot: function squareroot(){
   Number = parseFloat(calculator.display.innerHTML);
   if(Number>0){
     calculator.display.innerHTML=Math.sqrt(Number);
   }
   calculator.clearScreen = true;
 }
+
+  clearEntry:
+}
+
+
+
+
+
+
+
+
+
+
+
