@@ -1,5 +1,5 @@
 /* Created: 10/29/2018 by Rajeev Ravi
-Contributors: Rajeev Ravi,
+Contributors: Rajeev Ravi, Alyssa Langhals, Birkan Gokbag, Berkay Kaplan, Michael Radey
 Contains the javascript for the calculator
 */
 
@@ -26,30 +26,29 @@ function createObjects(){
   for(i = 0; i < numberButtons.length; i++){
     NumberButton(numberButtons[i]);
   }
-
   // Create the log button and assign it to the logarithmic function
   document.getElementById("log").addEventListener("click", logarithmic, false);
   // Create the clear button.
   document.getElementById("clearButton").addEventListener("click", clearCalculator, false);
   // Create the factorial button.
   document.getElementById("factorial").addEventListener("click", factorial, false);
-
-
-
-
-  //Now, all of the operation buttons need to be created.
-}
-/*
-  Author: Alyssa Langhals
-  This function will update the display and check if the displayed number should be in exponential form to fit onto the display screen
-*/
-function updateDisplay(value){
-  if(value.toString().length > calculatorBase.display.clientWidth/17){
-    calculatorBase.display.innerHTML = value.toExponential();
-  }else{
-    calculatorBase.display.innerHTML = value;
+  //All of the operation buttons created.
+  trigButtons = document.getElementsByClassName('trig');
+  for(i = 0; i < trigButtons.length; i++){
+    OperationButton(trigButtons[i],trigClick);
+  }
+  /*
+    Author: Alyssa Langhals
+    This function will update the display and check if the displayed number should be in exponential form to fit onto the display screen
+  */
+  function updateDisplay(value){
+    if(value.toString().length > calculatorBase.display.clientWidth/17){
+      calculatorBase.display.innerHTML = value.toExponential();
+    }else{
+      calculatorBase.display.innerHTML = value;
   }
 }
+
 
 /*
 Author: Alyssa Langhals
@@ -98,7 +97,8 @@ function logarithmic() {
     calculatorBase.display.innerHTML = "Not A Number."
   }
   else{
-    calculatorBase.display.innerHTML = Math.log(parseFloat(document.getElementById("display").innerHTML));
+    calculatorBase.mainArg = Math.log(parseFloat(document.getElementById("display").innerHTML));
+    updateDisplay(calculatorBase.mainArg);
   }
   //Log operation had happened
   calculatorBase.empty_out = 1;
@@ -113,12 +113,46 @@ function clearCalculator() {
   calculatorBase.mainArg = 0;
   calculatorBase.empty_out = 0;
 }
+/*
+  Author: Alyssa Langhals
+  This function will update the display and check if the displayed number should be in exponential form to fit onto the display screen
+*/
+function updateDisplay(value){
+  if(value.toString().length > calculatorBase.display.clientWidth/17){
+    calculatorBase.display.innerHTML = value.toExponential();
+  }else{
+    calculatorBase.display.innerHTML = value;
+  }
+}
+
+/*
+  Author: Alyssa Langhals
+  This method will update the calcultor's screen with the result when a trig button is pressesd
+*/
+function trigClick(){
+  switch(this.innerHTML){
+    case 'sin':
+      calculatorBase.mainArg=Math.sin(calculatorBase.mainArg);
+      break;
+    case 'cos':
+      calculatorBase.mainArg=Math.cos(calculatorBase.mainArg);
+      break;
+    case 'tan':
+      calculatorBase.mainArg=Math.tan(calculatorBase.mainArg);
+      break;
+    case 'pi':
+      calculatorBase.mainArg=Math.PI;
+      break;
+   }
+   updateDisplay(calculatorBase.mainArg);
+   calculatorBase.clearScreen = true;
+ }
 
 function factorial(){
   displayValue = calculatorBase.display.innerHTML;
+  result = 1;
   if (displayValue != 0){
     tempVariable = displayValue;
-    result = 1;
     if (tempVariable < 0){
       tempVariable = tempVariable * -1;
       result = -1;
@@ -127,10 +161,10 @@ function factorial(){
       result = result * tempVariable;
       tempVariable--;
     }
-    calculatorBase.display.innerHTML = result;
-  } else {
-    calculatorBase.display.innerHTML = 1;
   }
+  calculatorBase.mainArg = result;
+  updateDisplay(calculatorBase.mainArg);
   //The next press will out the display if its a number
   calculatorBase.empty_out = 1;
+}
 }
