@@ -37,7 +37,7 @@ The constructer of the main calculator object to be used in the project.
 */
 var Calculator = function(){
   this.mainArg = 0; //The main argument usually on the calculator's display.
-  this.hiddenArg = 0; //The argument that is hidden and used for the various operations.
+  this.hiddenArg = undefined; //The argument that is hidden and used for the various operations.
   this.memoryArg = 0; //The memory variable
   this.operator = undefined; //The name of the operator to be executed.
   this.previousOperator = undefined;
@@ -149,39 +149,39 @@ Calculator.prototype = {
   */
   operationClick: function operationClick(){
   // Check if the user entered an operation before
-  if((calculator.hiddenArgument==undefined && calculator.previousOperator == undefined) || calculator.clearScreen){
-    calculator.hiddenArgument = parseFloat(calculator.display.innerHTML);
+  if((this.hiddenArg==undefined && this.previousOperator == undefined) || this.clearScreen){
+    this.hiddenArg = parseFloat(this.display.innerHTML);
   }else{
 
     // See what operation the user entered
-    switch(calculator.previousOperator){
+    switch(this.previousOperator){
       case '-':
-        calculator.hiddenArgument = calculator.hiddenArgument - parseFloat(calculator.display.innerHTML);
+        this.hiddenArg = this.hiddenArg - parseFloat(this.display.innerHTML);
         break;
       case '+':
-        calculator.hiddenArgument = calculator.hiddenArgument + parseFloat(calculator.display.innerHTML);
+        this.hiddenArg = this.hiddenArg + parseFloat(this.display.innerHTML);
         break;
       case '*':
-        calculator.hiddenArgument = calculator.hiddenArgument*parseFloat(calculator.display.innerHTML);
+        this.hiddenArg = this.hiddenArg*parseFloat(this.display.innerHTML);
         break;
       case '/':
-  if(parseFloat(calculator.display.innerHTML)!==0){
-      calculator.hiddenArgument = calculator.hiddenArgument/parseFloat(calculator.display.innerHTML);
-  }else{
-      calculator.hiddenArgument = "Cannot divide a number by 0";
-  }
+      	if(parseFloat(this.display.innerHTML)!==0){
+      	    this.hiddenArg = this.hiddenArg/parseFloat(this.display.innerHTML);
+      	}else{
+      	    this.hiddenArg = "Cannot divide a number by 0";
+      	}
         break;
     }
-    calculator.display.innerHTML = calculator.hiddenArgument;
+    this.display.innerHTML = this.hiddenArgument;
   }
 
-  calculator.previousOperator = calculator.operation;
+  this.previousOperator = this.operation;
 
   if(operation == '='){
-    calculator.previousOperator = undefined;
-    calculator.hiddenArgument = undefined;
+    this.previousOperator = undefined;
+    this.hiddenArg = undefined;
   }
-  calculator.clearScreen = true;
+  this.clearScreen = true;
 },
 
   memoryClick:
