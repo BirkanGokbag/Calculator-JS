@@ -28,12 +28,8 @@ function createObjects(){
 
 }
 
-<<<<<<< HEAD
 function setOperator(calculator){
   calculator.operator = this.innerHTML;
-=======
-function setOperator(){
->>>>>>> 5618bec516261f0933fb8d173021c1260b9f60b8
 }
 
 /*
@@ -86,7 +82,28 @@ Calculator.prototype = {
   },
 
   /*
-<<<<<<< HEAD
+  Author: Michael Radey
+  This method will update the calcultor's screen when a number button is typed
+  */
+  keypress: function keyPress(e){
+    var key = e.which || e.keyCode;
+    var keyCode = String.fromCharCode(key);
+    keyCode = key == '13' ? "=" : keyCode;
+    numbers = "1234567890.";
+    operators = "+-/*=";
+    this.operator = this.operator == "p" && keyCode == "i" ? this.operator = "pi" : keyCode;
+    if(numbers.includes(this.operator)){
+      this.numberClick();
+    }
+    else if(operators.includes(this.operator)){
+      this.operationClick();
+    }
+    else if(keyCode == "pi"){
+
+    }
+  }
+
+  /*
   Author: Rajeev Ravi
   Contains the functionality for the memory buttons.
   */
@@ -109,29 +126,6 @@ Calculator.prototype = {
       this.memoryArg = this.mainArg;
     }
   }
-=======
-  Author: Michael Radey
-  This method will update the calcultor's screen when a number button is typed
-  */
-  keypress: function keyPress(e){
-    var key = e.which || e.keyCode;
-    var keyCode = String.fromCharCode(key);
-    keyCode = key == '13' ? "=" : keyCode;
-    numbers = "1234567890.";
-    operators = "+-/*=";
-    this.operator = this.operator == "p" && keyCode == "i" ? this.operator = "pi" : keyCode;
-    if(numbers.includes(this.operator)){
-      this.numberClick();
-    }
-    else if(operators.includes(this.operator)){
-      this.operationClick();
-    }
-    else if(keyCode == "pi"){
-
-    }
-  }
-  memoryClick:
->>>>>>> 5618bec516261f0933fb8d173021c1260b9f60b8
 
   /*
   Author: Alyssa Langhals
@@ -202,20 +196,15 @@ Calculator.prototype = {
       	}
         break;
     }
-
-    // Set display to the hidden argument
     this.display.innerHTML = this.hiddenArgument;
   }
 
   this.previousOperator = this.operation;
 
-  // If the operation is =, then set both hiddenarg and previous to undefined
   if(operation == '='){
     this.previousOperator = undefined;
     this.hiddenArg = undefined;
   }
-
-  // Clear the screen once a button is pressed
   this.clearScreen = true;
 },
 
