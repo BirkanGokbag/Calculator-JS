@@ -67,17 +67,19 @@ Calculator.prototype = {
   handles the entry of numbers and updates the display
   */
   numberClick:function(){
-    display = document.getElementById("display").innerHTML;
-    number = this.operator;
-    if(display.length < 17){
-      if(display.toString() == "0" && number != '.'){
-        document.getElementById("display").innerHTML = number;
-      }else if(number == '.' && display.indexOf(number) == -1){
-        document.getElementById("display").innerHTML = display+ number;
-      }else if(number != '.'){
-        document.getElementById("display").innerHTML = display + number;
+    display = this.display.innerHTML;
+      number = htmlElement.innerHTML;
+      if(display.length < this.display.clientWidth/17 || this.clearScreen){
+        if(display.toString() == "0" && number != '.' || this.clearScreen){
+          this.display.innerHTML = number;
+        }else if(number == '.' && display.indexOf(number) == -1){
+          this.display.innerHTML = display+ number;
+        }else if(number != '.'){
+          this.display.innerHTML = display + number;
+        }
+        this.clearScreen = false;
+        this.mainArg = parseFloat(this.display.innerHTML);
       }
-    }
   },
 
   /*
