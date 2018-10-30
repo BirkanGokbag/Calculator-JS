@@ -5,7 +5,25 @@ Created: 10/30 by Rajeev Ravi
 function createObjects(){
   var calculator = new Calculator();
   
+  //Set all buttons to execute setOperator first
+  buttons = document.getElementsByTagName('button');
+  for(i = 0; i<buttons.length; i++){
+    buttons[i].addEventListener('click', setOperator, true);
+  }
 
+  //add event listeners to the number buttons
+  numberButtons = document.getElementsByClassName('number');
+  for(i = 0; i < numberButtons.length; i++){
+    numberButtons[i].addEventListener('click', Calculator.numberClick, false);
+  }
+
+  //add event listeners to the trig buttons
+  trigButtons = document.getElementsByClassName('trig');
+  for(i = 0; i < trigButtons.length; i++){
+    trigButtons[i].addEventListener('click', Calculator.trigClick, false);
+  }
+
+  
 }
 
 function setOperator(){
@@ -29,17 +47,81 @@ var Calculator = function(){
 
 
 Calculator.prototype = {
-  updateDisplay:
+  /*
+  Author: Alyssa Langhals
+  This function will update the display and check if the displayed number should be in exponential form to fit onto the display screen
+  */
+  updateDisplay: function(){
 
-  numberClick:
+    if(value.toString().length > this.display.clientWidth/17){
+      this.display.innerHTML = this.mainArg.toExponential();
+    }else{
+      this.display.innerHTML = this.mainArgvalue;
+    }
+  },
 
-  keypress:
+  /*
+  Author: Alyssa Langhals
+  handles the entry of numbers and updates the display
+  */
+  numberClick:function(){
+
+    display = document.getElementById("display").innerHTML;
+    number = this.operator;
+    if(display.length < 17){
+      if(display.toString() == "0" && number != '.'){
+        document.getElementById("display").innerHTML = number;   
+      }else if(number == '.' && display.indexOf(number) == -1){
+        document.getElementById("display").innerHTML = display+ number;
+      }else if(number != '.'){
+        document.getElementById("display").innerHTML = display + number;
+      }
+    }
+  },
+
+  keypress: 
+
+  memoryClick:
+
+  /*
+  Author: Alyssa Langhals
+  This method will update the calcultor's screen with the result when a trig button is pressesd
+  */
+  trigClick: function(){
+
+    switch(this.operator){
+      case 'sin':
+        this.mainArg=Math.sin(this.mainArg);
+        break;
+      case 'cos':
+        this.mainArg=Math.cos(this.mainArg);
+        break;
+      case 'tan':
+        this.mainArg=Math.tan(this.mainArg);
+        break;
+      case 'pi':
+        this.mainArg=Math.PI;
+        break;
+     }
+     this.updateDisplay();
+     this.clearScreen = true;
+   },
+
+
+  clear:
+
+  clearEntry:
 
   /*
     Author: Berkay Kaplan
     The function that handles the operations that require at least two numbers, such as +, -, /, *
   */
+<<<<<<< HEAD
   operationClick: function operationClick(){
+=======
+  operationClick: function operationClick(operation){
+
+>>>>>>> 32d462fd39f18bf2e3a5d7a0461e962cd3f853cd
   // Check if the user entered an operation before
   if((calculator.hiddenArgument==undefined && calculator.previousOperator == undefined) || calculator.clearScreen){
     calculator.hiddenArgument = parseFloat(calculator.display.innerHTML);
@@ -74,7 +156,7 @@ Calculator.prototype = {
     calculator.hiddenArgument = undefined;
   }
   calculator.clearScreen = true;
-}
+},
 
   memoryClick:
 
@@ -91,6 +173,7 @@ Calculator.prototype = {
     Takes the percent of the hidden argument
   */
   percent: function percent(){
+<<<<<<< HEAD
   if(calculator.hiddenArgument != undefined){
     percent = calculator.display.innerHTML;
     calculator.display.innerHTML = (calculator.hiddenArgument/100)*percent;
@@ -98,13 +181,22 @@ Calculator.prototype = {
     calculator.display.innerHTML = "0";
   }
 }
+=======
+    if(this.lastOperation != undefined){
+      percent = calculator.display.innerHTML;
+      calculator.display.innerHTML = (this.lastNumber/100)*percent;
+    }else{
+      calculator.display.innerHTML = "0";
+    }
+  },
+>>>>>>> 32d462fd39f18bf2e3a5d7a0461e962cd3f853cd
   
   /*
     Changes the sign of the number on the screen
   */
   changeSign: function changeSign(){
     calculator.display.innerHTML=parseFloat(-calculator.display.innerHTML);
-  }
+  },
 
   /*
     Author: Berkay Kaplan
@@ -116,7 +208,11 @@ Calculator.prototype = {
     calculator.display.innerHTML=Math.sqrt(Number);
   }
   calculator.clearScreen = true;
+<<<<<<< HEAD
   }
+=======
+},
+>>>>>>> 32d462fd39f18bf2e3a5d7a0461e962cd3f853cd
 
   clearEntry:
 }
