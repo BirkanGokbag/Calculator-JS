@@ -1,194 +1,126 @@
-/* Created: 10/29/2018 by Rajeev Ravi
-Contributors: Rajeev Ravi, Alyssa Langhals, Birkan Gokbag, Berkay Kaplan, Michael Radey
-Contains the javascript for the calculator
+/*
+Created: 10/30 by Rajeev Ravi
 */
-
-var calculatorBase = null;
 
 function createObjects(){
-  calculatorBase = {
-  mainArg: 0, //The main argument usually on the calculator's display.
-  hiddenArg:0, //The argument that is hidden and used for the various operations.
-  memoryArg:0, //The memory variable
-  empty_out:0, //Where some functions that reset the display are stored
-  display: document.getElementById("display"), //A direct link to the display's html.
-  clearScreen:false,
-  songList: ["pump_up.mp3","musical.mp3","SusumuHirasawa1.mp3","SusumuHirasawa2.mp3"] //Birkan's great musical taste.
+  var calculator = new Calculator();
+
 }
-  //The number buttons must have access to all of the parameters in the one calculatorBase object.
-  NumberButton.prototype = calculatorBase;
 
-  //The operation buttons must have access to all of the parameters as well.
-  OperationButton.prototype = calculatorBase;
+function setOperator(){
+}
 
-  //create the number buttons
-  numberButtons = document.getElementsByClassName('number');
-  for(i = 0; i < numberButtons.length; i++){
-    NumberButton(numberButtons[i]);
-  }
-  // Create the log button and assign it to the logarithmic function
-  document.getElementById("log").addEventListener("click", logarithmic, false);
-  // Create the clear button.
-  document.getElementById("clearButton").addEventListener("click", clearCalculator, false);
-  // Create the factorial button.
-  document.getElementById("factorial").addEventListener("click", factorial, false);
+/*
+Author: Rajeev Ravi
+The constructer of the main calculator object to be used in the project.
+*/
+var Calculator = function(){
+  this.mainArg = 0; //The main argument usually on the calculator's display.
+  this.hiddenArg = 0; //The argument that is hidden and used for the various operations.
+  this.memoryArg = 0; //The memory variable
+  this.operator = undefined; //The name of the operator to be executed.
+  this.display =  document.getElementById("display"); //A direct link to the display's html.
+  this.clearScreen = false; //Check if the screen needs to be cleared.
+  this.songList =  ["pump_up.mp3","musical.mp3","SusumuHirasawa1.mp3","SusumuHirasawa2.mp3"];
+}
 
-  document.getElementById("shuffle").addEventListener("click", shuffleSong, false);
-  //All of the operation buttons created.
-  trigButtons = document.getElementsByClassName('trig');
-  for(i = 0; i < trigButtons.length; i++){
-    OperationButton(trigButtons[i],trigClick);
-  }
+
+Calculator.prototype = {
+  updateDisplay:
+
+  numberClick:
+
+  keypress:
+
+  operationClick:
+
+  memoryClick:
+
   /*
-    Author: Alyssa Langhals
-    This function will update the display and check if the displayed number should be in exponential form to fit onto the display screen
+    Author: Birkan Gokbag
+    This method will clear the calculator completely.
   */
-  function updateDisplay(value){
-    if(value.toString().length > calculatorBase.display.clientWidth/17){
-      calculatorBase.display.innerHTML = value.toExponential();
-    }else{
-      calculatorBase.display.innerHTML = value;
-  }
-}
+  clear: function() {
+      //Clear the display, and all the arguments.
+      this.display.innerHTML = 0;
+      this.hiddenArg = 0;
+      this.memoryArg = 0;
+      this.mainArg = 0;
+      this.operator = undefined;
+      this.clearScreen = false;
+    }
 
+  clearEntry:
 
-/*
-Author: Alyssa Langhals
-Constructor function for the NumberButton. NumberButtons are the 0-9 digits
-displayed on the calculator's face.
-*/
-function NumberButton(htmlElement) {
-
-    htmlElement.onclick = function(){
-
-      //If there was a log operation, start from 0, then reset the log condition
-      if (calculatorBase.empty_out == 1){
-        calculatorBase.empty_out = 0;
-        calculatorBase.display.innerHTML = 0;
+  /*
+    Author: Birkan Gokbag
+    This method will define the functionality of log button.
+  */
+  logarithmic: function() {
+      valueInDisplay = parseFloat(document.getElementById("display").innerHTML);
+      //If the number is negative or 0, then cannot get the log of the value
+      if (valueInDisplay <= 0){
+        this.display.innerHTML = "Not A Number."
       }
+      else{
+        this.mainArg = Math.log(parseFloat(document.getElementById("display").innerHTML));
+        this.updateDisplay;
+      }
+      //Log operation had happened, therefore set clearScreen to true
+      this.clearScreen = true;
+    }
 
-      display = calculatorBase.display.innerHTML;
-      number = htmlElement.innerHTML;
-      if(display.length < calculatorBase.display.clientWidth/17 || calculatorBase.clearScreen){
-        if(display.toString() == "0" && number != '.' || calculatorBase.clearScreen){
-          calculatorBase.display.innerHTML = number;
-        }else if(number == '.' && display.indexOf(number) == -1){
-          calculatorBase.display.innerHTML = display+ number;
-        }else if(number != '.'){
-          calculatorBase.display.innerHTML = display + number;
+    /*
+      Author: Birkan Gokbag
+      This method will define the functionality of factorial button.
+    */
+  factorial: function(){
+      //Get the current value from the display
+      displayValue = this.display.innerHTML;
+
+      //If it is not a total value, then display Not a Number.
+      if (displayValue % 1 == 0) {
+        result = 1;
+        //If the result is not 0, then proceed to calculate it.
+        if (displayValue != 0) {
+          tempVariable = displayValue;
+          //If the number is negative, make it positive and make result negative.
+          if (tempVariable < 0) {
+            tempVariable = tempVariable * -1;
+            result = -1;
+          }
+          //Get the result from here
+          while (tempVariable != 0) {
+            result = result * tempVariable;
+            tempVariable--;
+          }
         }
-        calculatorBase.clearScreen = false;
-        calculatorBase.mainArg = parseFloat(calculatorBase.display.innerHTML);
+        // Add it to the main arg.
+        this.mainArg = result;
+        this.updateDisplay;
+      } else {
+          this.display.innerHTML = "Not A Number.";
       }
-
+      //The next press will clear out the display if its a number
+      this.clearScreen = true;
     }
-}
 
-/*
-Constructor function for the OperationButton. OperationButtons are the rest of the
-buttons on the calculator's face.
-*/
-function OperationButton(htmlElement,onClickFunction){
-  htmlElement.onclick = onClickFunction;
-}
-
-function logarithmic() {
-  valueInDisplay = parseFloat(document.getElementById("display").innerHTML);
-  //If the number is negative or 0, then cannot get the log of the value
-  if (valueInDisplay <= 0){
-    calculatorBase.display.innerHTML = "Not A Number."
+    /*
+      Author: Birkan Gokbag
+      This method will have the song suffling functionality.
+    */
+  shuffleSong: function(){
+    //Get the Id of the music player and its source.
+    var musicPlayer = document.getElementById("musicPlayer");
+    var musicSource = document.getElementById("musicSource");
+    //Stop the music
+    musicPlayer.pause();
+    musicPlayer.currentTime = 0;
+    //Get a random song
+    randomSong = Math.floor(Math.random() * this.songList.length);
+    musicSource.src = "./assets/images_and_sounds/" + this.songList[randomSong];
+    //Play the song
+    musicPlayer.load();
+    musicPlayer.play();
   }
-  else{
-    calculatorBase.mainArg = Math.log(parseFloat(document.getElementById("display").innerHTML));
-    updateDisplay(calculatorBase.mainArg);
-  }
-  //Log operation had happened
-  calculatorBase.empty_out = 1;
-}
-
-function clearCalculator() {
-
-  //Clear the display, and all the arguments.
-  calculatorBase.display.innerHTML = 0;
-  calculatorBase.hiddenArg = 0;
-  calculatorBase.memoryArg = 0;
-  calculatorBase.mainArg = 0;
-  calculatorBase.empty_out = 0;
-}
-/*
-  Author: Alyssa Langhals
-  This function will update the display and check if the displayed number should be in exponential form to fit onto the display screen
-*/
-function updateDisplay(value){
-  if(value.toString().length > calculatorBase.display.clientWidth/17){
-    calculatorBase.display.innerHTML = value.toExponential();
-  }else{
-    calculatorBase.display.innerHTML = value;
-  }
-}
-
-/*
-  Author: Alyssa Langhals
-  This method will update the calcultor's screen with the result when a trig button is pressesd
-*/
-function trigClick(){
-  switch(this.innerHTML){
-    case 'sin':
-      calculatorBase.mainArg=Math.sin(calculatorBase.mainArg);
-      break;
-    case 'cos':
-      calculatorBase.mainArg=Math.cos(calculatorBase.mainArg);
-      break;
-    case 'tan':
-      calculatorBase.mainArg=Math.tan(calculatorBase.mainArg);
-      break;
-    case 'pi':
-      calculatorBase.mainArg=Math.PI;
-      break;
-   }
-   updateDisplay(calculatorBase.mainArg);
-   calculatorBase.clearScreen = true;
- }
-
-function factorial(){
-  displayValue = calculatorBase.display.innerHTML;
-  result = 1;
-  if (displayValue != 0){
-    tempVariable = displayValue;
-    if (tempVariable < 0){
-      tempVariable = tempVariable * -1;
-      result = -1;
-    }
-    while (tempVariable != 0){
-      result = result * tempVariable;
-      tempVariable--;
-    }
-  }
-  calculatorBase.mainArg = result;
-  updateDisplay(calculatorBase.mainArg);
-  //The next press will out the display if its a number
-  calculatorBase.empty_out = 1;
-}
-
-/*
- Author: Birkan Gokbag
- Shuffles the song that is playing on the website
-*/
-function shuffleSong() {
-  window.onerror = false;
- //Get the Id of the music player and its source.
- var musicPlayer = document.getElementById("musicPlayer");
- var musicSource = document.getElementById("musicSource");
- musicPlayer.onerror=function(){alert("Error! Something went wrong");};
-
- //Stop the music
- musicPlayer.pause();
- musicPlayer.currentTime = 0;
- //Get a random song
- randomSong = Math.floor(Math.random() * calculatorBase.songList.length);
- musicSource.src = "./assets/images_and_sounds/" + calculatorBase.songList[randomSong];
- //Play the song
- musicPlayer.load();
- musicPlayer.play();
-}
 }
