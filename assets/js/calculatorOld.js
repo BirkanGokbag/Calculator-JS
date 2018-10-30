@@ -31,12 +31,17 @@ function createObj(){
   for(i = 0; i < trigButtons.length; i++) {
     trigButtons[i].addEventListener("click", trigClick);
   };
+<<<<<<< HEAD:assets/js/calculator.js
+  window.addEventListener("keypress", keyPress, false);
+
+=======
 
   //By: Rajeev Ravi -> Add memory event listeners
   memoryButtons = document.getElementsByClassName("memory");
   for(i=0; i<trigButtons.length; i++){
     memoryButtons[i].addEventListener("click",memoryClick);
   }
+>>>>>>> 8971590b7882401215bd88b3696f46f79a07d928:assets/js/calculatorOld.js
 }
 
 
@@ -45,9 +50,9 @@ function createObj(){
   Author: Alyssa Langhals
   This method will update the calcultor's screen when a number button is pressesd
 */
-function numberClick(){
+function numberClick(e, num){
   display = calculator.display.innerHTML;
-  number = this.innerHTML;
+  number = num || this.innerHTML;
   if(display.length < calculator.display.clientWidth/17 || calculator.clearScreen){
     if(display.toString() == "0" && number != '.' || calculator.clearScreen){
       calculator.display.innerHTML = number;
@@ -58,6 +63,25 @@ function numberClick(){
     }
     calculator.clearScreen = false;
   }
+}
+
+/*
+  Author: Michael Radey
+  This method will update the calcultor's screen when a number button is typed
+*/
+function keyPress(e){
+  var key = e.which || e.keyCode;
+  var keyCode = String.fromCharCode(key);
+  keyCode = key == '13' ? "=" : keyCode;
+  numbers = "1234567890";
+  operators = "+-/*=";
+  if(numbers.includes(keyCode)){
+    numberClick(e,keyCode);
+  }
+  else if(operators.includes(keyCode)){
+    operationClick(keyCode);
+  }
+
 }
 
 /*
@@ -95,7 +119,12 @@ function operationClick(operation){
         this.lastNumber = this.lastNumber*parseFloat(calculator.display.innerHTML);
         break;
       case '/':
-        this.lastNumber = this.lastNumber/parseFloat(calculator.display.innerHTML);
+	if(parseFloat(calculator.display.innerHTML)!==0){
+	    this.lastNumber = this.lastNumber/parseFloat(calculator.display.innerHTML);
+	}else{
+	    this.lastNumber = "Cannot divide a number by 0";
+	}
+        
         break;
     }
     calculator.display.innerHTML = this.lastNumber;
@@ -118,6 +147,10 @@ function clearDisplay(){
   calculator.display.innerHTML = "0";
 }
 
+/*
+  Author: Berkay Kaplan
+  Takes the percent of the last number
+*/
 function percent(){
   if(this.lastOperation != undefined){
     percent = calculator.display.innerHTML;
