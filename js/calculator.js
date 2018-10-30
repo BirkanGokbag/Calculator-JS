@@ -35,7 +35,29 @@ Calculator.prototype = {
 
   operationClick:
 
-  memoryClick:
+  /*
+  Author: Rajeev Ravi
+  Contains the functionality for the memory buttons.
+  */
+  memoryClick: function(){
+    switch(this.operator){
+      case 'MC':
+      this.memoryArg = 0;
+      break;
+      case 'MR':
+      this.mainArg = this.memoryArg;
+      this.updateDisplay();
+      break;
+      case 'M-':
+      this.memoryArg -= this.mainArg;
+      break;
+      case 'M+':
+      this.memoryArg += this.mainArg;
+      break;
+      case 'MS':
+      this.memoryArg = this.mainArg;
+    }
+  }
 
   clear:
 
