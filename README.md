@@ -1,8 +1,8 @@
 # Project 5
 ### JavaScript Calculator
-This project is a calculator that was created using javascript, html, and css.
 
 ## Overview
+This project is a calculator that was created using javascript, html, and css.
 
 ## Required Software
 
@@ -35,3 +35,5 @@ Michael Radey:
 ## Testing
 ### How to Run
 ### Plan
+We created unit tests using mocha for most of the main functions included in the calculator object
+We tested the System by generating the UI and entering combinations of buttons, starting at the most simple (like clicking on the numbers) and completing simple calculations, and then moving to more complex conditions.
