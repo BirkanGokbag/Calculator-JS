@@ -6,7 +6,9 @@ This project is a calculator that was created using javascript, html, and css.
 
 ## Required Software
 npm --- `sudo apt install mocha`
+
 mocha --- `sudo npm install mocha`
+
 node --- `sudo apt install nodejs-legacy`
 
 
@@ -42,4 +44,5 @@ Enter the /test directory in the project folder, then execute:
 `npm test`
 ### Plan
 We created unit tests using mocha for most of the main functions included in the calculator object
+
 We tested the System by generating the UI and entering combinations of buttons, starting at the most simple (like clicking on the numbers) and completing simple calculations, and then moving to more complex conditions.
