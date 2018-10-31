@@ -1,11 +1,14 @@
 # Project 5
 ### JavaScript Calculator
+This project is a calculator that was created using javascript, html, and css.
 
 ## Overview
 
 ## Required Software
 
 ## How To Run
+Navigate into the project folder, and open calculator.html in your browser of choice.
+Use the buttons on the keyboard for quicker calculations
 
 ## Work Distribution
 ### Roles
