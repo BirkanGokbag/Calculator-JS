@@ -193,12 +193,13 @@ Calculator.prototype = {
  */
  clearCompeletely: function() {
      //Clear the display, and all the arguments.
-     this.hiddenArg = 0;
      this.memoryArg = 0;
      this.mainArg = 0;
      this.operator = undefined;
      this.clearScreen = false;
      this.updateDisplay.bind(this).call();
+     this.hiddenArg = undefined; 
+     this.previousOperator = undefined;
    },
 
 
@@ -359,7 +360,7 @@ Calculator.prototype = {
   */
   changeSign: function(){
     this.mainArg=parseFloat(-this.mainArg);
-    this.clearScreen = true;
+    //this.clearScreen = true;
     this.updateDisplay.bind(this).call();
   }
 
