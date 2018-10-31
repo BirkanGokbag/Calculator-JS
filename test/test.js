@@ -1,14 +1,19 @@
+/*
+Created 10/30 by Alyssa Langhals
+*/
+
 var assert = require('assert');
 
 
 /*
-Created: 10/30 by Rajeev Ravi
+  Include the same functionality as calculator.js
 */
+
 var calculator = null;
 
 function createObjects(){
   calculator = new Calculator();
-  
+
 }
 
 
@@ -212,7 +217,7 @@ Calculator.prototype = {
   */
   percent: function(){
   if(this.previousOperator != undefined){
-    this.mainArg = (this.hiddenArg/100)*this.mainArg;
+    this.mainArg = (this.hiddenArg/100)*parseFloat(this.mainArg);
   }else{
     this.mainArg = "0";
   }
@@ -242,16 +247,12 @@ Calculator.prototype = {
   */
   factorial: function(){
     //If it is not a total value, then display Not a Number.
-    if (this.mainArg % 1 == 0) {
+    if (this.mainArg % 1 == 0 && this.mainArg >= 0) {
       result = 1;
       //If the result is not 0, then proceed to calculate it.
       if (this.mainArg != 0) {
         tempVariable = this.mainArg;
-        //If the number is negative, make it positive and make result negative.
-        if (tempVariable < 0) {
-          tempVariable = tempVariable * -1;
-          result = -1;
-        }
+
         //Get the result from here
         while (tempVariable != 0) {
           result = result * tempVariable;
@@ -314,40 +315,178 @@ Calculator.prototype = {
 
  }
 
+/*
+Tests start here
+*/
 
+describe('Memory Tests',function(){
 
-describe('Rajeev',function(){
+describe('Tests for MS:',function(){
+  var theCalculator = new Calculator();
 
-describe('MS',function(){
+  theCalculator.operator = 'MS';
+
+  it('checks a normal case for MS',function(){
+    theCalculator.mainArg = 42;
+    theCalculator.memoryClick();
+    assert.equal(42,theCalculator.memoryArg);
+    assert.equal(theCalculator.memoryArg,theCalculator.mainArg);
+  });
+
+  it('checks a normal decimal case for MS',function(){
+    theCalculator.mainArg = 42.42424242;
+    theCalculator.memoryClick();
+    assert.equal(42.42424242,theCalculator.memoryArg);
+    assert.equal(theCalculator.memoryArg,theCalculator.mainArg);
+  });
+
+  it('checks a negative case for MS', function(){
+    theCalculator.mainArg = -42;
+    theCalculator.memoryClick();
+    assert.equal(-42,theCalculator.memoryArg);
+    assert.equal(theCalculator.memoryArg,theCalculator.mainArg);
+  })
+
+  it('checks a negative decimal case for MS', function(){
+    theCalculator.mainArg = -42.424242;
+    theCalculator.memoryClick();
+    assert.equal(-42.424242,theCalculator.memoryArg);
+    assert.equal(theCalculator.memoryArg,theCalculator.mainArg);
+  })
+
+  it('checks a boundary case for MS', function(){
+    theCalculator.mainArg = 0;
+    theCalculator.memoryClick();
+    assert.equal(0,theCalculator.memoryArg);
+    assert.equal(theCalculator.memoryArg,theCalculator.mainArg);
+  })
 })
 
-describe('MR',function(){
+describe('Tests for MR:',function(){
+  var theCalculator = new Calculator();
+  theCalculator.operator = 'MR';
 
+  it('checks a normal case for MR',function(){
+    theCalculator.memoryArg = 42;
+    theCalculator.memoryClick();
+    assert.equal(42,theCalculator.mainArg);
+    assert.equal(theCalculator.memoryArg,theCalculator.mainArg);
+  });
+
+  it('checks a normal decimal case for MS',function(){
+    theCalculator.memoryArg = 42.42424242;
+    theCalculator.memoryClick();
+    assert.equal(42.42424242,theCalculator.mainArg);
+    assert.equal(theCalculator.memoryArg,theCalculator.mainArg);
+  });
+
+  it('checks a negative case for MS', function(){
+    theCalculator.memoryArg = -42;
+    theCalculator.memoryClick();
+    assert.equal(-42,theCalculator.mainArg);
+    assert.equal(theCalculator.memoryArg,theCalculator.mainArg);
+  })
+
+  it('checks a negative decimal case for MS', function(){
+    theCalculator.memoryArg = -42.424242;
+    theCalculator.memoryClick();
+    assert.equal(-42.424242,theCalculator.mainArg);
+    assert.equal(theCalculator.memoryArg,theCalculator.mainArg);
+  })
+
+  it('checks a boundary case for MS', function(){
+    theCalculator.memoryArg = 0;
+    theCalculator.memoryClick();
+    assert.equal(0,theCalculator.mainArg);
+    assert.equal(theCalculator.memoryArg,theCalculator.mainArg);
+  })
 })
-describe('M+',function(){
+describe('Tests for M+:',function(){
+  var theCalculator = new Calculator();
+  theCalculator.operator = 'M+';
 
+  it('checks a standard case for M+',function(){
+    theCalculator.memoryArg = 0;
+    theCalculator.mainArg = 42;
+    theCalculator.memoryClick();
+    assert.equal(42,theCalculator.memoryArg);
+    assert.equal(theCalculator.memoryArg,theCalculator.mainArg);
+  })
+
+  it('checks a standard decimal case for M+',function(){
+    theCalculator.memoryArg = 0.1;
+    theCalculator.mainArg = 42.424242;
+    theCalculator.memoryClick();
+    assert.equal(42.524242,theCalculator.memoryArg);
+    assert.equal(42.424242,theCalculator.mainArg);
+  })
+
+  it('checks a standard negative decimal case for M+',function(){
+    theCalculator.memoryArg = 42.424242;
+    theCalculator.mainArg = -0.1;
+    theCalculator.memoryClick();
+    assert.equal(42.324242,theCalculator.memoryArg);
+    assert.equal(-0.1,theCalculator.mainArg);
+  })
 })
-describe('M-',function(){
+describe('Tests for M-:',function(){
+  var theCalculator = new Calculator();
+  theCalculator.operator = 'M-';
 
+  it('checks a standard case for M-',function(){
+    theCalculator.memoryArg = 42;
+    theCalculator.mainArg = 42;
+    theCalculator.memoryClick();
+    assert.equal(42,theCalculator.mainArg);
+    assert.equal(0,theCalculator.memoryArg);
+  })
+
+  it('checks a standard decimal case for M+',function(){
+    theCalculator.memoryArg = 0.1;
+    theCalculator.mainArg = 42.424242;
+    theCalculator.memoryClick();
+    assert.equal(-42.324242,theCalculator.memoryArg);
+    assert.equal(42.424242,theCalculator.mainArg);
+  })
+  it('checks a standard negative decimal case for M-',function(){
+
+    theCalculator.memoryArg = 42.424242;
+    theCalculator.mainArg = -0.1;
+    theCalculator.memoryClick();
+    assert.equal(42.524242,theCalculator.memoryArg);
+    assert.equal(-0.1,theCalculator.mainArg);
+  })
 })
-describe('MC',function(){
+describe('Tests for MC:',function(){
+  var theCalculator = new Calculator();
+  theCalculator.operator = 'MC';
 
+  it('checks a standard execution of MC',function(){
+    theCalculator.memoryArg = 41515151996841855;
+    theCalculator.memoryClick();
+
+    assert.equal(0,theCalculator.memoryArg);
+  })
+
+  it('checks an edge case for MC',function(){
+    theCalculator.memoryArg = 0;
+    theCalculator.memoryClick();
+
+    assert.equal(0,theCalculator.memoryArg);
+  })
+ })
 })
 
-})
 
 
-
-
-
-describe('tests for trigClick',function(){  
+describe('tests for trigClick',function(){
   describe('test for sin(0)', function() {
     var theCalculator = new Calculator();
     theCalculator.operator = 'sin';
     theCalculator.mainArg = 0;
     theCalculator.trigClick();
 
-   
+
     it('sin(0) updates mainArg', function(){
       assert.equal(0, theCalculator.mainArg);
     });
@@ -358,7 +497,7 @@ describe('tests for trigClick',function(){
     theCalculator.operator = 'sin';
     theCalculator.mainArg = 1;
     theCalculator.trigClick();
-  
+
     it('sin(1) updates mainArg', function(){
       assert.equal(Math.sin(1), theCalculator.mainArg);
     });
@@ -369,7 +508,7 @@ describe('tests for trigClick',function(){
     theCalculator.operator = 'cos';
     theCalculator.mainArg = 0;
     theCalculator.trigClick();
-    
+
     it('cos(1) updates mainArg', function(){
       assert.equal(Math.cos(0), theCalculator.mainArg);
     });
@@ -380,7 +519,7 @@ describe('tests for trigClick',function(){
     theCalculator.operator = 'cos';
     theCalculator.mainArg = -1;
     theCalculator.trigClick();
-     
+
     it('cos(1) updates mainArg', function(){
       assert.equal(Math.cos(-1), theCalculator.mainArg);
     });
@@ -391,7 +530,7 @@ describe('tests for trigClick',function(){
     theCalculator.operator = 'tan';
     theCalculator.mainArg = 100;
     theCalculator.trigClick();
-   
+
     it('tan(1) updates mainArg', function(){
       assert.equal(Math.tan(100), theCalculator.mainArg);
     });
@@ -419,10 +558,77 @@ describe('tests for trigClick',function(){
   });
 });
 
+  describe('test for 0!', function() {
+    var theCalculator = new Calculator();
+    theCalculator.mainArg = 0;
+    theCalculator.factorial();
+
+    it('n! updates mainArg for 0', function(){
+      assert.equal(1, theCalculator.mainArg);
+    });
+  });
+
+  describe('test for negative number factorial', function() {
+    var theCalculator = new Calculator();
+    theCalculator.mainArg = -5;
+    theCalculator.factorial();
+
+    it('n! does not update mainArg for negative number', function(){
+      assert.equal("Not A Number.", theCalculator.mainArg);
+    });
+  });
+  describe('test for positive non integer factorial', function() {
+    var theCalculator = new Calculator();
+    theCalculator.mainArg = 1.1;
+    theCalculator.factorial();
+
+    it('n! does not update mainArg for non int number', function(){
+      assert.equal("Not A Number.", theCalculator.mainArg);
+    });
+  });
+
+  describe('test for positive integer factorial', function() {
+    var theCalculator = new Calculator();
+    theCalculator.mainArg = 5;
+    theCalculator.factorial();
+
+    it('n! updates mainArg for positive integer', function(){
+      assert.equal(120, theCalculator.mainArg);
+    });
+  });
+
+  describe('test for negative number natural log', function() {
+    var theCalculator = new Calculator();
+    theCalculator.mainArg = -10;
+    theCalculator.logarithmic();
+
+    it('ln(-num) doesnt change mainArg', function(){
+      assert.equal("Not A Number.", theCalculator.mainArg);
+    });
+  });
+
+  describe('test for 0 natural log', function() {
+    var theCalculator = new Calculator();
+    theCalculator.mainArg = 0;
+    theCalculator.logarithmic();
+
+    it('ln(0) doesnt change mainArg', function(){
+      assert.equal("Not A Number.", theCalculator.mainArg);
+    });
+  });
+
+  describe('test for positive number natural log', function() {
+    var theCalculator = new Calculator();
+    theCalculator.mainArg = 10;
+    theCalculator.logarithmic();
+
+    it('log(10) updates mainArg', function(){
+      assert.equal(Math.log(10), theCalculator.mainArg);
+    });
+  });
 
 
-
-describe('tests for operationClick',function(){  
+describe('tests for operationClick',function(){
 
   describe('test for adding1', function() {
     var theCalculator = new Calculator();
@@ -527,6 +733,149 @@ describe('test for Division2', function() {
       assert.equal(-2, theCalculator.mainArg);
     });
   });
+
+describe('test for ^1', function() {
+    var theCalculator = new Calculator();
+    theCalculator.mainArg = 3;
+    theCalculator.previousOperator = 'x^y';
+    theCalculator.hiddenArg = 2;
+    theCalculator.operator = '=';
+    theCalculator.operationClick();
+
+    it('Taking the power of two positive numbers', function(){
+      assert.equal(8, theCalculator.mainArg);
+    });
+  });
+
+describe('test for ^2', function() {
+    var theCalculator = new Calculator();
+    theCalculator.mainArg = -1;
+    theCalculator.previousOperator = 'x^y';
+    theCalculator.hiddenArg = 4;
+    theCalculator.operator = '=';
+    theCalculator.operationClick();
+
+    it('Taking the power of one positive and one negative number', function(){
+      assert.equal(1/4, theCalculator.mainArg);
+    });
+  });
 });
 
+describe('tests for square root function',function(){
 
+  describe('test for squareroot1', function() {
+    var theCalculator = new Calculator();
+    theCalculator.mainArg = 4;
+    theCalculator.squareroot();
+
+    it('Taking the square root of a positive number', function(){
+      assert.equal(2, theCalculator.mainArg);
+    });
+  });
+
+  describe('test for squareroot2', function() {
+    var theCalculator = new Calculator();
+    theCalculator.mainArg = -3;
+    theCalculator.squareroot();
+
+    it('Taking the square root of a negative number', function(){
+      assert.equal(-3, theCalculator.mainArg);
+    });
+  });
+});
+
+describe('tests for percent function',function(){
+
+  describe('test for percent1', function() {
+    var theCalculator = new Calculator();
+    theCalculator.mainArg = 10;
+    theCalculator.previousOperator = 'x^y';
+    theCalculator.hiddenArg = 50;
+    theCalculator.percent();
+
+    it('Taking the percent of a positive number', function(){
+      assert.equal(5, theCalculator.mainArg);
+    });
+  });
+
+  describe('test for percent2', function() {
+    var theCalculator = new Calculator();
+    theCalculator.mainArg = 10;
+    theCalculator.previousOperator = 'x^y';
+    theCalculator.hiddenArg = -50;
+    theCalculator.percent();
+
+    it('Taking the percent of a negative number', function(){
+      assert.equal(-5, theCalculator.mainArg);
+    });
+  });
+});
+
+describe('tests for log function',function(){
+
+  describe('test for log1', function() {
+    var theCalculator = new Calculator();
+    theCalculator.mainArg = 17;
+    theCalculator.logarithmic();
+
+    it('Taking the log of a positive number', function(){
+      assert.equal(2.833213344056216, theCalculator.mainArg);
+    });
+  });
+
+  describe('test for log2', function() {
+    var theCalculator = new Calculator();
+    theCalculator.mainArg = -5;
+    theCalculator.logarithmic();
+
+    it('Taking the log of a negative number', function(){
+      assert.equal("Not A Number.", theCalculator.mainArg);
+    });
+  });
+});
+
+describe('tests for factorial function',function(){
+
+  describe('test for factorial1', function() {
+    var theCalculator = new Calculator();
+    theCalculator.mainArg = 5;
+    theCalculator.factorial();
+
+    it('Taking the factorial of a positive number', function(){
+      assert.equal(120, theCalculator.mainArg);
+    });
+  });
+
+  describe('test for factorial2', function() {
+    var theCalculator = new Calculator();
+    theCalculator.mainArg = -5;
+    theCalculator.factorial();
+
+    it('Taking the factorial of a negative number', function(){
+      assert.equal("Not A Number.", theCalculator.mainArg);
+    });
+  });
+});
+
+describe('tests for clear function',function(){
+
+  describe('test for clear', function() {
+    var theCalculator = new Calculator();
+    theCalculator.mainArg = 5;
+    theCalculator.hiddenArg = 3;
+    theCalculator.memory = 38;
+    theCalculator.clearScreen = true;
+
+    theCalculator.clearCompeletely();
+
+    it('Clearing everything', function(){
+      assert.equal(0, theCalculator.mainArg);
+      assert.equal(0, theCalculator.hiddenArg);
+      assert.equal(0, theCalculator.memoryArg);
+      assert.equal(undefined, theCalculator.operator);
+      assert.equal(undefined, theCalculator.previousOperator);
+      assert.equal(0, theCalculator.display);
+      assert.equal(false, theCalculator.clearScreen);
+    });
+  });
+  });
