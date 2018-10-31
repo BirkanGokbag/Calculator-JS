@@ -5,7 +5,7 @@ var calculator = null;
 
 function createObjects(){
   calculator = new Calculator();
-  window.addEventListener("keypress", calculator.keyPress, false);
+  window.addEventListener("keypress", calculator.keypress.bind(calculator), false);
 
   //Set all buttons to execute setOperator first
   buttons = document.getElementsByTagName('button');
@@ -25,6 +25,22 @@ function createObjects(){
     trigButtons[i].addEventListener('click', calculator.trigClick.bind(calculator), false);
   }
 
+  operations = document.getElementsByClassName('operations');
+  for(i = 0; i < operations.length; i++){
+    operations[i].addEventListener('click', calculator.operationClick.bind(calculator), false);
+  }
+  equals = document.getElementById('equals');
+  equals.addEventListener('click', calculator.operationClick.bind(calculator), false);
+  clears = document.getElementById('clears');
+  clears.addEventListener('click', calculator.clearDisplay.bind(calculator), false);
+  squareroot = document.getElementById('squareroot');
+  squareroot.addEventListener('click', calculator.squareroot.bind(calculator), false);
+  Percent = document.getElementById('percent');
+  Percent.addEventListener('click', calculator.percent.bind(calculator), false);
+  changesign = document.getElementById('changesign');
+  changesign.addEventListener('click', calculator.changeSign.bind(calculator), false);
+  clearButton = document.getElementById('clearButton');
+  clearButton.addEventListener('click', calculator.clearCompeletely.bind(calculator), false);
 
 }
 
@@ -54,11 +70,10 @@ Calculator.prototype = {
   This function will update the display and check if the displayed number should be in exponential form to fit onto the display screen
   */
   updateDisplay: function(){
-
-    if(value.toString().length > this.display.clientWidth/17){
+    if(this.mainArg.toString().length > this.display.clientWidth/17){
       this.display.innerHTML = this.mainArg.toExponential();
     }else{
-      this.display.innerHTML = this.mainArgvalue;
+      this.display.innerHTML = this.mainArg;
     }
   },
 
@@ -66,7 +81,7 @@ Calculator.prototype = {
   Author: Alyssa Langhals
   handles the entry of numbers and updates the display
   */
-  numberClick:function(){
+  numberClick: function(){
       display = this.display.innerHTML;
       number = this.operator;
       if(display.length < this.display.clientWidth/17 || this.clearScreen){
@@ -86,7 +101,7 @@ Calculator.prototype = {
   Author: Michael Radey
   This method will update the calcultor's screen when a number button is typed
   */
-  keypress: function keyPress(e){
+  keypress: function(e){
     var key = e.which || e.keyCode;
     var keyCode = String.fromCharCode(key);
     keyCode = key == '13' ? "=" : keyCode;
@@ -148,7 +163,7 @@ Calculator.prototype = {
         this.mainArg=Math.PI;
         break;
      }
-     this.updateDisplay();
+     this.updateDisplay().bind(this).call();
      this.clearScreen = true;
    },
 
@@ -158,21 +173,20 @@ Calculator.prototype = {
  */
  clearCompeletely: function() {
      //Clear the display, and all the arguments.
-     this.display.innerHTML = 0;
      this.hiddenArg = 0;
      this.memoryArg = 0;
      this.mainArg = 0;
      this.operator = undefined;
      this.clearScreen = false;
+     this.updateDisplay.bind(this).call();
    },
 
-  clearEntry: 3,
 
   /*
     Author: Berkay Kaplan
     The function that handles the operations that require at least two numbers, such as +, -, /, *
   */
-  operationClick: function operationClick(){
+  operationClick: function (){
   // Check if the user entered an operation before
   if((this.hiddenArg==undefined && this.previousOperator == undefined) || this.clearScreen){
     this.hiddenArg = parseFloat(this.mainArg);
@@ -197,40 +211,40 @@ Calculator.prototype = {
       	}
         break;
     }
-    this.mainArg = this.hiddenArgument;
+    this.mainArg = this.hiddenArg;
+    this.updateDisplay.bind(this).call();
+
   }
 
-  this.previousOperator = this.operation;
+  this.previousOperator = this.operator;
 
-  if(operation == '='){
+  if(this.operator == '='){
     this.previousOperator = undefined;
     this.hiddenArg = undefined;
   }
   this.clearScreen = true;
 },
 
-  memoryClick: 3,
-
   /*
     Author: Berkay Kaplan
     Clears the screen to 0
   */
-  clearDisplay: function clearDisplay(){
+  clearDisplay: function(){
     this.mainArg = 0;
-    this.updateDisplay();
+    this.updateDisplay.bind(this).call();
   },
 
   /*
     Author: Berkay Kaplan
     Takes the percent of the hidden argument
   */
-  percent: function percent(){
+  percent: function(){
   if(this.previousOperator != undefined){
-    percent = this.mainArg;
-    this.this.mainArg = (this.hiddenArgument/100)*percent;
+    this.mainArg = (this.hiddenArg/100)*this.mainArg;
   }else{
     this.mainArg = "0";
   }
+  this.updateDisplay.bind(this).call();
 },
   /*
   Author: Birkan Gokbag
@@ -308,20 +322,23 @@ Calculator.prototype = {
     Author: Berkay Kaplan
     Takes the squareroot of the number on the screen
   */
-  squareroot: function squareroot(){
+  squareroot: function(){
     Number = parseFloat(this.mainArg);
       if(Number>0){
         this.mainArg=Math.sqrt(Number);
       }
     this.clearScreen = true;
+    this.updateDisplay.bind(this).call();
     },
 
 
   /*
     Changes the sign of the number on the screen
   */
-  changeSign: function changeSign(){
+  changeSign: function(){
     this.mainArg=parseFloat(-this.mainArg);
+    this.clearScreen = true;
+    this.updateDisplay.bind(this).call();
   }
 
  }
