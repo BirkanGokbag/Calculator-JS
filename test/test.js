@@ -11,9 +11,7 @@ function createObjects(){
   
 }
 
-function setOperator(){
-  calculator.operator = this.innerHTML;
-}
+
 
 /*
 Author: Rajeev Ravi
@@ -342,15 +340,83 @@ describe('MC',function(){
 
 
 
-describe('trigClick', function() {
-  createObjects();
-  describe('test for sin', function() {
-    calculator.operator = 'sin';
-    calculator.mainArg = 0;
-    calculator.trigClick();
-    it('sin(0) should be 0', function(){
-      assert.equal("0", calculator.display);
-      assert.equal(0, calculator.mainArg);
+describe('tests for trigClick',function(){  
+  describe('test for sin(0)', function() {
+    var theCalculator = new Calculator();
+    theCalculator.operator = 'sin';
+    theCalculator.mainArg = 0;
+    theCalculator.trigClick();
+
+   
+    it('sin(0) updates mainArg', function(){
+      assert.equal(0, theCalculator.mainArg);
+    });
+  });
+
+  describe('test for sin(1)', function() {
+    var theCalculator = new Calculator();
+    theCalculator.operator = 'sin';
+    theCalculator.mainArg = 1;
+    theCalculator.trigClick();
+  
+    it('sin(1) updates mainArg', function(){
+      assert.equal(Math.sin(1), theCalculator.mainArg);
+    });
+  });
+
+  describe('test for cos(0)', function() {
+    var theCalculator = new Calculator();
+    theCalculator.operator = 'cos';
+    theCalculator.mainArg = 0;
+    theCalculator.trigClick();
+    
+    it('cos(1) updates mainArg', function(){
+      assert.equal(Math.cos(0), theCalculator.mainArg);
+    });
+  });
+
+  describe('test for cos(-1)', function() {
+    var theCalculator = new Calculator();
+    theCalculator.operator = 'cos';
+    theCalculator.mainArg = -1;
+    theCalculator.trigClick();
+     
+    it('cos(1) updates mainArg', function(){
+      assert.equal(Math.cos(-1), theCalculator.mainArg);
+    });
+  });
+
+  describe('test for tan(100)', function() {
+    var theCalculator = new Calculator();
+    theCalculator.operator = 'tan';
+    theCalculator.mainArg = 100;
+    theCalculator.trigClick();
+   
+    it('tan(1) updates mainArg', function(){
+      assert.equal(Math.tan(100), theCalculator.mainArg);
+    });
+  });
+
+  describe('test for tan(1)', function() {
+    var theCalculator = new Calculator();
+    theCalculator.operator = 'tan';
+    theCalculator.mainArg = 1;
+    theCalculator.trigClick();
+
+    it('tan(1) updates mainArg', function(){
+      assert.equal(Math.tan(1), theCalculator.mainArg);
+    });
+  });
+
+  describe('test for pi', function() {
+    var theCalculator = new Calculator();
+    theCalculator.operator = 'pi';
+    theCalculator.trigClick();
+
+    it('pi updates mainArg', function(){
+      assert.equal(Math.PI, theCalculator.mainArg);
     });
   });
 });
+
+
