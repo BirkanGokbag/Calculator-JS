@@ -212,7 +212,7 @@ Calculator.prototype = {
   */
   percent: function(){
   if(this.previousOperator != undefined){
-    this.mainArg = (this.hiddenArg/100)*this.mainArg;
+    this.mainArg = (this.hiddenArg/100)*parseFloat(this.mainArg);
   }else{
     this.mainArg = "0";
   }
@@ -527,6 +527,81 @@ describe('test for Division2', function() {
       assert.equal(-2, theCalculator.mainArg);
     });
   });
+
+describe('test for ^1', function() {
+    var theCalculator = new Calculator();
+    theCalculator.mainArg = 3;
+    theCalculator.previousOperator = 'x^y';
+    theCalculator.hiddenArg = 2;
+    theCalculator.operator = '=';
+    theCalculator.operationClick();
+
+    it('Taking the power of two positive numbers', function(){
+      assert.equal(8, theCalculator.mainArg);
+    });
+  });
+
+describe('test for ^2', function() {
+    var theCalculator = new Calculator();
+    theCalculator.mainArg = -1;
+    theCalculator.previousOperator = 'x^y';
+    theCalculator.hiddenArg = 4;
+    theCalculator.operator = '=';
+    theCalculator.operationClick();
+
+    it('Taking the power of one positive and one negative number', function(){
+      assert.equal(1/4, theCalculator.mainArg);
+    });
+  });
 });
 
+describe('tests for square root function',function(){ 
+
+  describe('test for squareroot1', function() {
+    var theCalculator = new Calculator();
+    theCalculator.mainArg = 4;
+    theCalculator.squareroot();
+
+    it('Taking the square root of a positive number', function(){
+      assert.equal(2, theCalculator.mainArg);
+    });
+  });
+
+  describe('test for squareroot2', function() {
+    var theCalculator = new Calculator();
+    theCalculator.mainArg = -3;
+    theCalculator.squareroot();
+
+    it('Taking the square root of a negative number', function(){
+      assert.equal(-3, theCalculator.mainArg);
+    });
+  });
+});
+
+describe('tests for percent function',function(){ 
+
+  describe('test for percent1', function() {
+    var theCalculator = new Calculator();
+    theCalculator.mainArg = 10;
+    theCalculator.previousOperator = 'x^y';
+    theCalculator.hiddenArg = 50;
+    theCalculator.percent();
+
+    it('Taking the percent of a positive number', function(){
+      assert.equal(5, theCalculator.mainArg);
+    });
+  });
+
+  describe('test for percent2', function() {
+    var theCalculator = new Calculator();
+    theCalculator.mainArg = 10;
+    theCalculator.previousOperator = 'x^y';
+    theCalculator.hiddenArg = -50;
+    theCalculator.percent();
+
+    it('Taking the percent of a negative number', function(){
+      assert.equal(-5, theCalculator.mainArg);
+    });
+  });
+});
 
