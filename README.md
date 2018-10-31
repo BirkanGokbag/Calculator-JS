@@ -5,9 +5,9 @@
 This project is a calculator that was created using javascript, html, and css.
 
 ## Required Software
-npm --- sudo apt install mocha
-mocha --- sudo npm install mocha
-node --- sudo apt install nodejs-legacy
+npm --- `sudo apt install mocha`
+mocha --- `sudo npm install mocha`
+node --- `sudo apt install nodejs-legacy`
 
 
 ## How To Run
@@ -29,7 +29,7 @@ Berkay Kaplan: Did the operationclick that manipulates minor operations such as 
 
 Alyssa Langhals: Created the numberClick, updateDisplay, and trigClick buttons. Contributed to the redesign of the object prototype and figured out object binding for the event listeners.
 
-Birkan Gokbag:
+Birkan Gokbag: Created the javascript code for "n!","c","log" within the calculator. Added the background picture and the audio that is within the calculator, along with the shuffle button for all the music. [[Created the history bar next to the calculator]]
 
 Rajeev Ravi:
 
@@ -38,6 +38,8 @@ Michael Radey:
 
 ## Testing
 ### How to Run
+Enter the /test directory in the project folder, then execute:
+`npm test`
 ### Plan
 We created unit tests using mocha for most of the main functions included in the calculator object
 We tested the System by generating the UI and entering combinations of buttons, starting at the most simple (like clicking on the numbers) and completing simple calculations, and then moving to more complex conditions.
