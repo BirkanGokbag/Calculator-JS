@@ -12,7 +12,7 @@ This project is a calculator that was created using javascript, html, and css.
 # Extra Functionality
 -Use the buttons on the keyboard for quicker calculations!
 -Enjoy "calming" music as you attempt to finish your frustrating math homework!
--Use a bevy of mathematical operations (sin, cos, pi, ln). 
+-Use a bevy of mathematical operations (sin, cos, pi, ln).
 ## Required Software
 npm --- `sudo apt install mocha`
 
@@ -41,9 +41,9 @@ Berkay Kaplan: Did the operationclick that manipulates minor operations such as 
 
 Alyssa Langhals: Created the numberClick, updateDisplay, and trigClick buttons. Contributed to the redesign of the object prototype and figured out object binding for the event listeners. Set up test outline and wrote tests for previously listed methods
 
-Birkan Gokbag: Created the javascript code for "n!","c","log" within the calculator. Added the background picture and the audio that is within the calculator, along with the shuffle button for all the music. [[Created the history bar next to the calculator]]
+Birkan Gokbag: Created the javascript code for "n!","c","log" within the calculator. Added the background picture and the audio that is within the calculator, along with the shuffle button for all the music. Created the history bar below the calculator along with its functionality. Did system and unit testing, edited the css of the calculator.
 
-Rajeev Ravi: Created memory functions. SetOperator function. Redesign of calculator object (twice). Design of calculator prototype. System testing, unit tests for memory functions. 
+Rajeev Ravi: Created memory functions. SetOperator function. Redesign of calculator object (twice). Design of calculator prototype. System testing, unit tests for memory functions.
 
 Michael Radey: Created the keypress function and the calculator.html file.  Also edited the extra buttons consisting of logarithmetic, factorial, and x^y to work with the redesign using prototypes.  Also did system and unit testing.  
 
@@ -54,6 +54,6 @@ Enter the /test directory in the project folder, then execute:
 
 `npm test`
 ### Plan
-We created unit tests using mocha for most of the main functions included in the calculator object. These tests were run using the command described above. 
+We created unit tests using mocha for most of the main functions included in the calculator object. These tests were run using the command described above.
 
 We tested the System by generating the UI and entering combinations of buttons, starting at the most simple (like clicking on the numbers) and completing simple calculations, and then moving to more complex conditions.
