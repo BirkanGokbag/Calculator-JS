@@ -426,33 +426,36 @@ describe('tests for operationClick',function(){
 
   describe('test for adding1', function() {
     var theCalculator = new Calculator();
-    theCalculator.operator = '+';
-    theCalculator.mainArg = 0;
-    theCalculator.hiddenArg = 5;
+    theCalculator.mainArg = 5;
+    theCalculator.previousOperator = '+'
+    theCalculator.hiddenArg = 9;
+    theCalculator.operator = '=';
     theCalculator.operationClick();
 
     it('Adding two positive numbers', function(){
-      assert.equal(5, theCalculator.mainArg);
+      assert.equal(14, theCalculator.mainArg);
     });
   });
 
   describe('test for adding2', function() {
     var theCalculator = new Calculator();
-    theCalculator.operator = '+';
-    theCalculator.mainArg = 0;
+    theCalculator.mainArg = 5;
+    theCalculator.previousOperator = '+'
     theCalculator.hiddenArg = -3;
+    theCalculator.operator = '=';
     theCalculator.operationClick();
 
     it('Adding a positive number and a negative number', function(){
-      assert.equal(-3, theCalculator.mainArg);
+      assert.equal(2, theCalculator.mainArg);
     });
   });
 
   describe('test for subtracting1', function() {
     var theCalculator = new Calculator();
-    theCalculator.operator = '-';
     theCalculator.mainArg = 2;
+    theCalculator.previousOperator = '-';
     theCalculator.hiddenArg = 5;
+    theCalculator.operator = '=';
     theCalculator.operationClick();
 
     it('Subtracting a positive number', function(){
@@ -462,13 +465,66 @@ describe('tests for operationClick',function(){
 
  describe('test for subtracting2', function() {
     var theCalculator = new Calculator();
-    theCalculator.operator = '-';
-    theCalculator.mainArg = 3;
-    theCalculator.hiddenArg = 9;
+    theCalculator.mainArg = -8;
+    theCalculator.previousOperator = '-';
+    theCalculator.hiddenArg = 2;
+    theCalculator.operator = '=';
     theCalculator.operationClick();
 
     it('Subtracting a negative number', function(){
-      assert.equal(6, theCalculator.mainArg);
+      assert.equal(10, theCalculator.mainArg);
+    });
+  });
+
+describe('test for multiplication1', function() {
+    var theCalculator = new Calculator();
+    theCalculator.mainArg = 4;
+    theCalculator.previousOperator = '*';
+    theCalculator.hiddenArg = 2;
+    theCalculator.operator = '=';
+    theCalculator.operationClick();
+
+    it('multiplying two positive numbers', function(){
+      assert.equal(8, theCalculator.mainArg);
+    });
+  });
+
+describe('test for multiplication2', function() {
+    var theCalculator = new Calculator();
+    theCalculator.mainArg = -8;
+    theCalculator.previousOperator = '*';
+    theCalculator.hiddenArg = 2;
+    theCalculator.operator = '=';
+    theCalculator.operationClick();
+
+    it('multiplying one negative and one positive number', function(){
+      assert.equal(-16, theCalculator.mainArg);
+    });
+  });
+
+describe('test for Division1', function() {
+    var theCalculator = new Calculator();
+    theCalculator.mainArg = 5;
+    theCalculator.previousOperator = '/';
+    theCalculator.hiddenArg = 15;
+    theCalculator.operator = '=';
+    theCalculator.operationClick();
+
+    it('Dividing two positive numbers', function(){
+      assert.equal(3, theCalculator.mainArg);
+    });
+  });
+
+describe('test for Division2', function() {
+    var theCalculator = new Calculator();
+    theCalculator.mainArg = 4;
+    theCalculator.previousOperator = '/';
+    theCalculator.hiddenArg = -8;
+    theCalculator.operator = '=';
+    theCalculator.operationClick();
+
+    it('Dividing a positive number to a negative number', function(){
+      assert.equal(-2, theCalculator.mainArg);
     });
   });
 });
