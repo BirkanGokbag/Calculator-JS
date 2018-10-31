@@ -57,11 +57,10 @@ Calculator.prototype = {
   This function will update the display and check if the displayed number should be in exponential form to fit onto the display screen
   */
   updateDisplay: function(){
-
-    if(value.toString().length > this.display.clientWidth/17){
+    if(this.mainArg.toString().length > this.display.clientWidth/17){
       this.display.innerHTML = this.mainArg.toExponential();
     }else{
-      this.display.innerHTML = this.mainArgvalue;
+      this.display.innerHTML = this.mainArg;
     }
   },
 
@@ -118,7 +117,7 @@ Calculator.prototype = {
       break;
       case 'MR':
       this.mainArg = this.memoryArg;
-      this.updateDisplay();
+      this.updateDisplay().bind(this).call();
       break;
       case 'M-':
       this.memoryArg -= this.mainArg;
