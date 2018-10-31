@@ -5,14 +5,14 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Page Title</title>
+<title>Calculator</title>
 <link rel ='stylesheet' href='./assets/stylesheets/calculator.css'>
-<script src='./assets/js/calculator.js'> </script>
+<script src='./js/calculator.js'> </script>
 </head>
-<body onload = "createObj()" onkeypress="pressedKey(event)">
+<body onload = "createObjects()">
   <div class="music">
-    <button id = "shuffle" onClick="shuffleSong()">Shuffle Through The Cosmos...</button>
-    <audio id = "musicPlayer" controls autoplay>
+    <button id = "shuffle" >Shuffle Through The Cosmos...</button>
+    <audio id = "musicPlayer" controls>
       <source id = "musicSource" src="./assets/images_and_sounds/musical.mp3">
     </audio>
   </div>
@@ -21,61 +21,58 @@
   <div id="buttons">
     <table>
       <tr>
-          <td><button>MC</button></td>
-            <td><button>MR</button></td>
-            <td><button>M-</button></td>
-            <td><button>M+</button></td>
-            <td><button>MS</button></td>
+          <td><button class="memory">MC</button></td>
+            <td><button class="memory">MR</button></td>
+            <td><button class="memory">M-</button></td>
+            <td><button class="memory">M+</button></td>
+            <td><button class="memory">MS</button></td>
         </tr>
         <tr>
-            <td><button>x^y</button></td>
-            <td><button onClick="squareroot()">SQRT</button></td>
-            <td><button>sin</button></td>
-            <td><button>cos</button></td>
-            <td><button>tan</button></td>
+            <td><button class = "operations">x^y</button></td>
+            <td><button id = "squareroot">SQRT</button></td>
+            <td><button class="trig">sin</button></td>
+            <td><button class="trig">cos</button></td>
+            <td><button class="trig">tan</button></td>
         </tr>
         <tr>
-            <td><button onClick="changeSign()">+/-</button></td>
+            <td><button id = "changesign">+/-</button></td>
             <td><button class = "number">7</button></td>
             <td><button class = "number">8</button></td>
             <td><button class = "number">9</button></td>
-            <td><button onClick="operationClick('/')">/</button></td>
+            <td><button class = "operations">/</button></td>
         </tr>
         <tr>
-          <td><button onClick="percent()">%</button></td>
+          <td><button id = "percent">%</button></td>
             <td><button class = "number">4</button></td>
             <td><button class = "number">5</button></td>
             <td><button class = "number">6</button></td>
-            <td><button onClick="operationClick('*')">*</button></td>
+            <td><button class = "operations">*</button></td>
         </tr>
         <tr>
-            <td><button >log</button></td>
+            <td><button id = "log">LN</button></td>
             <td><button class = "number">1</button></td>
             <td><button class = "number">2</button></td>
             <td><button class = "number">3</button></td>
-            <td><button onClick="operationClick('-')">-</button></td>
+            <td><button class = "operations">-</button></td>
         </tr>
         <tr>
-            <td><button >n!</button></td>
-            <td><button >pi</button></td>
+            <td><button id = "factorial" >n!</button></td>
+            <td><button class="trig">pi</button></td>
             <td><button class = "number">0</button></td>
             <td><button class = "number">.</button></td>
-            
-            <td><button onClick="operationClick('+')">+</button></td>
+
+            <td><button class = "operations">+</button></td>
         </tr>
         <tr>
-            <td><button>ON/C</button></td>
-            <td><button onClick="clearDisplay()">CE</button></td>
-            <td colspan="2"><button onClick="operationClick('=')">=</button></td>
-            
-    
+            <td><button id = "clearButton">C</button></td>
+            <td><button id = "clears">CE</button></td>
+            <td colspan="2"><button id = "equals">=</button></td>
+
+
         </tr>
 
     </table>
   </div>
 </div>
-<!-- <audio autoplay loop>
-  <source src="./assets/images_and_sounds/pump_up.mp3">
-</audio> -->
 </body>
 </html>
