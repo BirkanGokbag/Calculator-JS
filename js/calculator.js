@@ -48,6 +48,12 @@ function createObjects(){
   clearButton = document.getElementById('clearButton');
   clearButton.addEventListener('click', calculator.clearCompeletely.bind(calculator), false);
 
+  factorial = document.getElementById('factorial');
+  factorial.addEventListener('click', calculator.factorial.bind(calculator), false);
+
+  log = document.getElementById('log');
+  log.addEventListener('click', calculator.logarithmic.bind(calculator), false);
+
   memoryButtons = document.getElementsByClassName('memory');
   for(i=0; i<memoryButtons.length; i++){
     memoryButtons[i].addEventListener('click',calculator.memoryClick.bind(calculator),false);
@@ -116,17 +122,19 @@ Calculator.prototype = {
     var keyCode = String.fromCharCode(key);
     keyCode = key == '13' ? "=" : keyCode;
     numbers = "1234567890.";
-    operators = "+-/*=";
-    this.operator = this.operator == "p" && keyCode == "i" ? this.operator = "pi" : keyCode;
+    operators = "+-/*=^";
+    this.operator = keyCode;
+
     if(numbers.includes(this.operator)){
       this.numberClick();
     }
     else if(operators.includes(this.operator)){
+      if(this.operator == '^'){
+        this.operator = 'x^y';
+      }
       this.operationClick();
     }
-    else if(keyCode == "pi"){
 
-    }
   },
 
   /*
@@ -199,27 +207,30 @@ Calculator.prototype = {
   operationClick: function (){
   // Check if the user entered an operation before
   if((this.hiddenArg==undefined && this.previousOperator == undefined) || this.clearScreen){
-    this.hiddenArg = parseFloat(this.mainArg);
+    this.hiddenArg = this.mainArg;
   }else{
 
     // See what operation the user entered
     switch(this.previousOperator){
       case '-':
-        this.hiddenArg = this.hiddenArg - parseFloat(this.mainArg);
+        this.hiddenArg = this.hiddenArg - this.mainArg;
         break;
       case '+':
-        this.hiddenArg = this.hiddenArg + parseFloat(this.mainArg);
+        this.hiddenArg = this.hiddenArg + this.mainArg;
         break;
       case '*':
-        this.hiddenArg = this.hiddenArg*parseFloat(this.mainArg);
+        this.hiddenArg = this.hiddenArg*this.mainArg;
         break;
       case '/':
-      	if(parseFloat(this.mainArg)!==0){
-      	    this.hiddenArg = this.hiddenArg/parseFloat(this.mainArg);
+      	if(this.mainArg!==0){
+      	    this.hiddenArg = this.hiddenArg/this.mainArg;
       	}else{
       	    this.hiddenArg = "Cannot divide a number by 0";
       	}
         break;
+      case 'x^y':
+        this.hiddenArg = Math.pow(this.hiddenArg, this.mainArg);
+      break;
     }
     this.mainArg = this.hiddenArg;
     this.updateDisplay.bind(this).call();
@@ -261,17 +272,17 @@ Calculator.prototype = {
   This method will define the functionality of log button.
   */
   logarithmic: function() {
-    valueInDisplay = parseFloat(document.getElementById("display").innerHTML);
     //If the number is negative or 0, then cannot get the log of the value
-    if (valueInDisplay <= 0){
-      this.display.innerHTML = "Not A Number."
+    if (this.mainArg <= 0){
+      this.mainArg = "Not A Number."
     }
     else{
-      this.mainArg = Math.log(parseFloat(document.getElementById("display").innerHTML));
-      this.updateDisplay.bind(this).call();
+      this.mainArg = Math.log(this.mainArg);
     }
     //Log operation had happened, therefore set clearScreen to true
     this.clearScreen = true;
+    this.updateDisplay.bind(this).call();
+
   },
 
   /*
@@ -279,15 +290,12 @@ Calculator.prototype = {
     This method will define the functionality of factorial button.
   */
   factorial: function(){
-    //Get the current value from the display
-    displayValue = this.display.innerHTML;
-
     //If it is not a total value, then display Not a Number.
-    if (displayValue % 1 == 0) {
+    if (this.mainArg % 1 == 0) {
       result = 1;
       //If the result is not 0, then proceed to calculate it.
-      if (displayValue != 0) {
-        tempVariable = displayValue;
+      if (this.mainArg != 0) {
+        tempVariable = this.mainArg;
         //If the number is negative, make it positive and make result negative.
         if (tempVariable < 0) {
           tempVariable = tempVariable * -1;
@@ -303,10 +311,12 @@ Calculator.prototype = {
       this.mainArg = result;
       this.updateDisplay.bind(this).call();
     } else {
-        this.display.innerHTML = "Not A Number.";
+        this.mainArg = "Not A Number.";
     }
     //The next press will clear out the display if its a number
     this.clearScreen = true;
+    this.updateDisplay.bind(this).call();
+
   },
 
   /*
