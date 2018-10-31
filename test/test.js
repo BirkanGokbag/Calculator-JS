@@ -158,29 +158,29 @@ Calculator.prototype = {
   operationClick: function (){
   // Check if the user entered an operation before
   if((this.hiddenArg==undefined && this.previousOperator == undefined) || this.clearScreen){
-    this.hiddenArg = this.mainArg;
+    this.hiddenArg = parseFloat(this.mainArg);
   }else{
 
     // See what operation the user entered
     switch(this.previousOperator){
       case '-':
-        this.hiddenArg = this.hiddenArg - this.mainArg;
+        this.hiddenArg = this.hiddenArg - parseFloat(this.mainArg);
         break;
       case '+':
-        this.hiddenArg = this.hiddenArg + this.mainArg;
+        this.hiddenArg = this.hiddenArg + parseFloat(this.mainArg);
         break;
       case '*':
-        this.hiddenArg = this.hiddenArg*this.mainArg;
+        this.hiddenArg = this.hiddenArg*parseFloat(this.mainArg);
         break;
       case '/':
       	if(this.mainArg!==0){
-      	    this.hiddenArg = this.hiddenArg/this.mainArg;
+      	    this.hiddenArg = this.hiddenArg/parseFloat(this.mainArg);
       	}else{
       	    this.hiddenArg = "Cannot divide a number by 0";
       	}
         break;
       case 'x^y':
-        this.hiddenArg = Math.pow(this.hiddenArg, this.mainArg);
+        this.hiddenArg = Math.pow(this.hiddenArg, parseFloat(this.mainArg));
       break;
     }
     this.mainArg = this.hiddenArg;
@@ -242,16 +242,12 @@ Calculator.prototype = {
   */
   factorial: function(){
     //If it is not a total value, then display Not a Number.
-    if (this.mainArg % 1 == 0) {
+    if (this.mainArg % 1 == 0 && this.mainArg >= 0) {
       result = 1;
       //If the result is not 0, then proceed to calculate it.
       if (this.mainArg != 0) {
         tempVariable = this.mainArg;
-        //If the number is negative, make it positive and make result negative.
-        if (tempVariable < 0) {
-          tempVariable = tempVariable * -1;
-          result = -1;
-        }
+        
         //Get the result from here
         while (tempVariable != 0) {
           result = result * tempVariable;
@@ -338,8 +334,6 @@ describe('MC',function(){
 
 
 
-
-
 describe('tests for trigClick',function(){  
   describe('test for sin(0)', function() {
     var theCalculator = new Calculator();
@@ -419,7 +413,6 @@ describe('tests for trigClick',function(){
   });
 });
 
-
   describe('test for 0!', function() {
     var theCalculator = new Calculator();
     theCalculator.mainArg = 0;
@@ -449,7 +442,7 @@ describe('tests for trigClick',function(){
     });
   });
 
-  describe('test for 0!', function() {
+  describe('test for positive integer factorial', function() {
     var theCalculator = new Calculator();
     theCalculator.mainArg = 5;
     theCalculator.factorial();
@@ -459,5 +452,97 @@ describe('tests for trigClick',function(){
     });
   });
 
+  describe('test for negative number natural log', function() {
+    var theCalculator = new Calculator();
+    theCalculator.mainArg = -10;
+    theCalculator.logarithmic();
+
+    it('ln(-num) doesnt change mainArg', function(){
+      assert.equal("Not A Number.", theCalculator.mainArg);
+    });
+  });
+
+  describe('test for 0 natural log', function() {
+    var theCalculator = new Calculator();
+    theCalculator.mainArg = 0;
+    theCalculator.logarithmic();
+
+    it('ln(0) doesnt change mainArg', function(){
+      assert.equal("Not A Number.", theCalculator.mainArg);
+    });
+  });
+
+  describe('test for positive number natural log', function() {
+    var theCalculator = new Calculator();
+    theCalculator.mainArg = 10;
+    theCalculator.logarithmic();
+
+    it('log(10) updates mainArg', function(){
+      assert.equal(Math.log(10), theCalculator.mainArg);
+    });
+  });
 
 
+describe('tests for operationClick',function(){  
+
+  describe('test for adding1', function() {
+    var theCalculator = new Calculator();
+    theCalculator.operator = '+';
+    theCalculator.mainArg = 0;
+    theCalculator.hiddenArg = 5;
+    theCalculator.operationClick();
+
+    it('Adding two positive numbers', function(){
+      assert.equal(5, theCalculator.mainArg);
+    });
+  });
+
+  describe('test for adding2', function() {
+    var theCalculator = new Calculator();
+    theCalculator.operator = '+';
+    theCalculator.mainArg = 0;
+    theCalculator.hiddenArg = -3;
+    theCalculator.operationClick();
+
+    it('Adding a positive number and a negative number', function(){
+      assert.equal(-3, theCalculator.mainArg);
+    });
+  });
+
+  describe('test for subtracting1', function() {
+    var theCalculator = new Calculator();
+    theCalculator.operator = '-';
+    theCalculator.mainArg = 2;
+    theCalculator.hiddenArg = 5;
+    theCalculator.operationClick();
+
+    it('Subtracting a positive number', function(){
+      assert.equal(3, theCalculator.mainArg);
+    });
+  });
+
+ describe('test for subtracting2', function() {
+    var theCalculator = new Calculator();
+    theCalculator.operator = '-';
+    theCalculator.mainArg = 3;
+    theCalculator.hiddenArg = 9;
+    theCalculator.operationClick();
+
+    it('Subtracting a negative number', function(){
+      assert.equal(6, theCalculator.mainArg);
+    });
+  });
+});
+
+
+ describe('test for subtracting2', function() {
+    var theCalculator = new Calculator();
+    theCalculator.operator = '-';
+    theCalculator.mainArg = 3;
+    theCalculator.hiddenArg = 9;
+    theCalculator.operationClick();
+
+    it('Subtracting a negative number', function(){
+      assert.equal(6, theCalculator.mainArg);
+    });
+  });
