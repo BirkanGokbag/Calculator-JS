@@ -29,19 +29,29 @@ function createObjects(){
   for(i = 0; i < operations.length; i++){
     operations[i].addEventListener('click', calculator.operationClick.bind(calculator), false);
   }
+  
   equals = document.getElementById('equals');
   equals.addEventListener('click', calculator.operationClick.bind(calculator), false);
+  
   clears = document.getElementById('clears');
   clears.addEventListener('click', calculator.clearDisplay.bind(calculator), false);
+  
   squareroot = document.getElementById('squareroot');
   squareroot.addEventListener('click', calculator.squareroot.bind(calculator), false);
+  
   Percent = document.getElementById('percent');
   Percent.addEventListener('click', calculator.percent.bind(calculator), false);
+  
   changesign = document.getElementById('changesign');
   changesign.addEventListener('click', calculator.changeSign.bind(calculator), false);
+  
   clearButton = document.getElementById('clearButton');
   clearButton.addEventListener('click', calculator.clearCompeletely.bind(calculator), false);
 
+  memoryButtons = document.getElementsByClassName('memory');
+  for(i=0; i<memoryButtons.length; i++){
+    memoryButtons[i].addEventListener('click',calculator.memoryClick.bind(calculator),false);
+  }
 }
 
 function setOperator(){
@@ -126,20 +136,20 @@ Calculator.prototype = {
   memoryClick: function(){
     switch(this.operator){
       case 'MC':
-      this.memoryArg = 0;
-      break;
+        this.memoryArg = 0;
+        break;
       case 'MR':
-      this.mainArg = this.memoryArg;
-      this.updateDisplay();
-      break;
+        this.mainArg = this.memoryArg;
+        this.updateDisplay.bind(this).call();
+        break;
       case 'M-':
-      this.memoryArg -= this.mainArg;
-      break;
+        this.memoryArg -= this.mainArg;
+        break;
       case 'M+':
-      this.memoryArg += this.mainArg;
-      break;
+        this.memoryArg += this.mainArg;
+        break;
       case 'MS':
-      this.memoryArg = this.mainArg;
+        this.memoryArg = this.mainArg;
     }
   },
 
@@ -258,7 +268,7 @@ Calculator.prototype = {
     }
     else{
       this.mainArg = Math.log(parseFloat(document.getElementById("display").innerHTML));
-      this.updateDisplay;
+      this.updateDisplay.bind(this).call();
     }
     //Log operation had happened, therefore set clearScreen to true
     this.clearScreen = true;
@@ -291,7 +301,7 @@ Calculator.prototype = {
       }
       // Add it to the main arg.
       this.mainArg = result;
-      this.updateDisplay;
+      this.updateDisplay.bind(this).call();
     } else {
         this.display.innerHTML = "Not A Number.";
     }
