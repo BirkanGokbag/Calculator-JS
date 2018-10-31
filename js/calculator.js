@@ -181,7 +181,9 @@ Calculator.prototype = {
         this.mainArg=Math.PI;
         break;
      }
-     this.updateDisplay().bind(this).call();
+
+     this.updateDisplay.bind(this).call();
+
      this.clearScreen = true;
    },
 
