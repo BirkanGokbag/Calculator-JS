@@ -25,7 +25,10 @@ function createObjects(){
     trigButtons[i].addEventListener('click', calculator.trigClick.bind(calculator), false);
   }
 
-
+  memoryButtons = document.getElementsByClassName('memory');
+  for(i=0; i<memoryButtons.length; i++){
+    memoryButtons[i].addEventListener('click',calculator.memoryClick.bind(calculator),false);
+  }
 }
 
 function setOperator(){
@@ -208,8 +211,6 @@ Calculator.prototype = {
   }
   this.clearScreen = true;
 },
-
-  memoryClick: 3,
 
   /*
     Author: Berkay Kaplan
