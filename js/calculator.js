@@ -209,29 +209,29 @@ Calculator.prototype = {
   operationClick: function (){
   // Check if the user entered an operation before
   if((this.hiddenArg==undefined && this.previousOperator == undefined) || this.clearScreen){
-    this.hiddenArg = this.mainArg;
+    this.hiddenArg = parseFloat(this.mainArg);
   }else{
 
     // See what operation the user entered
     switch(this.previousOperator){
       case '-':
-        this.hiddenArg = this.hiddenArg - this.mainArg;
+        this.hiddenArg = this.hiddenArg - parseFloat(this.mainArg);
         break;
       case '+':
-        this.hiddenArg = this.hiddenArg + this.mainArg;
+        this.hiddenArg = this.hiddenArg + parseFloat(this.mainArg);
         break;
       case '*':
-        this.hiddenArg = this.hiddenArg*this.mainArg;
+        this.hiddenArg = this.hiddenArg*parseFloat(this.mainArg);
         break;
       case '/':
       	if(this.mainArg!==0){
-      	    this.hiddenArg = this.hiddenArg/this.mainArg;
+      	    this.hiddenArg = this.hiddenArg/parseFloat(this.mainArg);
       	}else{
       	    this.hiddenArg = "Cannot divide a number by 0";
       	}
         break;
       case 'x^y':
-        this.hiddenArg = Math.pow(this.hiddenArg, this.mainArg);
+        this.hiddenArg = Math.pow(this.hiddenArg, parseFloat(this.mainArg));
       break;
     }
     this.mainArg = this.hiddenArg;
@@ -359,7 +359,6 @@ Calculator.prototype = {
   */
   changeSign: function(){
     this.mainArg=parseFloat(-this.mainArg);
-    this.clearScreen = true;
     this.updateDisplay.bind(this).call();
   }
 
