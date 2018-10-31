@@ -665,15 +665,3 @@ describe('tests for percent function',function(){
     });
   });
 });
-
- describe('test for subtracting2', function() {
-    var theCalculator = new Calculator();
-    theCalculator.operator = '-';
-    theCalculator.mainArg = 3;
-    theCalculator.hiddenArg = 9;
-    theCalculator.operationClick();
-
-    it('Subtracting a negative number', function(){
-      assert.equal(6, theCalculator.mainArg);
-    });
-  });
