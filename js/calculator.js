@@ -5,7 +5,7 @@ var calculator = null;
 
 function createObjects(){
   calculator = new Calculator();
-  window.addEventListener("keypress", calculator.keyPress, false);
+  window.addEventListener("keypress", calculator.keypress.bind(calculator), false);
 
   //Set all buttons to execute setOperator first
   buttons = document.getElementsByTagName('button');
@@ -25,16 +25,42 @@ function createObjects(){
     trigButtons[i].addEventListener('click', calculator.trigClick.bind(calculator), false);
   }
 
-  // Create the log button and assign it to the logarithmic function
-  document.getElementById("log").addEventListener("click", calculator.logarithmic.bind(calculator), false);
-  // Create the clear button.
-  document.getElementById("clearButton").addEventListener("click", calculator.clearCompeletely.bind(calculator), false);
-  // Create the factorial button.
-  document.getElementById("factorial").addEventListener("click", calculator.factorial.bind(calculator), false);
-  //This is where the shuffle button is located.
-  document.getElementById("shuffle").addEventListener("click", calculator.shuffleSong.bind(calculator), false);
+  operations = document.getElementsByClassName('operations');
+  for(i = 0; i < operations.length; i++){
+    operations[i].addEventListener('click', calculator.operationClick.bind(calculator), false);
+  }
 
+  equals = document.getElementById('equals');
+  equals.addEventListener('click', calculator.operationClick.bind(calculator), false);
 
+  clears = document.getElementById('clears');
+  clears.addEventListener('click', calculator.clearDisplay.bind(calculator), false);
+
+  squareroot = document.getElementById('squareroot');
+  squareroot.addEventListener('click', calculator.squareroot.bind(calculator), false);
+
+  Percent = document.getElementById('percent');
+  Percent.addEventListener('click', calculator.percent.bind(calculator), false);
+
+  changesign = document.getElementById('changesign');
+  changesign.addEventListener('click', calculator.changeSign.bind(calculator), false);
+
+  clearButton = document.getElementById('clearButton');
+  clearButton.addEventListener('click', calculator.clearCompeletely.bind(calculator), false);
+
+  factorial = document.getElementById('factorial');
+  factorial.addEventListener('click', calculator.factorial.bind(calculator), false);
+
+  log = document.getElementById('log');
+  log.addEventListener('click', calculator.logarithmic.bind(calculator), false);
+
+  shuffle = document.getElementById("shuffle");
+  shuffle.addEventListener("click", calculator.shuffleSong.bind(calculator), false);
+
+  memoryButtons = document.getElementsByClassName('memory');
+  for(i=0; i<memoryButtons.length; i++){
+    memoryButtons[i].addEventListener('click',calculator.memoryClick.bind(calculator),false);
+  }
 }
 
 function setOperator(){
@@ -54,6 +80,7 @@ function Calculator(){
   this.display =  document.getElementById("display"); //A direct link to the display's html.
   this.clearScreen = false; //Check if the screen needs to be cleared.
   this.songList =  ["pump_up.mp3","musical.mp3","SusumuHirasawa1.mp3","SusumuHirasawa2.mp3"];
+  this.history = 1; //This is where the history is stored.
 }
 
 
@@ -63,11 +90,10 @@ Calculator.prototype = {
   This function will update the display and check if the displayed number should be in exponential form to fit onto the display screen
   */
   updateDisplay: function(){
-
-    if(value.toString().length > this.display.clientWidth/17){
+    if(this.mainArg.toString().length > this.display.clientWidth/17){
       this.display.innerHTML = this.mainArg.toExponential();
     }else{
-      this.display.innerHTML = this.mainArgvalue;
+      this.display.innerHTML = this.mainArg;
     }
   },
 
@@ -75,7 +101,7 @@ Calculator.prototype = {
   Author: Alyssa Langhals
   handles the entry of numbers and updates the display
   */
-  numberClick:function(){
+  numberClick: function(){
       display = this.display.innerHTML;
       number = this.operator;
       if(display.length < this.display.clientWidth/17 || this.clearScreen){
@@ -95,22 +121,24 @@ Calculator.prototype = {
   Author: Michael Radey
   This method will update the calcultor's screen when a number button is typed
   */
-  keypress: function keyPress(e){
+  keypress: function(e){
     var key = e.which || e.keyCode;
     var keyCode = String.fromCharCode(key);
     keyCode = key == '13' ? "=" : keyCode;
     numbers = "1234567890.";
-    operators = "+-/*=";
-    this.operator = this.operator == "p" && keyCode == "i" ? this.operator = "pi" : keyCode;
+    operators = "+-/*=^";
+    this.operator = keyCode;
+
     if(numbers.includes(this.operator)){
       this.numberClick();
     }
     else if(operators.includes(this.operator)){
+      if(this.operator == '^'){
+        this.operator = 'x^y';
+      }
       this.operationClick();
     }
-    else if(keyCode == "pi"){
 
-    }
   },
 
   /*
@@ -120,20 +148,20 @@ Calculator.prototype = {
   memoryClick: function(){
     switch(this.operator){
       case 'MC':
-      this.memoryArg = 0;
-      break;
+        this.memoryArg = 0;
+        break;
       case 'MR':
-      this.mainArg = this.memoryArg;
-      this.updateDisplay();
-      break;
+        this.mainArg = this.memoryArg;
+        this.updateDisplay.bind(this).call();
+        break;
       case 'M-':
-      this.memoryArg -= this.mainArg;
-      break;
+        this.memoryArg -= this.mainArg;
+        break;
       case 'M+':
-      this.memoryArg += this.mainArg;
-      break;
+        this.memoryArg += this.mainArg;
+        break;
       case 'MS':
-      this.memoryArg = this.mainArg;
+        this.memoryArg = this.mainArg;
     }
   },
 
@@ -157,7 +185,9 @@ Calculator.prototype = {
         this.mainArg=Math.PI;
         break;
      }
-     this.updateDisplay();
+     this.updateHistory.bind(this).call();
+     this.updateDisplay.bind(this).call();
+
      this.clearScreen = true;
    },
 
@@ -167,21 +197,26 @@ Calculator.prototype = {
  */
  clearCompeletely: function() {
      //Clear the display, and all the arguments.
-     this.display.innerHTML = 0;
      this.hiddenArg = 0;
      this.memoryArg = 0;
      this.mainArg = 0;
      this.operator = undefined;
      this.clearScreen = false;
+     this.updateDisplay.bind(this).call();
+     this.history = 1;
+     //Delete all the history
+     allHistory = document.getElementById("historyElements");
+     while (allHistory.firstChild) {
+       allHistory.removeChild(allHistory.firstChild);
+     }
    },
 
-  clearEntry: 3,
 
   /*
     Author: Berkay Kaplan
     The function that handles the operations that require at least two numbers, such as +, -, /, *
   */
-  operationClick: function operationClick(){
+  operationClick: function (){
   // Check if the user entered an operation before
   if((this.hiddenArg==undefined && this.previousOperator == undefined) || this.clearScreen){
     this.hiddenArg = parseFloat(this.mainArg);
@@ -199,64 +234,70 @@ Calculator.prototype = {
         this.hiddenArg = this.hiddenArg*parseFloat(this.mainArg);
         break;
       case '/':
-      	if(parseFloat(this.mainArg)!==0){
+      	if(this.mainArg!==0){
       	    this.hiddenArg = this.hiddenArg/parseFloat(this.mainArg);
       	}else{
       	    this.hiddenArg = "Cannot divide a number by 0";
       	}
         break;
+      case 'x^y':
+        this.hiddenArg = Math.pow(this.hiddenArg, parseFloat(this.mainArg));
+      break;
     }
-    this.mainArg = this.hiddenArgument;
+    this.mainArg = this.hiddenArg;
+    this.updateDisplay.bind(this).call();
+
   }
 
-  this.previousOperator = this.operation;
+  this.previousOperator = this.operator;
 
-  if(operation == '='){
+  if(this.operator == '='){
     this.previousOperator = undefined;
     this.hiddenArg = undefined;
+    this.updateHistory.bind(this).call();
+
   }
   this.clearScreen = true;
 },
-
-  memoryClick: 3,
 
   /*
     Author: Berkay Kaplan
     Clears the screen to 0
   */
-  clearDisplay: function clearDisplay(){
+  clearDisplay: function(){
     this.mainArg = 0;
-    this.updateDisplay();
+    this.updateDisplay.bind(this).call();
   },
 
   /*
     Author: Berkay Kaplan
     Takes the percent of the hidden argument
   */
-  percent: function percent(){
+  percent: function(){
   if(this.previousOperator != undefined){
-    percent = this.mainArg;
-    this.this.mainArg = (this.hiddenArgument/100)*percent;
+    this.mainArg = (this.hiddenArg/100)*this.mainArg;
   }else{
     this.mainArg = "0";
   }
+  this.updateDisplay.bind(this).call();
 },
   /*
   Author: Birkan Gokbag
   This method will define the functionality of log button.
   */
   logarithmic: function() {
-    valueInDisplay = parseFloat(document.getElementById("display").innerHTML);
     //If the number is negative or 0, then cannot get the log of the value
-    if (valueInDisplay <= 0){
-      this.display.innerHTML = "Not A Number."
+    if (this.mainArg <= 0){
+      this.mainArg = "Not A Number."
     }
     else{
-      this.mainArg = Math.log(parseFloat(document.getElementById("display").innerHTML));
-      this.updateDisplay;
+      this.mainArg = Math.log(this.mainArg);
     }
     //Log operation had happened, therefore set clearScreen to true
+    this.updateHistory.bind(this).call();
     this.clearScreen = true;
+    this.updateDisplay.bind(this).call();
+
   },
 
   /*
@@ -264,15 +305,12 @@ Calculator.prototype = {
     This method will define the functionality of factorial button.
   */
   factorial: function(){
-    //Get the current value from the display
-    displayValue = this.display.innerHTML;
-
     //If it is not a total value, then display Not a Number.
-    if (displayValue % 1 == 0) {
+    if (this.mainArg % 1 == 0) {
       result = 1;
       //If the result is not 0, then proceed to calculate it.
-      if (displayValue != 0) {
-        tempVariable = displayValue;
+      if (this.mainArg != 0) {
+        tempVariable = this.mainArg;
         //If the number is negative, make it positive and make result negative.
         if (tempVariable < 0) {
           tempVariable = tempVariable * -1;
@@ -286,12 +324,15 @@ Calculator.prototype = {
       }
       // Add it to the main arg.
       this.mainArg = result;
-      this.updateDisplay;
+      this.updateDisplay.bind(this).call();
     } else {
-        this.display.innerHTML = "Not A Number.";
+        this.mainArg = "Not A Number.";
     }
     //The next press will clear out the display if its a number
     this.clearScreen = true;
+    this.updateHistory.bind(this).call();
+    this.updateDisplay.bind(this).call();
+
   },
 
   /*
@@ -317,20 +358,53 @@ Calculator.prototype = {
     Author: Berkay Kaplan
     Takes the squareroot of the number on the screen
   */
-  squareroot: function squareroot(){
+  squareroot: function(){
     Number = parseFloat(this.mainArg);
       if(Number>0){
         this.mainArg=Math.sqrt(Number);
       }
     this.clearScreen = true;
+    this.updateDisplay.bind(this).call();
+    this.updateHistory.bind(this).call();
     },
 
 
   /*
     Changes the sign of the number on the screen
   */
-  changeSign: function changeSign(){
+  changeSign: function(){
     this.mainArg=parseFloat(-this.mainArg);
+    this.updateDisplay.bind(this).call();
+  },
+
+  /*
+    Author: Birkan Gokbag
+    This method allows each history element to be put on the small display
+  */
+  putHistory: function(e){
+    //Get the history element
+    putHistory = document.getElementById(e.target.id).innerHTML;
+    //Find where the value is located
+    findValue = putHistory.indexOf(" ");
+    //Get the history element value and update the display.
+    this.mainArg = putHistory.substring(findValue, putHistory.length);
+    this.updateDisplay.bind(this).call();
+    this.clearScreen = true;
+  },
+
+  /*
+    Author: Birkan Gokbag
+    This method puts the new history element into the small box for the user to see.
+  */
+  updateHistory: function(){
+    historyLocation = document.getElementById('historyElements');
+    bElement = document.createElement("button");
+    bElement.id = "history" + this.history;
+    bElement.addEventListener('click', calculator.putHistory.bind(calculator), false);
+    historyElement = document.createTextNode(this.history + ". " + this.mainArg);
+    bElement.appendChild(historyElement);
+    historyLocation.appendChild(bElement);
+    this.history++;
   }
 
  }

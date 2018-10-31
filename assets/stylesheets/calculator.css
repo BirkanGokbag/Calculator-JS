@@ -10,7 +10,7 @@
       margin-right:auto;
       border: 2px solid black;
       position: relative;
-      top: 40px;
+      top: 10px;
       background: #b3b3b3;
     }
     #display{
@@ -71,6 +71,22 @@
       display: table;
     }
 
+    .history {
+      border: 3px white solid;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 15px;
+      background-color: #000000;
+      overflow-y: scroll;
+      height: 170px;
+      width: 20%;
+    }
+
+    .history > p, #historyElements {
+      text-align: center;
+      color: white;
+    }
+
     #shuffle {
       background-image: url("../images_and_sounds/cosmos2.jpg");
       color: white;
@@ -80,6 +96,10 @@
         font-size: 12px;
       }
     }
- 
-   
-   
+
+    #historyElements > button {
+      background-color: #000000;
+      height:10px;
+      border:1px solid white;
+      border-radius: 0px;
+    }
