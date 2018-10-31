@@ -193,12 +193,13 @@ Calculator.prototype = {
  */
  clearCompeletely: function() {
      //Clear the display, and all the arguments.
-     this.hiddenArg = 0;
      this.memoryArg = 0;
      this.mainArg = 0;
      this.operator = undefined;
      this.clearScreen = false;
      this.updateDisplay.bind(this).call();
+     this.hiddenArg = undefined; 
+     this.previousOperator = undefined;
    },
 
 
@@ -293,16 +294,12 @@ Calculator.prototype = {
   */
   factorial: function(){
     //If it is not a total value, then display Not a Number.
-    if (this.mainArg % 1 == 0) {
+    if (this.mainArg % 1 == 0 && this.mainArg >= 0) {
       result = 1;
       //If the result is not 0, then proceed to calculate it.
       if (this.mainArg != 0) {
         tempVariable = this.mainArg;
-        //If the number is negative, make it positive and make result negative.
-        if (tempVariable < 0) {
-          tempVariable = tempVariable * -1;
-          result = -1;
-        }
+        
         //Get the result from here
         while (tempVariable != 0) {
           result = result * tempVariable;

@@ -242,16 +242,12 @@ Calculator.prototype = {
   */
   factorial: function(){
     //If it is not a total value, then display Not a Number.
-    if (this.mainArg % 1 == 0) {
+    if (this.mainArg % 1 == 0 && this.mainArg >= 0) {
       result = 1;
       //If the result is not 0, then proceed to calculate it.
       if (this.mainArg != 0) {
         tempVariable = this.mainArg;
-        //If the number is negative, make it positive and make result negative.
-        if (tempVariable < 0) {
-          tempVariable = tempVariable * -1;
-          result = -1;
-        }
+        
         //Get the result from here
         while (tempVariable != 0) {
           result = result * tempVariable;
@@ -338,8 +334,6 @@ describe('MC',function(){
 
 
 
-
-
 describe('tests for trigClick',function(){  
   describe('test for sin(0)', function() {
     var theCalculator = new Calculator();
@@ -419,7 +413,74 @@ describe('tests for trigClick',function(){
   });
 });
 
+  describe('test for 0!', function() {
+    var theCalculator = new Calculator();
+    theCalculator.mainArg = 0;
+    theCalculator.factorial();
 
+    it('n! updates mainArg for 0', function(){
+      assert.equal(1, theCalculator.mainArg);
+    });
+  });
+
+  describe('test for negative number factorial', function() {
+    var theCalculator = new Calculator();
+    theCalculator.mainArg = -5;
+    theCalculator.factorial();
+
+    it('n! does not update mainArg for negative number', function(){
+      assert.equal("Not A Number.", theCalculator.mainArg);
+    });
+  });
+  describe('test for positive non integer factorial', function() {
+    var theCalculator = new Calculator();
+    theCalculator.mainArg = 1.1;
+    theCalculator.factorial();
+
+    it('n! does not update mainArg for non int number', function(){
+      assert.equal("Not A Number.", theCalculator.mainArg);
+    });
+  });
+
+  describe('test for positive integer factorial', function() {
+    var theCalculator = new Calculator();
+    theCalculator.mainArg = 5;
+    theCalculator.factorial();
+
+    it('n! updates mainArg for positive integer', function(){
+      assert.equal(120, theCalculator.mainArg);
+    });
+  });
+
+  describe('test for negative number natural log', function() {
+    var theCalculator = new Calculator();
+    theCalculator.mainArg = -10;
+    theCalculator.logarithmic();
+
+    it('ln(-num) doesnt change mainArg', function(){
+      assert.equal("Not A Number.", theCalculator.mainArg);
+    });
+  });
+
+  describe('test for 0 natural log', function() {
+    var theCalculator = new Calculator();
+    theCalculator.mainArg = 0;
+    theCalculator.logarithmic();
+
+    it('ln(0) doesnt change mainArg', function(){
+      assert.equal("Not A Number.", theCalculator.mainArg);
+    });
+  });
+
+  describe('test for positive number natural log', function() {
+    var theCalculator = new Calculator();
+    theCalculator.mainArg = 10;
+    theCalculator.logarithmic();
+
+    it('log(10) updates mainArg', function(){
+      assert.equal(Math.log(10), theCalculator.mainArg);
+    });
+  });
 
 
 describe('tests for operationClick',function(){  
@@ -605,3 +666,14 @@ describe('tests for percent function',function(){
   });
 });
 
+ describe('test for subtracting2', function() {
+    var theCalculator = new Calculator();
+    theCalculator.operator = '-';
+    theCalculator.mainArg = 3;
+    theCalculator.hiddenArg = 9;
+    theCalculator.operationClick();
+
+    it('Subtracting a negative number', function(){
+      assert.equal(6, theCalculator.mainArg);
+    });
+  });
