@@ -150,7 +150,6 @@ Calculator.prototype = {
         this.mainArg=Math.PI;
         break;
      }
-     console.log(this);
      this.updateDisplay.bind(this).call();
      this.clearScreen = true;
    },
