@@ -1,0 +1,78 @@
+<!-- Date of Creation: 10/15/18 -->
+<!-- Author: Michael Radey -->
+<!-- Description: This file contains the HTML code to layout the calculator.-->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Calculator</title>
+<link rel ='stylesheet' href='./assets/stylesheets/calculator.css'>
+<script src='./js/calculator.js'> </script>
+</head>
+<body onload = "createObjects()">
+  <div class="music">
+    <button id = "shuffle" >Shuffle Through The Cosmos...</button>
+    <audio id = "musicPlayer" controls>
+      <source id = "musicSource" src="./assets/images_and_sounds/musical.mp3">
+    </audio>
+  </div>
+<div id="calculator">
+  <div id="display">0</div>
+  <div id="buttons">
+    <table>
+      <tr>
+          <td><button class="memory">MC</button></td>
+            <td><button class="memory">MR</button></td>
+            <td><button class="memory">M-</button></td>
+            <td><button class="memory">M+</button></td>
+            <td><button class="memory">MS</button></td>
+        </tr>
+        <tr>
+            <td><button class = "operations">x^y</button></td>
+            <td><button id = "squareroot">SQRT</button></td>
+            <td><button class="trig">sin</button></td>
+            <td><button class="trig">cos</button></td>
+            <td><button class="trig">tan</button></td>
+        </tr>
+        <tr>
+            <td><button id = "changesign">+/-</button></td>
+            <td><button class = "number">7</button></td>
+            <td><button class = "number">8</button></td>
+            <td><button class = "number">9</button></td>
+            <td><button class = "operations">/</button></td>
+        </tr>
+        <tr>
+          <td><button id = "percent">%</button></td>
+            <td><button class = "number">4</button></td>
+            <td><button class = "number">5</button></td>
+            <td><button class = "number">6</button></td>
+            <td><button class = "operations">*</button></td>
+        </tr>
+        <tr>
+            <td><button id = "log">LN</button></td>
+            <td><button class = "number">1</button></td>
+            <td><button class = "number">2</button></td>
+            <td><button class = "number">3</button></td>
+            <td><button class = "operations">-</button></td>
+        </tr>
+        <tr>
+            <td><button id = "factorial" >n!</button></td>
+            <td><button class="trig">pi</button></td>
+            <td><button class = "number">0</button></td>
+            <td><button class = "number">.</button></td>
+
+            <td><button class = "operations">+</button></td>
+        </tr>
+        <tr>
+            <td><button id = "clearButton">C</button></td>
+            <td><button id = "clears">CE</button></td>
+            <td colspan="2"><button id = "equals">=</button></td>
+
+
+        </tr>
+
+    </table>
+  </div>
+</div>
+</body>
+</html>
