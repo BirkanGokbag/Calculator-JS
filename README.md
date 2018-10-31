@@ -5,6 +5,10 @@
 This project is a calculator that was created using javascript, html, and css.
 
 ## Required Software
+npm --- sudo apt install mocha
+mocha --- sudo npm install mocha
+node --- sudo apt install nodejs-legacy
+
 
 ## How To Run
 Navigate into the project folder, and open calculator.html in your browser of choice.
