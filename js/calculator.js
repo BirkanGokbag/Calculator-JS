@@ -54,11 +54,10 @@ Calculator.prototype = {
   This function will update the display and check if the displayed number should be in exponential form to fit onto the display screen
   */
   updateDisplay: function(){
-
-    if(value.toString().length > this.display.clientWidth/17){
+    if(this.mainArg.toString().length > this.display.clientWidth/17){
       this.display.innerHTML = this.mainArg.toExponential();
     }else{
-      this.display.innerHTML = this.mainArgvalue;
+      this.display.innerHTML = this.mainArg;
     }
   },
 
@@ -111,20 +110,20 @@ Calculator.prototype = {
   memoryClick: function(){
     switch(this.operator){
       case 'MC':
-      this.memoryArg = 0;
-      break;
+        this.memoryArg = 0;
+        break;
       case 'MR':
-      this.mainArg = this.memoryArg;
-      this.updateDisplay();
-      break;
+        this.mainArg = this.memoryArg;
+        this.updateDisplay.bind(this).call();
+        break;
       case 'M-':
-      this.memoryArg -= this.mainArg;
-      break;
+        this.memoryArg -= this.mainArg;
+        break;
       case 'M+':
-      this.memoryArg += this.mainArg;
-      break;
+        this.memoryArg += this.mainArg;
+        break;
       case 'MS':
-      this.memoryArg = this.mainArg;
+        this.memoryArg = this.mainArg;
     }
   },
 
@@ -148,7 +147,8 @@ Calculator.prototype = {
         this.mainArg=Math.PI;
         break;
      }
-     this.updateDisplay();
+     console.log(this);
+     this.updateDisplay.bind(this).call();
      this.clearScreen = true;
    },
 
@@ -217,7 +217,7 @@ Calculator.prototype = {
   */
   clearDisplay: function clearDisplay(){
     this.mainArg = 0;
-    this.updateDisplay();
+    this.updateDisplay.bind(this).call();
   },
 
   /*
@@ -244,7 +244,7 @@ Calculator.prototype = {
     }
     else{
       this.mainArg = Math.log(parseFloat(document.getElementById("display").innerHTML));
-      this.updateDisplay;
+      this.updateDisplay.bind(this).call();
     }
     //Log operation had happened, therefore set clearScreen to true
     this.clearScreen = true;
@@ -277,7 +277,7 @@ Calculator.prototype = {
       }
       // Add it to the main arg.
       this.mainArg = result;
-      this.updateDisplay;
+      this.updateDisplay.bind(this).call();
     } else {
         this.display.innerHTML = "Not A Number.";
     }
@@ -321,7 +321,7 @@ Calculator.prototype = {
     Changes the sign of the number on the screen
   */
   changeSign: function changeSign(){
-    this.mainArg=parseFloat(-this.mainArg);
+    this.mainArg=parseFloat(this.mainArg);
   }
 
  }
