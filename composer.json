@@ -1,8 +1,1 @@
-{
-    "name": "osu/calculator",
-    "description": "Calculator written in js.",
-    "type": "project",
-    "license": "MIT",
-    "minimum-stability": "stable",
-    "require": {}
-}
+{ }
