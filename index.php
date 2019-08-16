@@ -1,1 +1,1 @@
-<?php include_once("./web/calculator.html"); ?>
+<?php include_once("./calculator.html"); ?>
